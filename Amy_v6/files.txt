@@ -1,0 +1,10 @@
+1/README
+2/LICENSE
+3/gitignore
+4/Requirements.txt
+5/__init__.py
+6/module.py
+7/main.py
+
+//
+https://rpiai.wordpress.com/2014/02/12/adding-a-face-to-an-ai/
