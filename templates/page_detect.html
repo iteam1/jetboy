@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title1 %} 
+	detect
+{% endblock %}
+
+{% block title2 %}
+	Detect View
+{% endblock %}
+
+{% block content %}
+	<div>
+		<img src = "{{ url_for('rcnn_stream') }}" width = "50%" />
+	</div>
+{% endblock %}

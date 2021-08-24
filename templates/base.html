@@ -1,0 +1,20 @@
+<!doctype html>
+	<html lang = 'en'>
+		<head>
+			<title> 
+				{% block title1 %}
+				{% endblock %}
+			</title>
+		</head>
+		<body>
+			<!--Navigation Bar-->
+			<button><a href = "/view">View</a></li></button>
+			<button><a href = "/detect">Detect</a></li></button>
+			<h1>
+				{% block title2 %}
+				{% endblock %}
+			</h1>
+				{% block content %}
+				{% endblock %}
+		</body>
+	</html>
