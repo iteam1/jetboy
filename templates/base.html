@@ -8,7 +8,7 @@
 
 			<style>
 				.button {
-				  background-color: #4CAF50;
+				  background-color: #48D1CC;
 				  border: none;
 				  color: white;
 				  padding: 15px 32px;
@@ -18,14 +18,35 @@
 				  font-size: 16px;
 				  margin: 4px 2px;
 				  cursor: pointer;
+				}
+
+				body{
+					background-repeat: no-repeat;
+					background-size: 100% 100%;
+					background-attachment: fixed;
+					display: inline-block;
+				    margin: 0px auto;
+				    text-align: center;
+				}
+
+				.center {
+					  display: block;
+					  margin-left: auto;
+					  margin-right: auto;
+					  width: 50%;
+				}
+
 			</style>
+
 		</head>
-		<body>
+		<<body background = "static/bg.jpeg">>
+
 			<!--Navigation Bar-->
 			<button class = "button"><a href = "/">Home</a></li></button>
 			<button class = "button"><a href = "/view">View</a></li></button>
 			<button class = "button"><a href = "/detect">Detect</a></li></button>
-			<h1>
+			
+			<h1 style = 'color:green;'>
 				{% block title2 %}
 				{% endblock %}
 			</h1>
