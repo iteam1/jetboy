@@ -6,6 +6,7 @@ https://www.youtube.com/watch?v=FyrXnNpPR6s&list=PLGs0VKk2DiYxP-ElZ7-QXIERFFPkOu
 https://github.com/NVIDIA
 
 ### Jetson Nano course
+https://www.nvidia.com/en-us/training/online/
 
 https://developer.nvidia.com/embedded/learn/jetson-ai-certification-programs
 
