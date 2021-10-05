@@ -1,5 +1,6 @@
 # Jetson-Nano
 ### NVIDIA
+https://www.youtube.com/watch?v=FyrXnNpPR6s&list=PLGs0VKk2DiYxP-ElZ7-QXIERFFPkOuP4_&index=5
 https://github.com/NVIDIA
 
 ### Jetson Nano course
