@@ -23,3 +23,9 @@ https://github.com/NVIDIA-AI-IOT/jetbot
 https://github.com/NVIDIA/jetson-gpio
 
 https://maker.pro/nvidia-jetson/tutorial/how-to-use-gpio-pins-on-jetson-nano-developer-kit
+
+# jupyter notebook
+
+https://sahilramani.com/2020/10/how-to-setup-python3-and-jupyter-notebook-on-jetson-nano/
+
+https://ljvmiranda921.github.io/notebook/2018/01/31/running-a-jupyter-notebook/
