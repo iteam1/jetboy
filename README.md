@@ -20,7 +20,9 @@ https://github.com/NVIDIA-AI-IOT/jetbot
 
 ## GPIO
 
-![VPnmR](https://user-images.githubusercontent.com/73679364/136185073-3bded4ef-1dd9-4c3e-8ece-5684ff1326e7.png)
+
+![JetsonNano-expansion-pinout](https://user-images.githubusercontent.com/73679364/136185152-faec5c9b-4d30-427f-9b10-27345fca6dde.png)
+
 
 https://github.com/NVIDIA/jetson-gpio
 
