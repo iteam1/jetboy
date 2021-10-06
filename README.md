@@ -1,11 +1,11 @@
-# Jetson-Nano
-### NVIDIA
+# Refer links
+
+## NVIDIA
 
 https://www.youtube.com/watch?v=FyrXnNpPR6s&list=PLGs0VKk2DiYxP-ElZ7-QXIERFFPkOuP4_&index=5
 
 https://github.com/NVIDIA
 
-### Jetson Nano course
 https://www.nvidia.com/en-us/training/online/
 
 https://developer.nvidia.com/embedded/learn/jetson-ai-certification-programs
@@ -18,14 +18,16 @@ https://jetbot.org/master/index.html
 
 https://github.com/NVIDIA-AI-IOT/jetbot
 
-### GPIO
+## GPIO
 
 https://github.com/NVIDIA/jetson-gpio
 
 https://maker.pro/nvidia-jetson/tutorial/how-to-use-gpio-pins-on-jetson-nano-developer-kit
 
-# jupyter notebook
+## Jupyter Notebook
 
-https://sahilramani.com/2020/10/how-to-setup-python3-and-jupyter-notebook-on-jetson-nano/
+https://youtu.be/g5yWrpwK3C4
 
-https://ljvmiranda921.github.io/notebook/2018/01/31/running-a-jupyter-notebook/
+https://youtu.be/oaL9N411W-s
+
+## Jetson Nano
