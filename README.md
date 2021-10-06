@@ -20,6 +20,8 @@ https://github.com/NVIDIA-AI-IOT/jetbot
 
 ## GPIO
 
+![VPnmR](https://user-images.githubusercontent.com/73679364/136185073-3bded4ef-1dd9-4c3e-8ece-5684ff1326e7.png)
+
 https://github.com/NVIDIA/jetson-gpio
 
 https://maker.pro/nvidia-jetson/tutorial/how-to-use-gpio-pins-on-jetson-nano-developer-kit
@@ -31,6 +33,9 @@ https://youtu.be/g5yWrpwK3C4
 https://youtu.be/oaL9N411W-s
 
 ## Jetson Nano
+
+![JetsonNano-overview-annotated](https://user-images.githubusercontent.com/73679364/136184979-5444495a-425e-4060-93c1-4807d7fb5831.png)
+
 
 ### AI on the Jetson Nano LESSON 2: Learning the Linux Terminal and Command Line
 https://www.youtube.com/watch?v=MfpvdC-QrgY&list=PLGs0VKk2DiYxP-ElZ7-QXIERFFPkOuP4_&index=3
