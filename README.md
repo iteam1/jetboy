@@ -28,6 +28,8 @@ https://github.com/NVIDIA/jetson-gpio
 
 https://maker.pro/nvidia-jetson/tutorial/how-to-use-gpio-pins-on-jetson-nano-developer-kit
 
+sudo pip3 install adafruit-circuitpython-servokit
+
 ## Jupyter Notebook
 
 https://youtu.be/g5yWrpwK3C4
