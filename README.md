@@ -85,3 +85,7 @@ https://www.youtube.com/watch?v=30Fj1mo0Uqw
      sudo udevadm control –reload-rules && sudo udevadm trigger
      reboot now
      i2cdetect -y -r 1
+     
+## pwm
+
+     sudo /opt/nvidia/jetson-io/jetson-io.py
