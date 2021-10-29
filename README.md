@@ -83,3 +83,5 @@ https://www.youtube.com/watch?v=30Fj1mo0Uqw
      sudo usermod -a -G gpio jetboy
      sudo cp /opt/nvidia/jetson-gpio/etc/99-gpio.rules /etc/udev/rules.d/
      sudo udevadm control –reload-rules && sudo udevadm trigger
+     reboot now
+     i2cdetect -y -r 1
