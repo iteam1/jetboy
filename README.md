@@ -78,8 +78,8 @@ https://www.youtube.com/watch?v=PoJvKbtkcSo
 https://www.youtube.com/watch?v=30Fj1mo0Uqw
 
 
-sudo usermod -aG i2c jetboy 
-sudo groupadd -f -r gpio
-sudo usermod -a -G gpio jetboy
-sudo cp /opt/nvidia/jetson-gpio/etc/99-gpio.rules /etc/udev/rules.d/
-sudo udevadm control –reload-rules && sudo udevadm trigger
+     sudo usermod -aG i2c jetboy 
+     sudo groupadd -f -r gpio
+     sudo usermod -a -G gpio jetboy
+     sudo cp /opt/nvidia/jetson-gpio/etc/99-gpio.rules /etc/udev/rules.d/
+     sudo udevadm control –reload-rules && sudo udevadm trigger
