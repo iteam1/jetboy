@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Home</title>
+		<meta charset= 'utf-8'>
+	</head>
+	<body>
+		<h2> Control Panel </h2>
+		<br>
+		<form action = "{{ url_for('move') }}" method = 'POST'>
+			<label for = 'command'>Robot Stop</label>
+			<input type = 'hidden' name = 'command' id = 'command'  value = 'stop'>
+			<button>Execute</button>
+		</form>
+		<br>
+		<form action = "{{ url_for('move') }}" method = 'POST'>
+			<label for = 'command'>Robot Forward</label>
+			<input type = 'hidden' name = 'command' id = 'command'  value = 'forward'>
+			<button>Execute</button>
+		</form>
+		<br>
+		<form action = "{{ url_for('move') }}" method = 'POST'>
+			<label for = 'command'>Robot Backward</label>
+			<input type = 'hidden' name = 'command' id = 'command'  value = 'backward'>
+			<button>Execute</button>
+		</form>
+		<br>
+		<form action = "{{ url_for('move') }}" method = 'POST'>
+			<label for = 'command'>Robot Turn Left</label>
+			<input type = 'hidden' name = 'command' id = 'command'  value = 'turnleft'>
+			<button>Execute</button>
+		</form>
+		<br>
+		<form action = "{{ url_for('move') }}" method = 'POST'>
+			<label for = 'command'>Robot Turn Right</label>
+			<input type = 'hidden' name = 'command' id = 'command'  value = 'turnright'>
+			<button>Execute</button>
+		</form>
+		<br>
+	</body>
+</html>
