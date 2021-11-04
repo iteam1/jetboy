@@ -20,9 +20,7 @@ https://github.com/NVIDIA-AI-IOT/jetbot
 
 ## GPIO
 
-
 ![JetsonNano-expansion-pinout](https://user-images.githubusercontent.com/73679364/136185152-faec5c9b-4d30-427f-9b10-27345fca6dde.png)
-
 
 https://github.com/NVIDIA/jetson-gpio
 
@@ -94,3 +92,26 @@ https://www.youtube.com/watch?v=30Fj1mo0Uqw
 https://linuxize.com/post/how-to-install-pip-on-ubuntu-18.04/
 
 ## How to install pyrealsense2 on jetson-nano
+
+https://www.youtube.com/watch?v=EeT-pzM8n-o
+
+https://github.com/IntelRealSense/librealsense
+
+## install realsense-viewer
+
+https://github.com/IntelRealSense/librealsense/blob/master/doc/installation_jetson.md
+
+## install pyrealsesne2 from source [Jetson Error]
+
+https://github.com/IntelRealSense/librealsense/tree/master/wrappers/python
+
+### cmake error
+
+     https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-library
+     
+     cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python
+
+Once you make and install be sure to update your PYTHONPATH:
+
+     export PYTHONPATH=$PYTHONPATH:/usr/local/lib
+
