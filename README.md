@@ -77,7 +77,6 @@ https://www.youtube.com/watch?v=PoJvKbtkcSo
 ### Nvidia Jetson nano & Node-Red & GPIO pins
 https://www.youtube.com/watch?v=30Fj1mo0Uqw
 
-
      sudo usermod -aG i2c jetboy 
      sudo groupadd -f -r gpio
      sudo usermod -a -G gpio jetboy
@@ -93,3 +92,5 @@ https://www.youtube.com/watch?v=30Fj1mo0Uqw
 ## install linux on ubutu 18.0.4
 
 https://linuxize.com/post/how-to-install-pip-on-ubuntu-18.04/
+
+## How to install pyrealsense2 on jetson-nano
