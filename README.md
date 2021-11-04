@@ -90,4 +90,6 @@ https://www.youtube.com/watch?v=30Fj1mo0Uqw
 
      sudo /opt/nvidia/jetson-io/jetson-io.py
 
+## install linux on ubutu 18.0.4
+
 https://linuxize.com/post/how-to-install-pip-on-ubuntu-18.04/
