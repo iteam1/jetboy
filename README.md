@@ -113,6 +113,9 @@ Create cmake
      
      cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python3
      
+     make -j4
+     
+     sudo make install
 
 Once you make and install be sure to update your PYTHONPATH:
 
