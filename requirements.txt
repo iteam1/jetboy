@@ -47,10 +47,12 @@ pycparser==2.20
 Pygments==2.10.0
 pyparsing==2.4.7
 pyrsistent==0.18.0
+pyserial==3.5
 python-dateutil==2.8.2
 pyzmq==22.3.0
 qtconsole==5.1.1
 QtPy==1.11.2
+rplidar-roboticia==0.9.5
 Send2Trash==1.8.0
 six==1.16.0
 SQLAlchemy==1.4.26
