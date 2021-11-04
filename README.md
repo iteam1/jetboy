@@ -111,7 +111,7 @@ https://github.com/IntelRealSense/librealsense/tree/master/wrappers/python
      
 Create cmake
      
-     cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python
+     cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python3
      
 
 Once you make and install be sure to update your PYTHONPATH:
