@@ -89,3 +89,5 @@ https://www.youtube.com/watch?v=30Fj1mo0Uqw
 ## pwm
 
      sudo /opt/nvidia/jetson-io/jetson-io.py
+
+https://linuxize.com/post/how-to-install-pip-on-ubuntu-18.04/
