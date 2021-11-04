@@ -3,39 +3,117 @@
 	<head>
 		<title>Home</title>
 		<meta charset= 'utf-8'>
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    	<style>
+    		<style type="text/css">
+        html,
+        body {
+            height: 400px;
+        }
+          
+        .top-left {
+            top: 0;
+            left: 0;
+        }
+          
+        .top-center {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+          
+        .top-right {
+            top: 0;
+            right: 0;
+        }
+          
+        .mid-left {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+          
+        .mid-center {
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+          
+        .mid-right {
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+        }
+          
+        .bottom-left {
+            bottom: 0;
+            left: 0;
+        }
+          
+        .bottom-center {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+          
+        .bottom-right {
+            bottom: 0;
+            right: 0;
+        }
+
+    </style>
 	</head>
 	<body>
-		<h2> Control Panel </h2>
+		<h1 style="color:green;text-align:center;">Jetboy's View</h1>
 		<br>
-		<form action = "{{ url_for('move') }}" method = 'POST'>
-			<label for = 'command'>Robot Stop</label>
-			<input type = 'hidden' name = 'command' id = 'command'  value = 'stop'>
-			<button>Execute</button>
-		</form>
-		<br>
-		<form action = "{{ url_for('move') }}" method = 'POST'>
-			<label for = 'command'>Robot Forward</label>
-			<input type = 'hidden' name = 'command' id = 'command'  value = 'forward'>
-			<button>Execute</button>
-		</form>
-		<br>
-		<form action = "{{ url_for('move') }}" method = 'POST'>
-			<label for = 'command'>Robot Backward</label>
-			<input type = 'hidden' name = 'command' id = 'command'  value = 'backward'>
-			<button>Execute</button>
-		</form>
-		<br>
-		<form action = "{{ url_for('move') }}" method = 'POST'>
-			<label for = 'command'>Robot Turn Left</label>
-			<input type = 'hidden' name = 'command' id = 'command'  value = 'turnleft'>
-			<button>Execute</button>
-		</form>
-		<br>
-		<form action = "{{ url_for('move') }}" method = 'POST'>
-			<label for = 'command'>Robot Turn Right</label>
-			<input type = 'hidden' name = 'command' id = 'command'  value = 'turnright'>
-			<button>Execute</button>
-		</form>
-		<br>
+		<div class = 'container h-100'>
+			<div class="position-relative h-100">
+
+				<div class="position-absolute top-center">
+					<form action = "{{ url_for('move') }}" method = 'POST'>
+						<input type = 'hidden' name = 'command' id = 'command'  value = 'forward'>
+						<button type="button" class="btn btn-primary">&#8593;</button>
+					</form>
+				</div>
+				<br>
+
+				<div class="position-absolute mid-center">
+					<form action = "{{ url_for('move') }}" method = 'POST'>
+						<input type = 'hidden' name = 'command' id = 'command'  value = 'stop'>
+						<button type="button" class="btn btn-danger">Stop</button>
+					</form>
+				</div>
+				<br><br><br><br>
+
+				<div class="position-absolute bottom-center">
+					<form action = "{{ url_for('move') }}" method = 'POST'>			
+						<input type = 'hidden' name = 'command' id = 'command'  value = 'backward'>
+						<button type="button" class="btn btn-primary">&#8595;</button>
+					</form>
+				</div>
+
+				<div class="position-absolute mid-left">
+					<form action = "{{ url_for('move') }}" method = 'POST'>
+						<input type = 'hidden' name = 'command' id = 'command'  value = 'turnleft'>
+						<button type="button" class="btn btn-primary" font-size= 50px>&#8592;</button>
+					</form>
+				</div>
+
+				<div class = "position-absolute mid-right">
+					<form action = "{{ url_for('move') }}" method = 'POST'>
+						<input type = 'hidden' name = 'command' id = 'command'  value = 'turnright'>
+						<button type="button" class="btn btn-primary">&#8594;</button>
+					</form>
+				</div>
+
+			</div>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	    <script src=
+	"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">
+	    </script>
+
 	</body>
 </html>
