@@ -106,7 +106,9 @@ https://github.com/IntelRealSense/librealsense/tree/master/wrappers/python
 
 ### cmake error
 
-     https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-library
+https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-library
+
+     sudo apt-get install libssl-dev
      
 Create cmake
      
