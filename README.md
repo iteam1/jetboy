@@ -112,7 +112,7 @@ https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-libr
      
 Create cmake
      
-     cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python3.6
+     cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python3.6/dist-packages
      
      make -j4
      
