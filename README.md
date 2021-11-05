@@ -122,3 +122,7 @@ Once you make and install be sure to update your PYTHONPATH:
 
      
      export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3.6
+    
+## install opencv
+
+https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
