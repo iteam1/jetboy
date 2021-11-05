@@ -41,7 +41,6 @@ https://youtu.be/oaL9N411W-s
 
 ![JetsonNano-overview-annotated](https://user-images.githubusercontent.com/73679364/136184979-5444495a-425e-4060-93c1-4807d7fb5831.png)
 
-
 ### AI on the Jetson Nano LESSON 2: Learning the Linux Terminal and Command Line
 https://www.youtube.com/watch?v=MfpvdC-QrgY&list=PLGs0VKk2DiYxP-ElZ7-QXIERFFPkOuP4_&index=3
 
@@ -111,7 +110,7 @@ https://github.com/IntelRealSense/librealsense/tree/master/wrappers/python
      
 Create cmake
      
-     cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python3
+     cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python3.6
      
      make -j4
      
