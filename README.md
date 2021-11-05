@@ -121,4 +121,4 @@ Create cmake
 Once you make and install be sure to update your PYTHONPATH:
 
      
-     export PYTHONPATH=$PYTHONPATH:/usr/local/lib
+     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3.6
