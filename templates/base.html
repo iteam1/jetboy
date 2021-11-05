@@ -4,7 +4,9 @@
 		<title>Home</title>
 		<meta charset= 'utf-8'>
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    	<script src= "https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	    <script src= "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     	<style>
     		<style type="text/css">
         html,
@@ -63,6 +65,7 @@
         }
 
     </style>
+
 	</head>
 	<body>
 		<h1 style="color:green;text-align:center;">Jetboy's View</h1>
@@ -73,47 +76,43 @@
 				<div class="position-absolute top-center">
 					<form action = "{{ url_for('move') }}" method = 'POST'>
 						<input type = 'hidden' name = 'command' id = 'command'  value = 'forward'>
-						<button type="button" class="btn btn-primary">&#8593;</button>
+						<button class="btn btn-primary">&#8593;</button>
 					</form>
 				</div>
-				<br>
+				<br><br><br><br>
 
 				<div class="position-absolute mid-center">
 					<form action = "{{ url_for('move') }}" method = 'POST'>
 						<input type = 'hidden' name = 'command' id = 'command'  value = 'stop'>
-						<button type="button" class="btn btn-danger">Stop</button>
+						<button class= 'btn btn-danger'>Stop</button>
 					</form>
 				</div>
 				<br><br><br><br>
 
 				<div class="position-absolute bottom-center">
-					<form action = "{{ url_for('move') }}" method = 'POST'>			
-						<input type = 'hidden' name = 'command' id = 'command'  value = 'backward'>
-						<button type="button" class="btn btn-primary">&#8595;</button>
+					<form action = "{{ url_for('move') }}" method = 'POST'>
+						<!-- Why button type = 'button' i can not post the form ??? -->			
+						<input type = 'hidden' name = 'command' id = 'command' value = 'backward'>
+						<button class="btn btn-primary">&#8595;</button>
 					</form>
 				</div>
 
 				<div class="position-absolute mid-left">
 					<form action = "{{ url_for('move') }}" method = 'POST'>
 						<input type = 'hidden' name = 'command' id = 'command'  value = 'turnleft'>
-						<button type="button" class="btn btn-primary" font-size= 50px>&#8592;</button>
+						<button class="btn btn-primary">&#8592;</button>
 					</form>
 				</div>
 
 				<div class = "position-absolute mid-right">
 					<form action = "{{ url_for('move') }}" method = 'POST'>
 						<input type = 'hidden' name = 'command' id = 'command'  value = 'turnright'>
-						<button type="button" class="btn btn-primary">&#8594;</button>
+						<button class="btn btn-primary">&#8594;</button>
 					</form>
 				</div>
 
 			</div>
 		</div>
-
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-	    <script src=
-	"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">
-	    </script>
 
 	</body>
 </html>
