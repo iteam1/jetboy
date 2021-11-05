@@ -121,10 +121,12 @@ Create cmake
 Once you make and install be sure to update your PYTHONPATH:
 
      
-     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3.6
+     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3.6/dist-packages
     
 ## install opencv
 
 https://pysource.com/2019/08/26/install-opencv-4-1-on-nvidia-jetson-nano/
 
 https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
+
+
