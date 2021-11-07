@@ -148,4 +148,7 @@ https://www.youtube.com/watch?v=7bUinDUgp5o&t=63s
 
 https://docs.nvidia.com/deeplearning/frameworks/install-tf-jetson-platform/index.html
 
+Check what jetpack we are using 
+
+     cat/etc/nv_tegra_release
 
