@@ -110,6 +110,16 @@ https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-libr
 
      sudo apt-get install libssl-dev
      
+     git clone https://github.com/IntelRealSense/librealsense
+     
+     cd librealsense
+     
+     mkdir build
+     
+     cd build
+     
+     sudo apt-get update && sudo apt-get upgrade
+     
 Create cmake
      
      cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python3.6/dist-packages
