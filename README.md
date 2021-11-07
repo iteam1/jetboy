@@ -174,4 +174,35 @@ Execute buildLibrealsense file
 Refesh your current shell invironment
      
      source ~/.bashrc
+     
+Install some libraries
 
+     sudo pip3 install -U pip keras==2.1.5
+     
+     sudo pip3 install -U pip pillow
+     
+     sudo pip3 install matplotlib
+     
+     sudo apt-get install libcanberra-gtk*
+
+Open the karas-yolo page: https://github.com/qqwweee/keras-yolo3
+
+     git clone https://github.com/qqwweee/keras-yolo3.git
+     
+     cd keras-yolo3
+     
+Download the weight
+
+     wget https://pjreddie.com/media/files/yolov3-tiny.weights
+     
+Convert to h5 files
+
+     python3 convert.py yolov3-tiny.cfg yolov3-tiny.weights model_data/yolo-tiny.h5
+     
+Modify the tiny-yolo.py
+
+     "model_path": 'model_data/yolo-tiny.h5',
+     "anchors_path": 'model_data/tiny_yolo_anchors.txt',
+
+Run
+     python3 yolo.py
