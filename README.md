@@ -166,4 +166,12 @@ Install Pyrealsense on jetson nano
 Correct the cuda version in buildLibrealsense.sh file
      
      NVCC_PATH=/usr/local/cuda-10.2/bin/nvcc
+     
+Execute buildLibrealsense file
+     
+     ./buildLibrealsense.sh
+     
+Refesh your current shell invironment
+     
+     source ~/.bashrc
 
