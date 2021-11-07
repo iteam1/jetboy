@@ -110,7 +110,7 @@ https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-libr
 
      sudo apt-get install libssl-dev
      
-     git clone https://github.com/IntelRealSense/librealsense
+     git clone https://github.com/IntelRealSense/librealsense.git
      
      cd librealsense
      
