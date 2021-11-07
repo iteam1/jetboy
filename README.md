@@ -205,4 +205,5 @@ Modify the tiny-yolo.py
      "anchors_path": 'model_data/tiny_yolo_anchors.txt',
 
 Run
+
      python3 yolo.py
