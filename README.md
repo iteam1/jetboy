@@ -162,4 +162,8 @@ Check the GPU begin recognize corectlly
 Install Pyrealsense on jetson nano
 
      https://github.com/JetsonHacksNano/installLibrealsense.git
+     
+Correct the cuda version in buildLibrealsense.sh file
+     
+     NVCC_PATH=/usr/local/cuda-10.2/bin/nvcc
 
