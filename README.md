@@ -108,6 +108,8 @@ https://github.com/IntelRealSense/librealsense/tree/master/wrappers/python
 
 https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-library
 
+     sudo apt-get install xorg-dev
+     
      sudo apt-get install libssl-dev
      
      git clone https://github.com/IntelRealSense/librealsense.git
