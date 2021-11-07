@@ -141,4 +141,11 @@ https://pysource.com/2019/08/26/install-opencv-4-1-on-nvidia-jetson-nano/
 
 https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
 
+## jetpack Tensorflow Realsense
+
+https://www.youtube.com/watch?v=7bUinDUgp5o&t=63s
+
+
+https://docs.nvidia.com/deeplearning/frameworks/install-tf-jetson-platform/index.html
+
 
