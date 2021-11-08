@@ -141,10 +141,11 @@ https://pysource.com/2019/08/26/install-opencv-4-1-on-nvidia-jetson-nano/
 
 https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
 
+https://linuxize.com/post/how-to-install-opencv-on-ubuntu-18-04/ 
+
 ## jetpack Tensorflow Realsense
 
 https://www.youtube.com/watch?v=7bUinDUgp5o&t=63s
-
 
 https://docs.nvidia.com/deeplearning/frameworks/install-tf-jetson-platform/index.html
 
@@ -175,7 +176,7 @@ Check the GPU begin recognize corectlly
 
 Install Pyrealsense on jetson nano
 
-     https://github.com/JetsonHacksNano/installLibrealsense.git
+     git clone https://github.com/JetsonHacksNano/installLibrealsense.git
      
 Correct the cuda version in buildLibrealsense.sh file
      
@@ -221,3 +222,28 @@ Modify the tiny-yolo.py
 Run
 
      python3 yolo.py
+
+## backup Jetson Nano
+
+     sudo tar czf /backup.tar.gz\
+      --exclude=/backup.tar.gz\
+      --exclude=/bin\
+      --exclude=/boot\
+      --exclude=/dev\
+      --exclude=/dist-packages\
+      --exclude=/lib\
+      --exclude=/lost+found\
+      --exclude=/media\
+      --exclude=/mnt\
+      --exclude=/opt\
+      --exclude=/proc\
+      --exclude=/root\
+      --exclude=/run\
+      --exclude=/sbin\
+      --exclude=/snap\
+      --exclude=/srv\
+      --exclude=/sys\
+      --exclude=/tmp\
+      --exclude=/usr\
+      --exclude=/var\
+      /
