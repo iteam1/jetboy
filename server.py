@@ -10,7 +10,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
 db = SQLAlchemy(app)
 
-d455 = rd.DepthCamera()
+# Can not detect camera after server on
+#d455 = rd.DepthCamera() 
 
 def generate_frame():
 	while True:
@@ -43,7 +44,7 @@ def move():
 	robot = Robot.query.get(1)
 	robot.command = command 
 	db.session.commit()
-	print(robot)
+	#print(robot)
 	return render_template('base.html')
 
 @app.route('/video')
@@ -52,6 +53,7 @@ def video():
 
 if __name__ == "__main__":
 
-	print(d455.device)
+	#print(d455.device)
 
-	#app.run(debug = True,host = '0.0.0.0',port ='5000')
+
+	app.run(debug = True,host = '0.0.0.0',port ='5000')
