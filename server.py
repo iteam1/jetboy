@@ -2,7 +2,8 @@ from flask import Flask,render_template,request, Response
 from flask_sqlalchemy import SQLAlchemy
 import cv2 
 import realsense_depth as rd
-import time 
+import time
+import numpy as np 
 
 app = Flask(__name__)
 
@@ -11,9 +12,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
 # Can not detect camera after server on
-#d455 = rd.DepthCamera() 
+d455 = rd.DepthCamera() 
 
-def generate_frame():
+def gen_colorframe():
 	while True:
 		ret,depth_frame,color_frame = d455.get_frame()
 		if not ret:
@@ -21,6 +22,39 @@ def generate_frame():
 			break 
 		else:
 			success,buffer = cv2.imencode('.jpg',color_frame)
+			frame = buffer.tobytes()
+
+			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+def gen_depthframe():
+	while True:
+		ret,depth_frame,color_frame = d455.get_frame()
+
+		depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_frame,alpha=0.08),cv2.COLORMAP_JET)
+		if not ret:
+			print("Connection to camera failed!")
+			break
+		else:
+			success,buffer = cv2.imencode('.jpg',depth_colormap)
+			frame = buffer.tobytes()
+
+			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+def gen_both():
+	while True:
+		ret,depth_frame,color_frame = d455.get_frame()
+
+		# In the heat map conversion
+		depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_frame,alpha = 0.08),cv2.COLORMAP_JET)
+
+		# Rendering
+		images = np.hstack((color_frame,depth_colormap)) # display side by side RGB and Depth next to
+
+		if not ret:
+			print("Connection to camera failed!")
+			break
+		else:
+			success,buffer = cv2.imencode('.jpg',images)
 			frame = buffer.tobytes()
 
 			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
@@ -47,13 +81,18 @@ def move():
 	#print(robot)
 	return render_template('base.html')
 
-@app.route('/video')
-def video():
-	return Response(generate_frame(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
+@app.route('/colorstream')
+def colorstream():
+	return Response(gen_colorframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/depthstream')
+def depthstream():
+	return Response(gen_depthframe(),mimetype= 'multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/views')
+def views():
+	return Response(gen_both(),mimetype= 'multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == "__main__":
 
-	#print(d455.device)
-
-
-	app.run(debug = True,host = '0.0.0.0',port ='5000')
+	app.run(host = '0.0.0.0',port ='5000')
