@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request, Response
+from flask import Flask,render_template,request,Response,flash
 from flask_sqlalchemy import SQLAlchemy
 import cv2 
 import realsense_depth as rd
@@ -6,7 +6,7 @@ import time
 import numpy as np 
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = 'the random string'    
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
 db = SQLAlchemy(app)
@@ -68,18 +68,18 @@ class Robot(db.Model):
 	def __repr__(self):
 		return f"{self.name}: {self.command}"
 
-@app.route("/",methods = ['GET'])
+@app.route("/",methods = ['GET','POST'])
 def base():
+	if request.method == 'POST':
+		command = request.form.get('command')
+		robot = Robot.query.get(1)
+		robot.command = command 
+		db.session.commit()
+		flash(f'Robot {command}','info')
+		return render_template('base.html')
+
 	return render_template('base.html')
 
-@app.route("/command/1",methods = ['POST'])
-def move():
-	command = request.form.get('command')
-	robot = Robot.query.get(1)
-	robot.command = command 
-	db.session.commit()
-	#print(robot)
-	return render_template('base.html')
 
 @app.route('/colorstream')
 def colorstream():

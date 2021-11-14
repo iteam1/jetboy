@@ -68,11 +68,30 @@
 
 	</head>
 	<body>
+		<div class='row'>
+            <div class='col-md-12'>
+                <!--Display flash messages-->
+                {% with messages = get_flashed_messages(with_categories = true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>{{ message }}</strong>
+                        </div>                         
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+
 		<h1 style="color:green;text-align:center;">Jetboy's View</h1>
 		<br>
+
 		<div class = 'container h-100'>
-			
-			
+
 			<div>
 				<img src = "{{ url_for('views') }}" class="img-fluid" alt="Responsive image"/>
 			</div>
@@ -81,7 +100,7 @@
 			<div class="position-relative h-100">
 
 				<div class="position-absolute top-center">
-					<form action = "{{ url_for('move') }}" method = 'POST'>
+					<form action = "{{ url_for('base') }}" method = 'POST'>
 						<input type = 'hidden' name = 'command' id = 'command'  value = 'forward'>
 						<button class="btn btn-primary">&#8593;</button>
 					</form>
@@ -89,7 +108,7 @@
 				<br><br><br><br>
 
 				<div class="position-absolute mid-center">
-					<form action = "{{ url_for('move') }}" method = 'POST'>
+					<form action = "{{ url_for('base') }}" method = 'POST'>
 						<input type = 'hidden' name = 'command' id = 'command'  value = 'stop'>
 						<button class= 'btn btn-danger'>Stop</button>
 					</form>
@@ -97,7 +116,7 @@
 				<br><br><br><br>
 
 				<div class="position-absolute bottom-center">
-					<form action = "{{ url_for('move') }}" method = 'POST'>
+					<form action = "{{ url_for('base') }}" method = 'POST'>
 						<!-- Why button type = 'button' i can not post the form ??? -->			
 						<input type = 'hidden' name = 'command' id = 'command' value = 'backward'>
 						<button class="btn btn-primary">&#8595;</button>
@@ -105,14 +124,14 @@
 				</div>
 
 				<div class="position-absolute mid-left">
-					<form action = "{{ url_for('move') }}" method = 'POST'>
+					<form action = "{{ url_for('base') }}" method = 'POST'>
 						<input type = 'hidden' name = 'command' id = 'command'  value = 'turnleft'>
 						<button class="btn btn-primary">&#8592;</button>
 					</form>
 				</div>
 
 				<div class = "position-absolute mid-right">
-					<form action = "{{ url_for('move') }}" method = 'POST'>
+					<form action = "{{ url_for('base') }}" method = 'POST'>
 						<input type = 'hidden' name = 'command' id = 'command'  value = 'turnright'>
 						<button class="btn btn-primary">&#8594;</button>
 					</form>
