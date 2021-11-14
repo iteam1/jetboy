@@ -5,14 +5,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.animation as animation
 
-PORT_NAME = '/dev/ttyUSB0'
+PORT_NAME = '/dev/ttyUSB0' #/dev/ttyUSB0
 DMAX = 4000
 IMIN = 0
 IMAX = 50
 
 def update_line(num, iterator, line):
     scan    = next(iterator)
-    print(scan)
+    #print(scan)
     offsets = np.array([(np.radians(meas[1]), meas[2]) for meas in scan])
     line.set_offsets(offsets)
     intens  = np.array([meas[0] for meas in scan])
@@ -28,7 +28,7 @@ def run():
     ax.grid(True)
 
     iterator = lidar.iter_scans()
-    print(iterator)
+    #print(iterator)
     ani = animation.FuncAnimation(fig, update_line,
         fargs=(iterator, line), interval=50)
     plt.show()
