@@ -86,55 +86,8 @@ https://www.youtube.com/watch?v=30Fj1mo0Uqw
 
      sudo /opt/nvidia/jetson-io/jetson-io.py
 
-## install linux on ubutu 18.0.4
+# Jetson-Nano
 
-https://linuxize.com/post/how-to-install-pip-on-ubuntu-18.04/
-
-## How to install pyrealsense2 on jetson-nano
-
-https://www.youtube.com/watch?v=EeT-pzM8n-o
-
-https://github.com/IntelRealSense/librealsense
-
-## install realsense-viewer
-
-https://github.com/IntelRealSense/librealsense/blob/master/doc/installation_jetson.md
-
-## install pyrealsesne2 from source [Jetson Error]
-
-https://github.com/IntelRealSense/librealsense/tree/master/wrappers/python
-
-### cmake error
-
-https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-library
-
-     sudo apt-get install xorg-dev
-     
-     (sudo apt-get install libssl-dev)
-     
-     git clone https://github.com/IntelRealSense/librealsense.git
-     
-     cd librealsense
-     
-     mkdir build
-     
-     cd build
-     
-     sudo apt-get update && sudo apt-get upgrade
-     
-Create cmake
-     
-     cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python3.6/dist-packages
-     
-     make -j4
-     
-     sudo make install
-
-Once you make and install be sure to update your PYTHONPATH:
-
-     
-     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3.6/dist-packages
-    
 ## install opencv
 
 https://pysource.com/2019/08/26/install-opencv-4-1-on-nvidia-jetson-nano/
@@ -222,8 +175,16 @@ Modify the tiny-yolo.py
 Run
 
      python3 yolo.py
+     
+## Backup Jetson Nano's Linux system
 
-## backup Jetson Nano
+Go to \
+
+     sudo su
+     
+     cd /
+
+Run command to create backup.tar.gz file
 
      sudo tar czf /backup.tar.gz\
       --exclude=/backup.tar.gz\
@@ -247,3 +208,36 @@ Run
       --exclude=/usr\
       --exclude=/var\
       /
+      
+## Restore linux with backup.tar 
+
+Make sure you are root and that you and the backup file are in the root of the filesystem.
+
+     tar xvpfz backup.tgz -C /
+      
+## Stream realsense
+
+https://support.intelrealsense.com/hc/en-us/community/posts/1500000429802-how-to-feed-video-in-web-page-using-flask-app-pyrealsense2-with-opencv-python
+
+https://dev.intelrealsense.com/docs/rs-capture
+
+https://github.com/NakulLakhotia/Live-Streaming-using-OpenCV-Flask
+
+https://titanwolf.org/Network/Articles/Article?AID=6d47b992-6d96-4e42-9393-bd7b50c3836c
+
+## Linux basic command
+
+https://www.puttygen.com/putty-commands
+
+## Connect to rplidar
+
+     sudo su
+     cd /
+     cd dev
+     chown <username> ttyUSB0
+
+or
+
+     cd /dev
+     ls t*
+     sudo usermod -a -G dialout $USER
