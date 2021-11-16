@@ -1,2 +1,2 @@
-![circuit](https://user-images.githubusercontent.com/73679364/141735945-59aecf5a-596c-43df-b5dc-fbe9904f2328.png)
+![circuit](https://user-images.githubusercontent.com/73679364/141938409-6126a560-ddf7-4ce0-8258-35192bf2c1c5.png)
 
