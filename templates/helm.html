@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1 style="color:green;text-align:center;">Jetboy's Helm</h1>
+    <br>
+
+    <div class = 'container h-100'>
+
+        <!--
+            <div>
+                <img src = "{{ url_for('views') }}" class="img-fluid" alt="Responsive image"/>
+            </div>
+            <br><br>
+        -->
+
+        <div class="position-relative h-100">
+
+            <div class="position-absolute top-center">
+                <form action = "{{ url_for('base') }}" method = 'POST'>
+                    <input type = 'hidden' name = 'command' id = 'command'  value = 'forward'>
+                    <button class="btn btn-primary">&#8593;</button>
+                </form>
+            </div>
+            <br><br><br><br>
+
+            <div class="position-absolute mid-center">
+                <form action = "{{ url_for('base') }}" method = 'POST'>
+                    <input type = 'hidden' name = 'command' id = 'command'  value = 'stop'>
+                    <button class= 'btn btn-danger'>Stop</button>
+                </form>
+            </div>
+            <br><br><br><br>
+
+            <div class="position-absolute bottom-center">
+                <form action = "{{ url_for('base') }}" method = 'POST'>
+                    <!-- Why button type = 'button' i can not post the form ??? -->			
+                    <input type = 'hidden' name = 'command' id = 'command' value = 'backward'>
+                    <button class="btn btn-primary">&#8595;</button>
+                </form>
+            </div>
+
+            <div class="position-absolute mid-left">
+                <form action = "{{ url_for('base') }}" method = 'POST'>
+                    <input type = 'hidden' name = 'command' id = 'command'  value = 'turnleft'>
+                    <button class="btn btn-primary">&#8592;</button>
+                </form>
+            </div>
+
+            <div class = "position-absolute mid-right">
+                <form action = "{{ url_for('base') }}" method = 'POST'>
+                    <input type = 'hidden' name = 'command' id = 'command'  value = 'turnright'>
+                    <button class="btn btn-primary">&#8594;</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock content %}
+
+		
