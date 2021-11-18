@@ -3,7 +3,8 @@ from flask import Flask,render_template,request,Response,flash,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 import cv2 
 import realsense_depth as rd
-import numpy as np 
+import numpy as np
+import webbrowser  
 # import matplotlib 
 # matplotlib.use('Agg')
 # import matplotlib.pyplot as plt
@@ -100,5 +101,5 @@ def depthstream():
 	return Response(gen_depthframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == "__main__":
-
-	app.run(host = '0.0.0.0',port ='5000')
+    webbrowser.open(url = '0.0.0.0:5000')
+    app.run(host = '0.0.0.0',port ='5000')
