@@ -47,6 +47,14 @@
             </div>
 
         </div>
+
+    </div>
+    
+    <div>
+        <form action = "{{ url_for('helm') }}" method = 'POST'>
+            <input name = 'face'>
+            <button type = 'submit'>Submit</button>
+        </form> 
     </div>
 {% endblock content %}
 

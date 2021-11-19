@@ -4,10 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import cv2 
 import realsense_depth as rd
 import numpy as np
-import webbrowser  
-# import matplotlib 
-# matplotlib.use('Agg')
-# import matplotlib.pyplot as plt
+#import webbrowser  
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '3b9fed3b85a77047fc95896683ee6713'    
@@ -84,10 +81,16 @@ def home():
 def helm():
 	if request.method == 'POST':
 		command = request.form.get('command')
-		robot = Robot.query.get(1)
-		robot.command = command 
-		db.session.commit()
-		flash(f'Robot {command}','info')
+		face = request.form.get.get('face')
+		if command:
+			robot = Robot.query.get(1)
+			robot.command = command 
+			db.session.commit()
+			flash(f'Robot {command}','info')
+		if face:
+			robot = Robot.query,get(1)
+			robot.face = face 
+			db.session.commit()
 		return  redirect(url_for('helm'))
 
 	return render_template('helm.html')
@@ -103,5 +106,5 @@ def depthstream():
 
 if __name__ == "__main__":
 	# This comment line come from dell linux
-    webbrowser.open(url = '0.0.0.0:5000')
+    # webbrowser.open(url = '0.0.0.0:5000')
     app.run(host = '0.0.0.0',port ='5000')
