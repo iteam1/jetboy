@@ -1,4 +1,4 @@
-from controller import MotorController
+pfrom controller import MotorController
 import RPi.GPIO
 import sqlite3 
 import time 
@@ -20,7 +20,7 @@ if __name__ == "__main__":
 	while True:
 
 		c.execute(f"SELECT *FROM robot WHERE id = {id}")
-		#print(c.fetchone()[2])
+		#print(c.fetchone()[2]) # you got a tuple of robot record
 		command = c.fetchone()[2]
 		conn.commit()
 

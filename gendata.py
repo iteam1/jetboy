@@ -11,7 +11,8 @@ c.execute("""
 	CREATE TABLE robot(
 	id INTEGER PRIMARY KEY,
 	name TEXT,
-	command TEXT
+	command TEXT,
+	face INTEGER
 	)
 	""")
 
