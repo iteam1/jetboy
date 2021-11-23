@@ -9,9 +9,9 @@ class Robot(db.Model):
 	face = db.Column(db.Integer,nullable = False,default =0)
 
 	#for display
-	content = db.Column(db.String(),nullable = False, default = 'Good days') # The sentece will display on showman window
-	emotion = db.Column(db.String(),nullable = False,default = 'happyblink') # The emotion will display on showman window
-	image = db.Column(db.String(),nullable = False,default = 'simplesmile') # The emotion will display on showman window
+	content = db.Column(db.String(),nullable = False, default = 'Good days') # The sentece will display on robot window
+	emotion = db.Column(db.String(),nullable = False,default = 'happyblink') # The emotion will display on robot window
+	image = db.Column(db.String(),nullable = False,default = 'simplesmile') # The emotion will display on robot window
 	itype = db.Column(db.String(),nullable = False, default = 'emo') # emo = gif,img, info
 
 	def __repr__(self):

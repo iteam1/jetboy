@@ -66,7 +66,6 @@ class App:
 			self.canvas.create_image(0,0,anchor = 'nw',image = self.image)
 			self.parent.after(stime, lambda: self.animate(0))
 
-
 root = tkinter.Tk()
 app = App(root)
 root.mainloop()
