@@ -1,8 +1,10 @@
 from flask import render_template,request,Response,flash,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 import cv2 
-import realsense_depth as rd
 import numpy as np
+import robot.realsense_depth as rd
+from robot import app,db,d455
+from robot.models import Robot
 
 def gen_colorframe():
 	while True:
@@ -59,18 +61,12 @@ def home():
 def helm():
 	if request.method == 'POST':
 		command = request.form.get('command')
-		face = request.form.get.get('face')
 		if command:
-			robot = Robot.query.get(1)
-			robot.command = command 
+			myrobot = Robot.query.get(1)
+			myrobot.command = command 
 			db.session.commit()
 			flash(f'Robot {command}','info')
-		if face:
-			robot = Robot.query,get(1)
-			robot.face = face 
-			db.session.commit()
 		return  redirect(url_for('helm'))
-
 	return render_template('helm.html')
 
 
@@ -87,9 +83,9 @@ def depthstream():
 def content():
 	if request.method == 'POST':
 		content = request.form.get('content')
-		showman = Showman.query.get(1)
-		showman.itype = 'info'
-		showman.content = content
+		myrobot = Robot.query.get(1)
+		myrobot.itype = 'info'
+		myrobot.content = content
 		db.session.commit()
 		return render_template('helm.html')
 	return render_template('helm.html')
@@ -98,9 +94,9 @@ def content():
 def emotion():
 	if request.method == 'POST':
 		emotion = request.form.get('emotion')
-		showman = Showman.query.get(1)
-		showman.itype = 'emo'
-		showman.emotion = emotion
+		myrobot = Robot.query.get(1)
+		myrobot.itype = 'emo'
+		myrobot.emotion = emotion
 		db.session.commit()
 		return render_template('helm.html')
 	return render_template('helm.html')
@@ -109,9 +105,9 @@ def emotion():
 def image():
 	if request.method == 'POST':
 		image = request.form.get('image')
-		showman = Showman.query.get(1)
-		showman.itype = 'img'
-		showman.image = image
+		myrobot = Robot.query.get(1)
+		myrobot.itype = 'img'
+		myrobot.image = image
 		db.session.commit()
 		return render_template('helm.html')
 	return render_template('helm.html')

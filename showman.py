@@ -5,9 +5,9 @@ import sqlite3
 
 class App:
 
-	def __init__(self,parent,width = 1024,height = 600,path = './source/static/face/huma/'):
+	def __init__(self,parent,width = 1024,height = 600,path = './robot/static/face/huma/'):
 		self.parent = parent # This is root window
-		self.path = path # the path lead to gif, images,... of the showman
+		self.path = path # the path lead to gif, images,... of the robot
 		self.width = width 
 		self.height = height
 		self.canvas = tkinter.Canvas(parent,width = self.width,height = self.height)
@@ -18,21 +18,21 @@ class App:
 	def dbconnect(self):
 		self.conn = sqlite3.connect("./robot/site.db")
 		c = self.conn.cursor()
-		c.execute(f"SELECT *FROM showman WHERE id = 1")
+		c.execute(f"SELECT *FROM robot WHERE id = 1")
 		itype = c.fetchone()[-1]
 		if itype == 'emo':
-			c.execute(f"SELECT *FROM showman WHERE id = 1")
-			emotion = c.fetchone()[2]
+			c.execute(f"SELECT *FROM robot WHERE id = 1")
+			emotion = c.fetchone()[5]
 			self.conn.commit()
 			return itype, emotion
 		elif itype == 'info':
-			c.execute(f"SELECT *FROM showman WHERE id = 1")
-			content = c.fetchone()[1]
+			c.execute(f"SELECT *FROM robot WHERE id = 1")
+			content = c.fetchone()[4]
 			self.conn.commit()
 			return itype,content 
 		elif itype == 'img':
-			c.execute(f"SELECT *FROM showman WHERE id = 1")
-			content = c.fetchone()[3]
+			c.execute(f"SELECT *FROM robot WHERE id = 1")
+			content = c.fetchone()[6]
 			self.conn.commit()
 			return itype,content 
 		else:

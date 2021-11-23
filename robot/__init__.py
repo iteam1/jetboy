@@ -1,6 +1,6 @@
 from flask import Flask   
 from flask_sqlalchemy import SQLAlchemy  
-import realsense_depth as rd
+import robot.realsense_depth as rd
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '3b9fed3b85a77047fc95896683ee6713'    
