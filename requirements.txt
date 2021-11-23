@@ -4,3 +4,7 @@
 4/ tkinter
 5/ pyrealsense2
 6/ opencv
+7/ os
+8/ sqlite3
+
+token: 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
