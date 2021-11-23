@@ -7,4 +7,4 @@
 7/ os
 8/ sqlite3
 
-token: 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
+token: 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
