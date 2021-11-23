@@ -1,4 +1,4 @@
-pfrom controller import MotorController
+from controller import MotorController
 import RPi.GPIO
 import sqlite3 
 import time 
