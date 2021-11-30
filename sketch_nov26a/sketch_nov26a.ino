@@ -1,16 +1,15 @@
 /*
 For Arduino nano handles obstacle awaring
 */
-
 #include<NewPing.h>
 #define max_distance 500 // max distance 500 cm, out of range 1183 cm
-#define trig_front 2 // Trigger pin of front sensor
-#define echo_front 3 // Echo pin of front sensor
-#define trig_back 4 // Trigger pin of back sensor
-#define echo_back 5 // Echo pin of back sensor
-#define trig_left 6 // Trigger pin of left sensor
+#define trig_front 3 // Trigger pin of front sensor
+#define echo_front 2 // Echo pin of front sensor
+#define trig_back 5 // Trigger pin of back sensor
+#define echo_back 4 // Echo pin of back sensor
+#define trig_left 8 // Trigger pin of left sensor
 #define echo_left 7 // Echo pin of left sensor
-#define trig_right 8 // Trigger pin of right sensor
+#define trig_right 10 // Trigger pin of right sensor
 #define echo_right 9 // Echo pin of right sensor
 #define ledpin 13 // Led builtin pin for warning
 
@@ -30,7 +29,7 @@ float duration_right; // Stores right HC-SR04 pulse duration value in microsecon
 float distance_right; // Stores right HC-SR04 distance value in centimeter
 float soundsp = 34000; // cm/s
 int iterations = 5; // The iteration for ping median function
-float min_distance = 10;
+float min_distance = 5; //cm
 
 int front_warning = A0; // Warning out pin for obstacle
 int back_warning = A1; // Warning out pin for obstacle
@@ -115,13 +114,11 @@ void loop() {
   else{
     analogWrite(right_warning,0);
     }
-  
-  if (distance_front <= min_distance || distance_back <= min_distance || distance_left <= min_distance || distance_right <= min_distance){
+  // if (distance_front <= min_distance || distance_back <= min_distance || distance_left <= min_distance || distance_right <= min_distance){
+  if (distance_back <= min_distance){
     digitalWrite(ledpin,HIGH);
   }
   else{
     digitalWrite(ledpin,LOW);
     }
-    
-  delay(100);
 }
