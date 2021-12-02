@@ -1,2 +1,7 @@
-![circuit](https://user-images.githubusercontent.com/73679364/141938409-6126a560-ddf7-4ce0-8258-35192bf2c1c5.png)
-
+## Features
+    - Control manually via webserver
+    - Display GIF, images, words on screen
+    - 4 sensors HC-SR04 for detect obstacles Best range: 0-100cm, sweep angle: 15 degrees, 44kHz 
+    - RPlidar A1 scanning
+    - Streaming depth camera realsense D455
+    - Detect object with GPU on Jetson Nano board via Yolo v3 model
