@@ -10,10 +10,10 @@
 
 ## Developing
     - Follow a path automatically
-    - Do a task
+    - Do a sp
 
 ## Required libraries
-    The library with have * mark meaning you can not install it with command `pip install -r requirements.txt`
+    The library with have * mark meaning you can not install it with command **pip install -r requirements.txt**
     *- jetson.GPIO (This libary is built-in jetson-nano board or rasberry pi board, and just can run on this hardware)
     - flask
     - flask_sqlachemy
