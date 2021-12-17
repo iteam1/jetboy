@@ -1,3 +1,5 @@
+## Hardware
+    Jetson-nano B01 
 ## Features
     - Control manually via webserver
     - Display GIF, images, words on screen
@@ -7,6 +9,17 @@
     - Detect object with GPU on Jetson Nano board via Yolo v3 model
 
 ## Developing
-
     - Follow a path automatically
     - Do a task
+
+## Required libraries
+    The library with have * mark meaning you can not install it with command `pip install -r requirements.txt`
+    *- jetson.GPIO (This libary is built-in jetson-nano board or rasberry pi board, and just can run on this hardware)
+    - flask
+    - flask_sqlachemy
+    - sqlite3
+    - tkinter
+    *- pyrealsense2 
+    - opencv-contrib-python
+    - os
+    

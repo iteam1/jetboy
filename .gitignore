@@ -1,0 +1,16 @@
+# Virtual enviroment
+env
+# Packages
+*.7z
+*.gz
+*.iso
+*.jar 
+*.rar
+*.tar
+*.zip
+# Execute program
+*.exe
+# Logs and databases
+*.log 
+#*.sql
+#*.sqlite
