@@ -1,3 +1,6 @@
+'''
+This program create a new database sqlite3
+'''
 import sqlite3 
 
 conn = sqlite3.connect("site.db")

@@ -1,3 +1,7 @@
+'''
+Run this cml_l.py for control robot's moving
+This program continously read the datbase and execute the command
+'''
 from controller import MotorController
 import RPi.GPIO
 import sqlite3 

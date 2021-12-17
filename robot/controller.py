@@ -1,3 +1,7 @@
+'''
+Contain a class to interface with robot's hardware
+cml_l.py import this module
+'''
 import RPi.GPIO  
 
 # name control pins

@@ -1,3 +1,6 @@
+'''
+run showman.py to display robot's face
+'''
 import tkinter 
 from PIL import Image,ImageTk,ImageSequence
 import os 
