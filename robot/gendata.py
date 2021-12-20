@@ -13,9 +13,13 @@ This program will create a new robot database, then flask server will connect to
 		- backward: robot will moving backward
 		- turnleft: robot will turn left
 		- turnright: robot will turn right
+		- kill: terminate GPIO_controller while loop
 
-	...
-
+	estop: value: 1-0, emergency stop, stop any moving if this bit is 1
+	obs_f: value: 1-0, front obstacle
+	obs_b: value: 1-0, back obstacle
+	obs_l: value: 1-0, left obstacle
+	obs_r: value: 1-0, right obstacle
 
 # Control robot's GUI display on the screen
 
@@ -43,7 +47,12 @@ c.execute("""
 	content TEXT,
 	emotion TEXT,
 	image TEXT,
-	itype TEXT
+	itype TEXT,
+	estop NUMERIC,
+	obs_f = NUMERIC,
+	obs_b = NUMERIC,
+	obs_l = NUMERIC,
+	obs_r = NUMERIC
 	)
 	""")
 

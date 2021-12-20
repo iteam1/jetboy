@@ -2,12 +2,19 @@ from robot import db
 
 class Robot(db.Model):
 	
-	# for moving
+	# For moving
 	id = db.Column(db.Integer,primary_key = True)
 	name = db.Column(db.String(30),nullable = False,unique = True)
 	command = db.Column(db.String(30),nullable = False,default = 'stop')
 
-	#for display
+	# Estop and sensors
+	estop = db.Column(db.Boolean,default = False,nullable = False)
+	obs_f = db.Column(db.Boolean,default = False,nullable = False)
+	obs_b = db.Column(db.Boolean,default = False,nullable = False)
+	obs_l = db.Column(db.Boolean,default = False,nullable = False)
+	obs_r = db.Column(db.Boolean,default = False,nullable = False)
+
+	# For display
 	content = db.Column(db.String(),nullable = False, default = 'Good days') # The sentece will display on robot window
 	emotion = db.Column(db.String(),nullable = False,default = 'happyblink') # The emotion will display on robot window
 	image = db.Column(db.String(),nullable = False,default = 'simplesmile') # The emotion will display on robot window
