@@ -48,7 +48,7 @@ class App:
 		'''
      	self.conn = sqlite3.connect("./robot/site.db")
       	c = self.conn.cursor()
-       c.execute(f"SELECT *FROM robot WHERE id = 1") # fetch the robot id = 1
+        c.execute(f"SELECT *FROM robot WHERE id = 1") # fetch the robot id = 1
   		itype = c.fetchone()[-1] 
 		if itype == 'emo':
 			c.execute(f"SELECT *FROM robot WHERE id = 1")

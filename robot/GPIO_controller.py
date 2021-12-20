@@ -96,18 +96,21 @@ class controller():
 		'''
 		conn: the connection to database
 		c: cusor of the connection to database
+		Read the input values
 		'''
 
-		c.execute(f"SELECT *FROM robot WHERE id = 1")
-
-		data = c.fetchone()
-
+		# Read ESTOP from the server ,write it out to database and storage it into robot object
 		self.ESTOP = data[7] # read emergency stop
 
-		self.OBS_F_value = data[8] # read front obstacle value
-		self.OBS_B_value = data[9] # read back obstacle value
-		self.OBS_L_value = data[10] # read left obstacle value
-		self.OBS_R_value = data[11] # read right obstacle value
+		# Read ultrasonic sensor signal save it to database
+		self.OBS_F_value = self.GPIO.input(self.OBS_F_pin) # read front obstacle value
+		self.OBS_B_value = self.GPIO.input(self.OBS_B_pin) # read back obstacle value
+		self.OBS_L_value = self.GPIO.input(self.OBS_L_pin) # read left obstacle value
+		self.OBS_R_value = self.GPIO.input(self.OBS_R_pin) # read right obstacle value
+
+		c.execute("""
+			INSERT INTO robot(estop,obs_f,obs_b,obs_l,obs_r) VALUES(?,?,?,?,?)
+			""",(self.OBS_F_value,self.OBS_B_value,self.OBS_L_value,self.OBS_B_value))
 
 		conn.commit()
 
@@ -132,15 +135,6 @@ if __name__ == "__main__":
 		# Read the input
 		controller.read_input(conn,c)
 		print(controller.ESTOP,controller.OBS_F_value,controller.OBS_B_value,controller.OBS_L_value,controller.OBS_R_value)
-		# c.execute(f"SELECT *FROM robot WHERE id = {id}")
-	 
-		# OBS_F_value = c.fetchone()[8] # read front obstacle value
-		# OBS_B_value = c.fetchone()[9] # read back obstacle value
-		# OBS_L_value = c.fetchone()[10] # read left obstacle value
-		# OBS_R_value = c.fetchone()[11] # read right obstacle value
-		# conn.commit()
-		# print(OBS_F_value,OBS_B_value,OBS_L_value,OBS_R_value)
-
 
 		#Write the output
 		if command == "kill":
