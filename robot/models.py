@@ -6,7 +6,6 @@ class Robot(db.Model):
 	id = db.Column(db.Integer,primary_key = True)
 	name = db.Column(db.String(30),nullable = False,unique = True)
 	command = db.Column(db.String(30),nullable = False,default = 'stop')
-	face = db.Column(db.Integer,nullable = False,default =0)
 
 	#for display
 	content = db.Column(db.String(),nullable = False, default = 'Good days') # The sentece will display on robot window
