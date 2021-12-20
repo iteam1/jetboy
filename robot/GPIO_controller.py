@@ -15,9 +15,9 @@ MR_RUN_pin = 21 # motor right run
 
 # INPUT pins name
 OBS_F_pin = 15 # front ultrasonic sensor
-OBS_F_pin = 16 # back ultrasonic sensor 
-OBS_F_pin = 18 # left ultrasonic sensor 
-OBS_F_pin = 19 # right ultrasonic sensor
+OBS_B_pin = 16 # back ultrasonic sensor 
+OBS_L_pin = 18 # left ultrasonic sensor 
+OBS_R_pin = 19 # right ultrasonic sensor
 
 class controller():
 	def __init__(self,ML_DIR_pin = ML_DIR_pin,ML_RUN_pin = ML_RUN_pin,MR_DIR_pin = MR_DIR_pin,MR_RUN_pin = MR_RUN_pin,
@@ -128,7 +128,7 @@ if __name__ == "__main__":
 		conn.commit()
 
 		# Read the input
-		controller.read_input()
+		controller.read_input(conn,c)
 		print(controller.ESTOP,controller.OBS_F_value,controller.OBS_B_value,controller.OBS_L_value,controller.OBS_R_value)
 
 		#Write the output

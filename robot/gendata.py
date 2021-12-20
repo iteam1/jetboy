@@ -49,10 +49,10 @@ c.execute("""
 	image TEXT,
 	itype TEXT,
 	estop NUMERIC,
-	obs_f = NUMERIC,
-	obs_b = NUMERIC,
-	obs_l = NUMERIC,
-	obs_r = NUMERIC
+	obs_f NUMERIC,
+	obs_b NUMERIC,
+	obs_l NUMERIC,
+	obs_r NUMERIC
 	)
 	""")
 
