@@ -100,12 +100,14 @@ class controller():
 
 		c.execute(f"SELECT *FROM robot WHERE id = 1")
 
-		self.ESTOP = c.fetchone()[7] # read emergency stop
+		data = c.fetchone()
 
-		self.OBS_F_value = c.fetchone()[8] # read front obstacle value
-		self.OBS_B_value = c.fetchone()[9] # read back obstacle value
-		self.OBS_L_value = c.fetchone()[10] # read left obstacle value
-		self.OBS_R_value = c.fetchone()[11] # read right obstacle value
+		self.ESTOP = data[7] # read emergency stop
+
+		self.OBS_F_value = data[8] # read front obstacle value
+		self.OBS_B_value = data[9] # read back obstacle value
+		self.OBS_L_value = data[10] # read left obstacle value
+		self.OBS_R_value = data[11] # read right obstacle value
 
 		conn.commit()
 
@@ -130,6 +132,15 @@ if __name__ == "__main__":
 		# Read the input
 		controller.read_input(conn,c)
 		print(controller.ESTOP,controller.OBS_F_value,controller.OBS_B_value,controller.OBS_L_value,controller.OBS_R_value)
+		# c.execute(f"SELECT *FROM robot WHERE id = {id}")
+	 
+		# OBS_F_value = c.fetchone()[8] # read front obstacle value
+		# OBS_B_value = c.fetchone()[9] # read back obstacle value
+		# OBS_L_value = c.fetchone()[10] # read left obstacle value
+		# OBS_R_value = c.fetchone()[11] # read right obstacle value
+		# conn.commit()
+		# print(OBS_F_value,OBS_B_value,OBS_L_value,OBS_R_value)
+
 
 		#Write the output
 		if command == "kill":
