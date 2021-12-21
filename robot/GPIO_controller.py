@@ -142,7 +142,7 @@ if __name__ == "__main__":
 
 		# Read the input
 		controller.read_input(conn,c)
-		print(controller.ESTOP,controller.OBS_F_value,controller.OBS_B_value,controller.OBS_L_value,controller.OBS_R_value)
+		#print(controller.ESTOP,controller.OBS_F_value,controller.OBS_B_value,controller.OBS_L_value,controller.OBS_R_value)
 
 		#Write the output
 		if command == "kill":

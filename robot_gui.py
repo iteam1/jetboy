@@ -36,45 +36,33 @@ class App:
 		self.canvas = tkinter.Canvas(parent,width = self.width,height = self.height) # Create a canvas object for drawing
 		self.sequence = [ImageTk.PhotoImage(img) for img in ImageSequence.Iterator(Image.open(self.path + 'happyblink' +'.gif'))] # Split the gif and turn it into sequence object
 		self.canvas.pack() # Pack the canvas into tkinter window
+		
 		self.animate(1) # Start the animate function with the index = 1 
 
 	def dbconnect(self):
-		'''
-		This function will continously read the database and return the 
-		Connect to the robot database and check the infomation type (itype)
-		If itype = emo display the gif
-		If itype = img display the img
-		If itype = info display the sentence
-		'''
-     	self.conn = sqlite3.connect("./robot/site.db")
-      	c = self.conn.cursor()
-        c.execute(f"SELECT *FROM robot WHERE id = 1") # fetch the robot id = 1
-  		itype = c.fetchone()[-1] 
+		self.conn = sqlite3.connect("./robot/site.db")
+		c = self.conn.cursor()
+		c.execute(f"SELECT *FROM robot WHERE id = 1") # fetch the robot id = 1
+		itype = c.fetchone()[6] 
 		if itype == 'emo':
 			c.execute(f"SELECT *FROM robot WHERE id = 1")
-			emotion = c.fetchone()[5] # read column emotion in the database
+			content = c.fetchone()[4] # read column emotion in the database
 			self.conn.commit()
-			return itype, emotion # return the inforamtion type and content is the name of the gif
+			return itype, content # return the inforamtion type and content is the name of the gif
 		elif itype == 'info':
 			c.execute(f"SELECT *FROM robot WHERE id = 1")
-			content = c.fetchone()[4] # read column content in the database
+			content = c.fetchone()[3] # read column content in the database
 			self.conn.commit()
 			return itype,content # return the itype and content is the content of the sentence
 		elif itype == 'img':
 			c.execute(f"SELECT *FROM robot WHERE id = 1")
-			content = c.fetchone()[6] # read the image's name in the database
+			content = c.fetchone()[5] # read the image's name in the database
 			self.conn.commit()
 			return itype,content # return the itype and content si the image's name  
 		else:
 			return None
 
 	def animate(self,counter,stime = 50):
-		'''
-		This function continously each 50 ms read the databse via dbconnect() and display
-		If itype = emo display the gif
-		If itype = img display the img
-		If itype = info display the sentence
-		'''
 		itype,item = self.dbconnect()
 
 		if itype == 'info':
