@@ -104,7 +104,6 @@ class controller():
 			""")
 
 		data = c.fetchone() # Get all row
-
 		conn.commit()
 
 		# Read ESTOP from the server ,write it out to database and storage it into robot object
@@ -116,9 +115,18 @@ class controller():
 		self.OBS_L_value = self.GPIO.input(self.OBS_L_pin) # read left obstacle value
 		self.OBS_R_value = self.GPIO.input(self.OBS_R_pin) # read right obstacle value
 
+		# c.execute("""
+		# 	INSERT INTO robot(obs_f,obs_b,obs_l,obs_r) VALUES(?,?,?,?)
+		# 	""",(self.OBS_F_value,self.OBS_B_value,self.OBS_L_value,self.OBS_B_value))
+
 		c.execute("""
-			INSERT INTO robot(obs_f,obs_b,obs_l,obs_r) VALUES(?,?,?,?)
-			""",(self.OBS_F_value,self.OBS_B_value,self.OBS_L_value,self.OBS_B_value))
+			UPDATE robot
+			SET obs_f = ?,
+				obs_b = ?,
+				obs_l = ?,
+				obs_r = ?
+			WHERE id = 1
+			""",(self.OBS_L_value,self.OBS_R_value,self.OBS_L_value,self.OBS_R_value))
 
 		conn.commit()
 
