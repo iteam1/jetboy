@@ -1,6 +1,6 @@
 '''
-Run this cml_l.py for control robot's moving
-This program continously read the datbase and execute the command
+This python program control the GPIO of Jetson-Nano board, it read the command from the database and execute it
+run this program at the begining.
 '''
 
 import RPi.GPIO

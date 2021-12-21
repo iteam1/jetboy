@@ -1,3 +1,9 @@
+'''
+Initialize 
+	Database
+	App
+Connect camera d455
+'''
 from flask import Flask   
 from flask_sqlalchemy import SQLAlchemy  
 import robot.realsense_depth as rd

@@ -1,3 +1,6 @@
+'''
+Models for flask server containt Robot class for create a object add to database
+'''
 from robot import db
 
 class Robot(db.Model):

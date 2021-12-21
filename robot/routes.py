@@ -57,17 +57,17 @@ def gen_both():
 def home():
     return render_template("home.html")
 
-@app.route("/helm",methods = ['GET','POST'])
-def helm():
+@app.route("/manual",methods = ['GET','POST'])
+def manual():
 	if request.method == 'POST':
-		command = request.form.get('command')
+		command = request.form.get('command') # If null then not error occur
 		if command:
 			myrobot = Robot.query.get(1)
 			myrobot.command = command 
 			db.session.commit()
 			flash(f'Robot {command}','info')
-		return  redirect(url_for('helm'))
-	return render_template('helm.html')
+		return  redirect(url_for('manual'))
+	return render_template('manual.html')
 
 
 @app.route('/color')
@@ -87,8 +87,8 @@ def content():
 		myrobot.itype = 'info'
 		myrobot.content = content
 		db.session.commit()
-		return render_template('helm.html')
-	return render_template('helm.html')
+		return render_template('manual.html')
+	return render_template('manual.html')
 
 @app.route('/emotion',methods =['GET','POST'])
 def emotion():
@@ -98,8 +98,8 @@ def emotion():
 		myrobot.itype = 'emo'
 		myrobot.emotion = emotion
 		db.session.commit()
-		return render_template('helm.html')
-	return render_template('helm.html')
+		return render_template('manual.html')
+	return render_template('manual.html')
 
 @app.route('/image',methods =['GET','POST'])
 def image():
@@ -109,5 +109,5 @@ def image():
 		myrobot.itype = 'img'
 		myrobot.image = image
 		db.session.commit()
-		return render_template('helm.html')
-	return render_template('helm.html')
+		return render_template('manual.html')
+	return render_template('manual.html')
