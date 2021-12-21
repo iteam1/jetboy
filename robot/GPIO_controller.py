@@ -99,6 +99,14 @@ class controller():
 		Read the input values
 		'''
 
+		c.execute("""
+			SELECT *FROM robot WHERE id = 1
+			""")
+
+		data = c.fetchone() # Get all row
+
+		conn.commit()
+
 		# Read ESTOP from the server ,write it out to database and storage it into robot object
 		self.ESTOP = data[7] # read emergency stop
 

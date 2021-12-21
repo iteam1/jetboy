@@ -29,7 +29,7 @@ float duration_right; // Stores right HC-SR04 pulse duration value in microsecon
 float distance_right; // Stores right HC-SR04 distance value in centimeter
 float soundsp = 34000; // cm/s
 int iterations = 5; // The iteration for ping median function
-float min_distance = 5; //cm
+float min_distance = 35; //cm
 
 int front_warning = A0; // Warning out pin for obstacle
 int back_warning = A1; // Warning out pin for obstacle
