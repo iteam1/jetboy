@@ -117,7 +117,7 @@ class controller():
 		self.OBS_R_value = self.GPIO.input(self.OBS_R_pin) # read right obstacle value
 
 		c.execute("""
-			INSERT INTO robot(estop,obs_f,obs_b,obs_l,obs_r) VALUES(?,?,?,?,?)
+			INSERT INTO robot(obs_f,obs_b,obs_l,obs_r) VALUES(?,?,?,?)
 			""",(self.OBS_F_value,self.OBS_B_value,self.OBS_L_value,self.OBS_B_value))
 
 		conn.commit()
