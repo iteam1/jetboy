@@ -92,24 +92,24 @@ class controller():
 		self.GPIO.output(self.MR_DIR_pin,0)
 		self.GPIO.output(self.ML_DIR_pin,1)
 
-	def bit_forward(time = 0.2):
+	def bit_forward(self,delay):
 		self.forward()
-		time.sleep(time)
+		time.sleep(delay)
 		self.stop()
 
-	def bit_backward(time = 0.2):
+	def bit_backward(self,delay):
 		self.backward()
-		time.sleep(time)
+		time.sleep(delay)
 		self.stop()
 
-	def bit_turnleft(time = 0.2):
+	def bit_turnleft(self,delay):
 		self.turnleft()
-		time.sleep(time)
+		time.sleep(delay)
 		self.stop()
 
-	def bit_turnright(time = 0.2):
+	def bit_turnright(self,delay):
 		self.turnright()
-		time.sleep(time)
+		time.sleep(delay)
 		self.stop()
 
 
