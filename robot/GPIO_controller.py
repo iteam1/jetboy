@@ -92,6 +92,27 @@ class controller():
 		self.GPIO.output(self.MR_DIR_pin,0)
 		self.GPIO.output(self.ML_DIR_pin,1)
 
+	def bit_forward(time = 0.2):
+		self.forward()
+		time.sleep(time)
+		self.stop()
+
+	def bit_backward(time = 0.2):
+		self.backward()
+		time.sleep(time)
+		self.stop()
+
+	def bit_turnleft(time = 0.2):
+		self.turnleft()
+		time.sleep(time)
+		self.stop()
+
+	def bit_turnright(time = 0.2):
+		self.turnright()
+		time.sleep(time)
+		self.stop()
+
+
 	def read_input(self,conn,c):
 		'''
 		conn: the connection to database
