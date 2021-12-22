@@ -2,7 +2,7 @@
 Inherentate Robot from GPIO_controller.py
 '''
 import time 
-from GPIO_controller import controller
+from robot.GPIO_controller import controller
 
 
 robot = controller()
