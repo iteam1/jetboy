@@ -151,7 +151,15 @@ class controller():
 
 		conn.commit()
 
-		print("Updated ultrasonics sensor!")
+		c.execute("""
+			SELECT *FORM robot WHERE id = 1
+			""")
+
+		data = c.fetchone()
+
+		print(data)
+
+		#print("Updated ultrasonics sensor!")
 
 if __name__ == "__main__":
 
