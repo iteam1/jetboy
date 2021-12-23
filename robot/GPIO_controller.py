@@ -151,13 +151,13 @@ class controller():
 
 		conn.commit()
 
-		c.execute("""
-			SELECT *FROM robot WHERE id = 1
-			""")
+		# c.execute("""
+		# 	SELECT *FROM robot WHERE id = 1
+		# 	""")
 
-		data = c.fetchone()
+		# data = c.fetchone()
 
-		print(data)
+		# print(data)
 
 		#print("Updated ultrasonics sensor!")
 
