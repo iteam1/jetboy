@@ -147,7 +147,7 @@ class controller():
 				obs_l = ?,
 				obs_r = ?
 			WHERE id = 1
-			""",(self.OBS_L_value,self.OBS_R_value,self.OBS_L_value,self.OBS_R_value))
+			""",(self.OBS_F_value,self.OBS_B_value,self.OBS_L_value,self.OBS_R_value))
 
 		conn.commit()
 
