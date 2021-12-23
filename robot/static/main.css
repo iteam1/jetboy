@@ -3,6 +3,8 @@ body {
     height: 400px;
 }
 
+/*for button up down right left to control robot moving*/
+
 .top-left {
     top: 0;
     left: 0;
