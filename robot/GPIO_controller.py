@@ -151,6 +151,8 @@ class controller():
 
 		conn.commit()
 
+		print("Updated ultrasonics sensor!")
+
 if __name__ == "__main__":
 
 	controller = controller()
@@ -198,9 +200,12 @@ if __name__ == "__main__":
 			pass
 
 	controller.stop()
+
 	controller.GPIO.cleanup()
 	#RPi.GPIO.cleanup()
+	
 	conn.close()
+	
 	print("Exit cml")
 
 
