@@ -168,7 +168,8 @@ if __name__ == "__main__":
 	c = conn.cursor()
 
 	print("Connected to Robot's database via Command Line!")
-	id = int(input('Enter robot ID: '))
+	# id = int(input('Enter robot ID: '))
+	id = 1
 	print("Robot is running...")
 
 	while True:
