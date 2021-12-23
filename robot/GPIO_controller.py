@@ -164,7 +164,7 @@ class controller():
 if __name__ == "__main__":
 
 	controller = controller()
-	conn = sqlite3.connect("site.db")
+	conn = sqlite3.connect("./robot/site.db") # ./Jetson-Nano
 	c = conn.cursor()
 
 	print("Connected to Robot's database via Command Line!")
@@ -175,7 +175,7 @@ if __name__ == "__main__":
 	while True:
 
 		# Read the command
-		c.execute(f"SELECT *FROM robot WHERE id = {id}")
+		c.execute(f"SELECT *FROM robot WHERE id = 1")
 		#print(c.fetchone()[2]) # you got a tuple of robot record
 		command = c.fetchone()[2]
 		conn.commit()
