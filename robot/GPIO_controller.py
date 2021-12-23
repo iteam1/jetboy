@@ -152,7 +152,7 @@ class controller():
 		conn.commit()
 
 		c.execute("""
-			SELECT *FORM robot WHERE id = 1
+			SELECT *FROM robot WHERE id = 1
 			""")
 
 		data = c.fetchone()
