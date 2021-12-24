@@ -11,7 +11,7 @@ Jetson-nano B01
 
 ## Developing
 - Follow a path automatically
-- Do a sp
+- Do a specific task
 
 ## Required libraries
 The library with have * mark meaning you can not install it with command `pip install -r requirements.txt`

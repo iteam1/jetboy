@@ -66,31 +66,43 @@ class controller():
 
 	def forward(self):
 		self.stop()
-		self.GPIO.output(self.MR_RUN_pin,1)
-		self.GPIO.output(self.ML_RUN_pin,1)
-		self.GPIO.output(self.MR_DIR_pin,1)
-		self.GPIO.output(self.ML_DIR_pin,1)
+		if not self.ESTOP:
+			self.GPIO.output(self.MR_RUN_pin,1)
+			self.GPIO.output(self.ML_RUN_pin,1)
+			self.GPIO.output(self.MR_DIR_pin,1)
+			self.GPIO.output(self.ML_DIR_pin,1)
+		else:
+			print('Emergency stop activated! this command can not execute')
 
 	def backward(self):
 		self.stop()
-		self.GPIO.output(self.MR_RUN_pin,1)
-		self.GPIO.output(self.ML_RUN_pin,1)
-		self.GPIO.output(self.MR_DIR_pin,0)
-		self.GPIO.output(self.ML_DIR_pin,0)
+		if not self.ESTOP:
+			self.GPIO.output(self.MR_RUN_pin,1)
+			self.GPIO.output(self.ML_RUN_pin,1)
+			self.GPIO.output(self.MR_DIR_pin,0)
+			self.GPIO.output(self.ML_DIR_pin,0)
+		else:
+			print('Emergency stop activated! this command can not execute')
 
 	def turnleft(self):
 		self.stop()
-		self.GPIO.output(self.MR_RUN_pin,1)
-		self.GPIO.output(self.ML_RUN_pin,1)
-		self.GPIO.output(self.MR_DIR_pin,1)
-		self.GPIO.output(self.ML_DIR_pin,0)
+		if not self.ESTOP:
+			self.GPIO.output(self.MR_RUN_pin,1)
+			self.GPIO.output(self.ML_RUN_pin,1)
+			self.GPIO.output(self.MR_DIR_pin,1)
+			self.GPIO.output(self.ML_DIR_pin,0)
+		else:
+			print('Emergency stop activated! this command can not execute')
 
 	def turnright(self):
 		self.stop()
-		self.GPIO.output(self.MR_RUN_pin,1)
-		self.GPIO.output(self.ML_RUN_pin,1)
-		self.GPIO.output(self.MR_DIR_pin,0)
-		self.GPIO.output(self.ML_DIR_pin,1)
+		if not self.ESTOP:
+			self.GPIO.output(self.MR_RUN_pin,1)
+			self.GPIO.output(self.ML_RUN_pin,1)
+			self.GPIO.output(self.MR_DIR_pin,0)
+			self.GPIO.output(self.ML_DIR_pin,1)
+		else:
+			print('Emergency stop activated! this command can not execute')
 
 	def bit_forward(self,delay):
 		self.forward()
@@ -111,7 +123,6 @@ class controller():
 		self.turnright()
 		time.sleep(delay)
 		self.stop()
-
 
 	def read_input(self,conn,c):
 		'''
@@ -151,15 +162,40 @@ class controller():
 
 		conn.commit()
 
-		# c.execute("""
-		# 	SELECT *FROM robot WHERE id = 1
-		# 	""")
+	def estop(self,conn,c):
+		'''
+		This function read the estop value in the database and return it
+		'''
+		c.execute("""
+			SELECT *FROM robot WHERE id = 1
+			""")
 
-		# data = c.fetchone()
+		data = c.fetchone() # Get all row
+		conn.commit()
 
-		# print(data)
+		# Read ESTOP from the server 
+		estop = data[7] # read emergency stop
 
-		#print("Updated ultrasonics sensor!")
+		return estop
+
+	def obstacles(self,conn,c):
+		'''
+		This function read the estop value in the database and return it
+		'''
+		c.execute("""
+			SELECT *FROM robot WHERE id = 1
+			""")
+
+		data = c.fetchone() # Get all row
+		conn.commit()
+
+		# Read ESTOP from the server 
+		obs_f = data[8] # read front ultrasonics sensors
+		obs_b = data[9] # read back ultrasonics sensors
+		obs_l = data[10] # read left ultrasonics sensors
+		obs_r = data[11] # read right ultrasonics sensors
+
+		return obs_f,obs_b,obs_l,obs_r
 
 if __name__ == "__main__":
 
@@ -180,7 +216,7 @@ if __name__ == "__main__":
 		command = c.fetchone()[2]
 		conn.commit()
 
-		# Read the input
+		# Read the input Allway read the input and write it into the database
 		controller.read_input(conn,c)
 		#print(controller.ESTOP,controller.OBS_F_value,controller.OBS_B_value,controller.OBS_L_value,controller.OBS_R_value)
 
@@ -189,11 +225,13 @@ if __name__ == "__main__":
 			print("Stop motor & Clean up")
 			break
 
+		# continously moving 
 		elif command == "stop":
 			controller.stop()
 
 		elif command == "forward":
 			controller.forward()
+
 
 		elif command == "backward":
 			controller.backward()
@@ -203,6 +241,19 @@ if __name__ == "__main__":
 
 		elif command == "turnright":
 			controller.turnright()
+			
+		# moving a bit and stop
+		# elif command == "bit_forward":
+		#	controller.bit_forward()
+
+		# elif command == "bit_backward":
+		# 	controller.bit_backward()
+
+		# elif command == "bit_turnleft":
+		# 	controller.bit_turnleft()
+
+		# elif command == "bit_turnright":
+		#	controller.bit_turnright()
 
 		else:
 			print("Command does not Exist!")
