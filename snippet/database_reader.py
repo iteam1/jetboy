@@ -1,12 +1,14 @@
 '''
 This python program continously read all value of the database print it out the screen
+Run this python program on the directory ./Jetson-Nano
 '''
+
 import sqlite3
 import time  
 
 id = int(input("What is your robot's id? "))
 
-conn = sqlite3.connect('./site.db') # Create the connection to the database
+conn = sqlite3.connect('./robot/site.db') # Create the connection to the database
 
 c = conn.cursor() # Create the cursor for the connection
 
