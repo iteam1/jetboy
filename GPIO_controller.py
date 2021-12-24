@@ -240,7 +240,7 @@ if __name__ == "__main__":
 		command = controller.command()
 
 		# Read the input Allway read the input and write it into the database
-		controller.update_input(conn,c)
+		controller.update_input()
 		#print(controller.ESTOP,controller.OBS_F_value,controller.OBS_B_value,controller.OBS_L_value,controller.OBS_R_value)
 
 		#Write the output
