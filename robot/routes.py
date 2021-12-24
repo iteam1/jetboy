@@ -63,11 +63,15 @@ def manual():
 		command = request.form.get('command') # If null then not error occur
 		if command:
 			myrobot = Robot.query.get(1)
-			myrobot.command = command 
+			myrobot.command = command
+			estop = myrobot.estop # query estop value
 			db.session.commit()
 			flash(f'Robot {command}','info')
 		return  redirect(url_for('manual'))
-	return render_template('manual.html')
+		render_template('manual.html',estop)
+	myrobot = Robot.query.get(1)
+	estop = myrobot.estop # query estop value	
+	return render_template('manual.html',estop = estop)
 
 
 @app.route('/color')
@@ -79,35 +83,52 @@ def depthstream():
 	return Response(gen_depthframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
 
 
-@app.route('/content',methods =['GET','POST'])
+@app.route('/content',methods =['POST'])
 def content():
-	if request.method == 'POST':
-		content = request.form.get('content')
-		myrobot = Robot.query.get(1)
-		myrobot.itype = 'info'
-		myrobot.content = content
-		db.session.commit()
-		return render_template('manual.html')
-	return render_template('manual.html')
+	#if request.method == 'POST':
+	content = request.form.get('content')
+	myrobot = Robot.query.get(1)
+	myrobot.itype = 'info'
+	myrobot.content = content
+	estop = myrobot.estop # query estop value	
+	db.session.commit()
+	return render_template('manual.html',estop = estop)
+	
 
-@app.route('/emotion',methods =['GET','POST'])
+@app.route('/emotion',methods =['POST'])
 def emotion():
-	if request.method == 'POST':
-		emotion = request.form.get('emotion')
-		myrobot = Robot.query.get(1)
-		myrobot.itype = 'emo'
-		myrobot.emotion = emotion
-		db.session.commit()
-		return render_template('manual.html')
-	return render_template('manual.html')
+	emotion = request.form.get('emotion')
+	myrobot = Robot.query.get(1)
+	myrobot.itype = 'emo'
+	myrobot.emotion = emotion
+	estop = myrobot.estop # query estop value	
+	db.session.commit()
+	return render_template('manual.html',estop = estop)
+	
 
 @app.route('/image',methods =['GET','POST'])
 def image():
-	if request.method == 'POST':
-		image = request.form.get('image')
-		myrobot = Robot.query.get(1)
-		myrobot.itype = 'img'
-		myrobot.image = image
+	image = request.form.get('image')
+	myrobot = Robot.query.get(1)
+	myrobot.itype = 'img'
+	myrobot.image = image
+	estop = myrobot.estop # query estop value	
+	db.session.commit()
+	return render_template('manual.html',estop = estop)
+
+@app.route('/estop',methods = ['POST'])
+def estop():
+	'''
+	Read estop in database, if estop = 1 set estop = 0
+	if estop = 0, set estop = 1
+	'''
+	#if request.method == 'POST':
+	myrobot = Robot.query.get(1)
+	if myrobot.estop == 0:
+		myrobot.estop = 1
 		db.session.commit()
-		return render_template('manual.html')
-	return render_template('manual.html')
+		return render_template('manual.html',estop = myrobot.estop)
+	else:
+		myrobot.estop = 0
+		db.session.commit()
+		return render_template('manual.html',estop = myrobot.estop)

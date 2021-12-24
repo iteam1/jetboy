@@ -3,6 +3,22 @@
 {% block content %}
     <h1 style="color:green;text-align:center;">Jetboy's manual panel</h1>
     <br>
+
+    <div clas = 'row'>
+        <form action = "{{ url_for('estop') }}" method = 'POST'>
+            <small class="form-text text-muted">.</small>
+            <p class = 'text-center'>
+                {% if estop == True %}
+                    <button type="Estop" class="btn btn-danger mb-4">Estop</button>
+                {% else %}
+                    <button type="Estop" class="btn btn-primary mb-6">Estop</button>
+                {% endif %}
+            </p>
+        </form>
+        <!--{{estop}} -->
+    </div>
+    <br><br><br><br>
+
     <div class = 'container h-100'>
         <div class="position-relative h-100">
             <div class="position-absolute top-center">
@@ -16,7 +32,7 @@
             <div class="position-absolute mid-center">
                 <form action = "{{ url_for('manual') }}" method = 'POST'>
                     <input type = 'hidden' name = 'command' id = 'command'  value = 'stop'>
-                    <button class= 'btn btn-danger'>Stop</button>
+                    <button class= 'btn btn-warning'>Stop</button>
                 </form>
             </div>
             <br><br><br><br>
