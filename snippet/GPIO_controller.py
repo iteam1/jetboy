@@ -221,7 +221,7 @@ class controller():
 
 	def command(self):
 		self.c.execute(f"SELECT *FROM robot WHERE id = 1")
-		command = self.fetchone()[2]
+		command = self.conn.fetchone()[2]
 		self.conn.commit()
 		return command
 
