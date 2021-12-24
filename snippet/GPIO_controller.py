@@ -78,7 +78,7 @@ class controller():
 		self.stop()
 		# update all signals for the controller before you run
 		self.update_input()
-		print(self.ESTOP)
+		# print(self.ESTOP)
 		if not self.ESTOP:
 			self.GPIO.output(self.MR_RUN_pin,1)
 			self.GPIO.output(self.ML_RUN_pin,1)
@@ -91,7 +91,7 @@ class controller():
 		self.stop()
 		# update all signals for the controller before you run
 		self.update_input()
-		print(self.ESTOP)
+		# print(self.ESTOP)
 		if not self.ESTOP:
 			self.GPIO.output(self.MR_RUN_pin,1)
 			self.GPIO.output(self.ML_RUN_pin,1)
@@ -104,7 +104,7 @@ class controller():
 		self.stop()
 		# update all signals for the controller before you run
 		self.update_input()
-		print(self.ESTOP)
+		# print(self.ESTOP)
 		if not self.ESTOP:
 			self.GPIO.output(self.MR_RUN_pin,1)
 			self.GPIO.output(self.ML_RUN_pin,1)
@@ -117,7 +117,7 @@ class controller():
 		self.stop()
 		# update all signals for the controller before you run
 		self.update_input()
-		print(self.ESTOP)
+		# print(self.ESTOP)
 		if not self.ESTOP:
 			self.GPIO.output(self.MR_RUN_pin,1)
 			self.GPIO.output(self.ML_RUN_pin,1)
@@ -219,9 +219,15 @@ class controller():
 
 		return obs_f,obs_b,obs_l,obs_r
 
+	def command(self):
+		self.c.execute(f"SELECT *FROM robot WHERE id = 1")
+		command = self.fetchone()[2]
+		self.conn.commit()
+		return command
+
 if __name__ == "__main__":
 
-	controller = controller()
+	controller = controller() # Create object as default keywords 
 
 	print("Connected to Robot's database via Command Line!")
 	# id = int(input('Enter robot ID: '))
@@ -231,10 +237,7 @@ if __name__ == "__main__":
 	while True:
 
 		# Read the command
-		c.execute(f"SELECT *FROM robot WHERE id = 1")
-		#print(c.fetchone()[2]) # you got a tuple of robot record
-		command = c.fetchone()[2]
-		conn.commit()
+		command = controller.command()
 
 		# Read the input Allway read the input and write it into the database
 		controller.update_input(conn,c)
