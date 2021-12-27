@@ -2,9 +2,9 @@
 Author: locchuong
 Updated: 27/12/21
 Description:
-This python program contain a object connect to GPIO pins and test robot's moving
-without connection to the database, robot will moving follow the instruction from the input
-
+	This python program contain a object connect to GPIO pins and test robot's moving
+	without connection to the database, robot will moving follow the instruction from the input
+	Also use this program to log the moving command
 '''
 
 import RPi.GPIO
@@ -95,4 +95,38 @@ class controller():
 		time.sleep(delay)
 		self.stop()
 
+# Create robot object
+
+robot = controller()
+
+if __name__ == '__main__':
+
+	print("Test controlling robot's moving ")
+
+	print('''
+		Command:
+			- terminate: x
+			- stop : t
+			- forward : f
+			- backward : b
+			- turnleft: l
+			- turnright: r
+			- bit_forward: w
+			- bit_backward: s
+			- bit_turnleft: a
+			- bit_turnright: d
+		''')
+
+	while True:
+
+		command = input("Robot's command? ")
+
+		if command == "x":
+			print("Terminate testing robot's moving! ")
+			break 
+		elif command == "t":
+			robot.stop()
+
+		elif command == "t":
+			robot.stop()
 

@@ -2,24 +2,24 @@
 Author: locchuong
 Updated: 27/12/21
 Description:
-This python program display robot's GUI by tkinter
-These ones in the robot database will be use:
+	This python program display robot's GUI by tkinter
+	These ones in the robot database will be use:
 
-1/ id: is the robot id (primary key)
-2/ name: robot's name
+	1/ id: is the robot id (primary key)
+	2/ name: robot's name
 
-# Control robot's GUI display on the screen
+	# Control robot's GUI display on the screen
 
-4/ content: the sentence content will display on the robot screen for TEXT,WORDS DISPLAY
-5/ emotion: the name of gif image will display on the robot screen for GIF,EMOTION DISPLAY
-6/ image: the name of the image will display on the robot screen for IMAGE DISPLAY
-7/ itype: the content's type will display on the robot
-	value:
-		- info: display content on the screen
-		- emo: display emotion or gif on the screen
-		- img: display the image on the screen
+	4/ content: the sentence content will display on the robot screen for TEXT,WORDS DISPLAY
+	5/ emotion: the name of gif image will display on the robot screen for GIF,EMOTION DISPLAY
+	6/ image: the name of the image will display on the robot screen for IMAGE DISPLAY
+	7/ itype: the content's type will display on the robot
+		value:
+			- info: display content on the screen
+			- emo: display emotion or gif on the screen
+			- img: display the image on the screen
 
-This program continously read the database and display it
+	This program continously read the database and display it
 '''
 
 import tkinter 

@@ -2,7 +2,7 @@
 Author: locchuong
 Updated: 27/12/21
 Description:
-Test module aruco of opencv-contrib-python
+    Test module aruco of opencv-contrib-python
 '''
 import cv2 
 from cv2 import aruco

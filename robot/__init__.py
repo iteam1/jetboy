@@ -2,10 +2,10 @@
 Author: locchuong
 Updated: 27/12/21
 Description:
-Initialize 
-	Database
-	App
-Connect camera d455
+	- Initialize: 
+		+ Database
+		+ App
+	- Connect camera d455
 '''
 from flask import Flask   
 from flask_sqlalchemy import SQLAlchemy  

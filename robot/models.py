@@ -2,7 +2,7 @@
 Author: locchuong
 Updated: 27/12/21
 Description:
-Models for flask server containt Robot class for create a object add to database
+	Models for flask server containt Robot class for create a object add to database
 '''
 from robot import db
 

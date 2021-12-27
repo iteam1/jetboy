@@ -2,10 +2,10 @@
 Author: locchuong
 Updated: 27/12/21
 Description:
-This python program control the GPIO of Jetson-Nano board, it read the command from the database and execute it
-run this program at the begining.
-If you import class controller from ./Jetson-Nano the GPIO_controller will run from the top to the end of the class controlle
-meaning it will create the connection and the cursor to the database and input this to class controller
+	This python program control the GPIO of Jetson-Nano board, it read the command from the database and execute it
+	run this program at the begining.
+	If you import class controller from ./Jetson-Nano the GPIO_controller will run from the top to the end of the class controlle
+	meaning it will create the connection and the cursor to the database and input this to class controller
 '''
 
 import RPi.GPIO
