@@ -120,27 +120,27 @@ def on_press(key):
 	global robot
 	# print("{0} pressed".format(key.char))
 	if key == Key.up:
-		m = " [ " + str(time.asctime()) + " ]: " + "bit_forward"
+		m = " [ " + str(time.asctime()) + " ]@" + "bit_forward"
 		print(m)
 		log(m)
 		robot.bit_forward(0.3)
 	elif key == Key.down:
-		m = " [ " + str(time.asctime()) + " ]: " + "bit_backward"
+		m = " [ " + str(time.asctime()) + " ]@" + "bit_backward"
 		print(m)
 		log(m)
 		robot.bit_backward(0.3)
 	elif key == Key.left:
-		m = " [ " + str(time.asctime()) + " ]: " + "bit_turnleft"
+		m = " [ " + str(time.asctime()) + " ]@" + "bit_turnleft"
 		print(m)
 		log(m)
 		robot.bit_turnleft(0.1)
 	elif key == Key.right:
-		m = " [ " + str(time.asctime()) + " ]: " + "bit_turnright"
+		m = " [ " + str(time.asctime()) + " ]@" + "bit_turnright"
 		print(m)
 		log(m)
 		robot.bit_turnright(0.1)
 	elif key == Key.esc:
-		m = " [ " + str(time.asctime()) + " ]: " + "Exit now ..."
+		m = " [ " + str(time.asctime()) + " ]@" + "Exit now ..."
 		print(m)
 		log(m)
 		robot.stop()

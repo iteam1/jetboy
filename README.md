@@ -14,13 +14,14 @@ Jetson-nano B01
 - Do a specific task
 
 ## Required libraries
-The library with have * mark meaning you can not install it with command `pip install -r requirements.txt`
+The library with have * mark meaning you can not install it with command `pip install -r requirements.txt`, (*) meaning can not install this library normally
 - jetson.GPIO (*This libary is built-in jetson-nano board or rasberry pi board, and just can run on this hardware)
-- flask
-- flask_sqlachemy
-- sqlite3
-- tkinter
+- flask `pip3 install flask`
+- flask_sqlachemy `pip3 install flask_sqlalchemy`
+- sqlite3  (builtin lib)
+- tkinter (builtin lib)
 - pyrealsense2  (*)
-- opencv-contrib-python
-- os
+- opencv-contrib-python (*)
+- os (builtin lib)
+- pynput `pip3 install pynput`
     
