@@ -1,3 +1,4 @@
-hello
-my
-ndsfghgfhhh
+ [ Mon Dec 27 16:25:52 2021 ]: bit_backward
+ [ Mon Dec 27 16:25:52 2021 ]: bit_backward
+ [ Mon Dec 27 16:25:52 2021 ]: bit_backward
+ [ Mon Dec 27 16:25:54 2021 ]: Exit now ...

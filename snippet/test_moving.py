@@ -11,6 +11,7 @@ import RPi.GPIO
 import sqlite3 
 import time
 import pynput 
+global releaseListening
 from pynput.keyboard import Key,Listener 
 
 # OUTPUT pins name
@@ -101,28 +102,47 @@ robot = controller()
 
 # Key logger function
 
+def create_file():
+	with open("log.txt",'w') as f:
+		print("Created log.txt")
+
+
+def log(message):
+	'''
+	If you use 'w' meaning write mode, it will create a log.txt file if you don't have one
+	If you use 'a' meaning append mode, it will append log.txt 's content  
+	'''
+	with open("log.txt","a") as f:
+		f.write(message)
+		f.write("\n")
+
 def on_press(key): 
 	global robot
 	# print("{0} pressed".format(key.char))
 	if key == Key.up:
 		m = " [ " + str(time.asctime()) + " ]: " + "bit_forward"
 		print(m)
+		log(m)
 		robot.bit_forward(0.3)
 	elif key == Key.down:
 		m = " [ " + str(time.asctime()) + " ]: " + "bit_backward"
 		print(m)
+		log(m)
 		robot.bit_backward(0.3)
 	elif key == Key.left:
 		m = " [ " + str(time.asctime()) + " ]: " + "bit_turnleft"
 		print(m)
+		log(m)
 		robot.bit_turnleft(0.1)
 	elif key == Key.right:
 		m = " [ " + str(time.asctime()) + " ]: " + "bit_turnright"
 		print(m)
+		log(m)
 		robot.bit_turnright(0.1)
 	elif key == Key.esc:
 		m = " [ " + str(time.asctime()) + " ]: " + "Exit now ..."
 		print(m)
+		log(m)
 		robot.stop()
 		robot.GPIO.cleanup()
 		exit()
@@ -136,6 +156,8 @@ def on_release(key):
 if __name__ == '__main__':
 
 	print("Test controlling robot's moving ")
+
+	create_file()
 
 	print('''
 		Command:
