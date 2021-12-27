@@ -18,8 +18,7 @@ MR_DIR_pin = 22 # motor right direction
 MR_RUN_pin = 21 # motor right run
 
 class controller():
-	def __init__(self,ML_DIR_pin = ML_DIR_pin,ML_RUN_pin = ML_RUN_pin,MR_DIR_pin = MR_DIR_pin,MR_RUN_pin = MR_RUN_pin,
-					OBS_F_pin = OBS_F_pin,OBS_B_pin = OBS_B_pin,OBS_L_pin = OBS_L_pin,OBS_R_pin = OBS_R_pin,GPIO = RPi.GPIO):
+	def __init__(self,ML_DIR_pin = ML_DIR_pin,ML_RUN_pin = ML_RUN_pin,MR_DIR_pin = MR_DIR_pin,MR_RUN_pin = MR_RUN_pin,GPIO = RPi.GPIO):
 		
 		self.ML_DIR_pin = ML_DIR_pin # driver left dir pin
 		self.ML_RUN_pin = ML_RUN_pin # driver left run pin
@@ -124,9 +123,47 @@ if __name__ == '__main__':
 		if command == "x":
 			print("Terminate testing robot's moving! ")
 			break 
-		elif command == "t":
-			robot.stop()
 
 		elif command == "t":
 			robot.stop()
+			print("Stop")
+
+		elif command == "f":
+			robot.forward()
+			print("Forward")
+
+		elif command == "b":
+			robot.backward()
+			print("Backward")
+
+		elif command == "l":
+			robot.turnleft()
+			print("TurnLeft")
+
+		elif command == "r":
+			robot.turnright()
+			print("TurnRight")
+
+		elif command == "w":
+			robot.bit_forward(0.5)
+			print("bit Forward")
+
+		elif command == "s":
+			robot.bit_backward(0.5)
+			print("bit Backward")
+
+		elif command == "a":
+			robot.bit_turnleft(0.2)
+			print("bit TurnLeft")
+
+		elif command == "d":
+			robot.bit_turnright(0.2)
+			print("bit TurnRight")
+
+		else:
+			print(f'{command} is not available!')
+
+	print("Done testing!, Exitting...")
+
+	exit()
 
