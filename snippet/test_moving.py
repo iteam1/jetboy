@@ -50,7 +50,7 @@ class controller():
 		self.GPIO.output(self.ML_RUN_pin,1)
 		self.GPIO.output(self.MR_DIR_pin,1)
 		self.GPIO.output(self.ML_DIR_pin,1)
-		self.stop()
+		#self.stop()
 
 
 	def backward(self):
@@ -58,21 +58,21 @@ class controller():
 		self.GPIO.output(self.ML_RUN_pin,1)
 		self.GPIO.output(self.MR_DIR_pin,0)
 		self.GPIO.output(self.ML_DIR_pin,0)
-		self.stop()
+		#self.stop()
 
 	def turnleft(self):
 		self.GPIO.output(self.MR_RUN_pin,1)
 		self.GPIO.output(self.ML_RUN_pin,1)
 		self.GPIO.output(self.MR_DIR_pin,1)
 		self.GPIO.output(self.ML_DIR_pin,0)
-		self.stop()
+		#self.stop()
 
 	def turnright(self):
 		self.GPIO.output(self.MR_RUN_pin,1)
 		self.GPIO.output(self.ML_RUN_pin,1)
 		self.GPIO.output(self.MR_DIR_pin,0)
 		self.GPIO.output(self.ML_DIR_pin,1)
-		self.stop()
+		#self.stop()
 
 	def bit_forward(self,delay):
 		self.forward()
