@@ -1,4 +1,7 @@
 '''
+Author: locchuong
+Updated: 27/12/21
+Description:
 This python program display robot's GUI by tkinter
 These ones in the robot database will be use:
 

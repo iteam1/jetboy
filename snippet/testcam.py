@@ -1,4 +1,7 @@
 '''
+Author: locchuong
+Updated: 27/12/21
+Description:
 Test stream camera with opencv-contrib-python library
 '''
 

@@ -1,3 +1,9 @@
+'''
+Author: locchuong
+Updated: 27/12/21
+Description:
+This python program read GPIO pins connected to the ultra sensor signal and print it out
+'''
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BOARD)

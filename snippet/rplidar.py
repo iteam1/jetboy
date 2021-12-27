@@ -1,3 +1,11 @@
+
+'''
+Author: locchuong
+Updated: 27/12/21
+Description:
+This python program create object connect to RPLidar A1 sensor and return
+the signal each interation
+'''
 '''Simple and lightweight module for working with RPLidar rangefinder scanners.
 
 Usage example:

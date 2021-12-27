@@ -1,3 +1,9 @@
+'''
+Author: locchuong
+Updated: 27/12/21
+Description: 
+This is contain routes of the flask server
+'''
 from flask import render_template,request,Response,flash,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 import cv2 

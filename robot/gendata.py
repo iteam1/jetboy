@@ -1,4 +1,7 @@
 '''
+Author: locchuong
+Updated: 27/12/21
+Description:
 If you don't have a database, first you create the database table by this program,
 Then from robot import db (The database you just created)
 Then from robot.models import Robot (class) , create a robot object and add it to your database

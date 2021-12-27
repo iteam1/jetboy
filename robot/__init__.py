@@ -1,4 +1,7 @@
 '''
+Author: locchuong
+Updated: 27/12/21
+Description:
 Initialize 
 	Database
 	App
