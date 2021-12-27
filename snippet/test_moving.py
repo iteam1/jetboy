@@ -46,33 +46,33 @@ class controller():
 		self.GPIO.output(self.ML_RUN_pin,0)
 
 	def forward(self):
+		self.stop() # this command will stop your robot if you put it in the end of this function
 		self.GPIO.output(self.MR_RUN_pin,1)
 		self.GPIO.output(self.ML_RUN_pin,1)
 		self.GPIO.output(self.MR_DIR_pin,1)
 		self.GPIO.output(self.ML_DIR_pin,1)
-		self.stop()
-
-
+		
 	def backward(self):
+		self.stop() # this command will stop your robot if you put it in the end of this function
 		self.GPIO.output(self.MR_RUN_pin,1)
 		self.GPIO.output(self.ML_RUN_pin,1)
 		self.GPIO.output(self.MR_DIR_pin,0)
 		self.GPIO.output(self.ML_DIR_pin,0)
-		self.stop()
 
 	def turnleft(self):
+		self.stop() # this command will stop your robot if you put it in the end of this function
 		self.GPIO.output(self.MR_RUN_pin,1)
 		self.GPIO.output(self.ML_RUN_pin,1)
 		self.GPIO.output(self.MR_DIR_pin,1)
 		self.GPIO.output(self.ML_DIR_pin,0)
-		self.stop()
 
 	def turnright(self):
+		self.stop() # this command will stop your robot if you put it in the end of this function
 		self.GPIO.output(self.MR_RUN_pin,1)
 		self.GPIO.output(self.ML_RUN_pin,1)
 		self.GPIO.output(self.MR_DIR_pin,0)
 		self.GPIO.output(self.ML_DIR_pin,1)
-		self.stop()
+		#self.stop()
 
 	def bit_forward(self,delay):
 		self.forward()
@@ -145,19 +145,19 @@ if __name__ == '__main__':
 			print("TurnRight")
 
 		elif command == "w":
-			robot.bit_forward(0.5)
+			robot.bit_forward(0.3)
 			print("bit Forward")
 
 		elif command == "s":
-			robot.bit_backward(0.5)
+			robot.bit_backward(0.3)
 			print("bit Backward")
 
 		elif command == "a":
-			robot.bit_turnleft(0.2)
+			robot.bit_turnleft(0.1)
 			print("bit TurnLeft")
 
 		elif command == "d":
-			robot.bit_turnright(0.2)
+			robot.bit_turnright(0.1)
 			print("bit TurnRight")
 
 		else:
@@ -166,4 +166,6 @@ if __name__ == '__main__':
 	print("Done testing!, Exitting...")
 
 	exit()
+
+	robot.GPIO.cleanup()
 
