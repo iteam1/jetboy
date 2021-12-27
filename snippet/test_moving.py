@@ -9,7 +9,9 @@ Description:
 
 import RPi.GPIO
 import sqlite3 
-import time 
+import time
+import pynput 
+from pynput.keyboard import Key,Listener 
 
 # OUTPUT pins name
 ML_DIR_pin = 24 # motor left direction
@@ -97,6 +99,40 @@ class controller():
 
 robot = controller()
 
+# Key logger function
+
+def on_press(key): 
+	global robot
+	# print("{0} pressed".format(key.char))
+	if key == Key.up:
+		m = " [ " + str(time.asctime()) + " ]: " + "bit_forward"
+		print(m)
+		robot.bit_forward(0.3)
+	elif key == Key.down:
+		m = " [ " + str(time.asctime()) + " ]: " + "bit_backward"
+		print(m)
+		robot.bit_backward(0.3)
+	elif key == Key.left:
+		m = " [ " + str(time.asctime()) + " ]: " + "bit_turnleft"
+		print(m)
+		robot.bit_turnleft(0.1)
+	elif key == Key.right:
+		m = " [ " + str(time.asctime()) + " ]: " + "bit_turnright"
+		print(m)
+		robot.bit_turnright(0.1)
+	elif key == Key.esc:
+		m = " [ " + str(time.asctime()) + " ]: " + "Exit now ..."
+		print(m)
+		robot.stop()
+		robot.GPIO.cleanup()
+		exit()
+	else:
+		print("{0} is not available!".format(key))
+
+def on_release(key):
+	if key == Key.esc:
+		return False # Return false will break the loop
+
 if __name__ == '__main__':
 
 	print("Test controlling robot's moving ")
@@ -113,54 +149,11 @@ if __name__ == '__main__':
 			- bit_backward: s
 			- bit_turnleft: a
 			- bit_turnright: d
+		listening...
 		''')
 
-	while True:
-
-		command = input("Robot's command? ")
-
-		if command == "x":
-			print("Terminate testing robot's moving! ")
-			break 
-
-		elif command == "t":
-			robot.stop()
-			print("Stop")
-
-		elif command == "f":
-			robot.forward()
-			print("Forward")
-
-		elif command == "b":
-			robot.backward()
-			print("Backward")
-
-		elif command == "l":
-			robot.turnleft()
-			print("TurnLeft")
-
-		elif command == "r":
-			robot.turnright()
-			print("TurnRight")
-
-		elif command == "w":
-			robot.bit_forward(0.3)
-			print("bit Forward")
-
-		elif command == "s":
-			robot.bit_backward(0.3)
-			print("bit Backward")
-
-		elif command == "a":
-			robot.bit_turnleft(0.1)
-			print("bit TurnLeft")
-
-		elif command == "d":
-			robot.bit_turnright(0.1)
-			print("bit TurnRight")
-
-		else:
-			print(f'{command} is not available!')
+	with Listener(on_press = on_press, on_release = on_release) as listener:
+		listener.join()
 
 	print("Done testing!, Exitting...")
 
