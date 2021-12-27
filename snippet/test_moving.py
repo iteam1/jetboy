@@ -165,7 +165,7 @@ if __name__ == '__main__':
 
 	print("Done testing!, Exitting...")
 
-	exit()
-
 	robot.GPIO.cleanup()
+
+	exit()
 
