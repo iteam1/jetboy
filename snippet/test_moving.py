@@ -51,23 +51,13 @@ class controller():
 		self.GPIO.output(self.ML_RUN_pin,1)
 		self.GPIO.output(self.MR_DIR_pin,1)
 		self.GPIO.output(self.ML_DIR_pin,1)
-<<<<<<< HEAD
-		
-=======
-		#self.stop()
 
-
->>>>>>> 0b3aeac67ba40152b5ef7942df8ddf4149c0356c
 	def backward(self):
 		self.stop() # this command will stop your robot if you put it in the end of this function
 		self.GPIO.output(self.MR_RUN_pin,1)
 		self.GPIO.output(self.ML_RUN_pin,1)
 		self.GPIO.output(self.MR_DIR_pin,0)
 		self.GPIO.output(self.ML_DIR_pin,0)
-<<<<<<< HEAD
-=======
-		#self.stop()
->>>>>>> 0b3aeac67ba40152b5ef7942df8ddf4149c0356c
 
 	def turnleft(self):
 		self.stop() # this command will stop your robot if you put it in the end of this function
@@ -75,10 +65,6 @@ class controller():
 		self.GPIO.output(self.ML_RUN_pin,1)
 		self.GPIO.output(self.MR_DIR_pin,1)
 		self.GPIO.output(self.ML_DIR_pin,0)
-<<<<<<< HEAD
-=======
-		#self.stop()
->>>>>>> 0b3aeac67ba40152b5ef7942df8ddf4149c0356c
 
 	def turnright(self):
 		self.stop() # this command will stop your robot if you put it in the end of this function
@@ -86,7 +72,6 @@ class controller():
 		self.GPIO.output(self.ML_RUN_pin,1)
 		self.GPIO.output(self.MR_DIR_pin,0)
 		self.GPIO.output(self.ML_DIR_pin,1)
-		#self.stop()
 
 	def bit_forward(self,delay):
 		self.forward()
