@@ -115,7 +115,7 @@ def do_log(robot,instruction,inter_t):
 	Read the instruction and make robot do follow it
 	'''
 	print("Doing task...")
-	for move in instruction:
+	for i,move in enumerate(instruction):
 		
 		# Check estop contion
 		if estop == "x":
@@ -123,16 +123,16 @@ def do_log(robot,instruction,inter_t):
 			break
 		
 		if move == 'bit_forward':
-			print(f'robot {move}')
-			robot.bit_forward(0.3)
+			print(i,f' robot {move}')
+			robot.bit_forward(0.5)
 		elif move == 'bit_backward':
-			print(f'robot {move}')
+			print(i,f' robot {move}')
 			robot.bit_backward(0.3)
 		elif move == 'bit_turnleft':
-			print(f'robot {move}')
+			print(i,f' robot {move}')
 			robot.bit_turnleft(0.1)
 		elif move == 'bit_turnright':
-			print(f'robot {move}')
+			print(i,f' robot {move}')
 			robot.bit_turnright(0.1)
 		elif move == 'exit':
 			robot.stop()
