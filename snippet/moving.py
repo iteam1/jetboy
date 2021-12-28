@@ -2,8 +2,8 @@
 Author: locchuong
 Updated: 28/12/21
 Description:
-	Inherentate from robot_gpio.py controller class, this class connect to robot database, read and update the signal
-	Inherentate from test_moving.py
+	Inheritance from robot_gpio.py controller class, this class connect to robot database, read and update the signal
+	Inheritance from test_moving.py
 		- contoller, this class ignore robot database
 		- read_log, this function will read the log.txt and return a instruction
 		- do_log, this function will tell robot do the instruction 
