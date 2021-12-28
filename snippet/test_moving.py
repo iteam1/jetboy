@@ -1,6 +1,6 @@
 '''
 Author: locchuong
-Updated: 27/12/21
+Updated: 28/12/21
 Description:
 	This python program contain a object connect to GPIO pins and test robot's moving
 	without connection to the database, robot will moving follow the instruction from the input
@@ -100,17 +100,19 @@ class controller():
 		self.stop()
 
 # Create robot object
-
 robot = controller()
 
-# Key logger function
-
-def create_file():
+# Logger function
+def create_log():
+	'''
+	Create a log.txt
+	'''
 	with open("log.txt",'w') as f:
 		print("Created log.txt")
 
-def log(message):
+def add_log(message):
 	'''
+	Write into log.txt file everytime you press 
 	If you use 'w' meaning write mode, it will create a log.txt file if you don't have one
 	If you use 'a' meaning append mode, it will append log.txt 's content 
 	If the log_con = y it will log the key presses, else pass
@@ -123,34 +125,78 @@ def log(message):
 	else: 
 		pass
 
+def read_log(path = "./log.txt",mode = "r"):
+	'''
+	Read the log file and return a list of moving, this is the instruction, robot will read this instruction and do like this instruction
+	'''
+	instruction = []
+	f = open(path,mode)
+	content = f.read()
+	e = content.split("\n") # return a list
+	for i in e:
+		move =  i.split("@")
+		instruction.append(move[-1])
 
+	return instruction
+# Unkeyword arguments meaning uninitial value
+def do_log(robot,instruction,inter_t):
+
+	'''
+	Read the instruction and make robot do follow it
+	'''
+	print(instruction)
+
+	for move in instruction:
+		if move == 'bit_forward':
+			print(f'robot {move}')
+			robot.bit_forward(0.3)
+		elif move == 'bit_backward':
+			print(f'robot {move}')
+			robot.bit_backward(0.3)
+		elif move == 'bit_turnleft':
+			print(f'robot {move}')
+			robot.bit_turnleft(0.1)
+		elif move == 'bit_turnright':
+			print(f'robot {move}')
+			robot.bit_turnright(0.1)
+		elif move == 'exit':
+			robot.stop()
+			print("The instruction is completed.")
+			exit()
+		else:
+			print("This move is not avaiable!")
+
+		time.sleep(inter_t) # Robot must take this time to do the instruction
+
+
+# Key listener function
 def on_press(key): 
 	global robot
 	# print("{0} pressed".format(key.char))
 	if key == Key.up:
 		m = " [ " + str(time.asctime()) + " ]@" + "bit_forward"
 		print(m)
-		log(m)
+		add_log(m)
 		robot.bit_forward(0.3)
 	elif key == Key.down:
 		m = " [ " + str(time.asctime()) + " ]@" + "bit_backward"
 		print(m)
-		log(m)
+		add_log(m)
 		robot.bit_backward(0.3)
 	elif key == Key.left:
 		m = " [ " + str(time.asctime()) + " ]@" + "bit_turnleft"
 		print(m)
-		log(m)
+		add_log(m)
 		robot.bit_turnleft(0.1)
 	elif key == Key.right:
 		m = " [ " + str(time.asctime()) + " ]@" + "bit_turnright"
 		print(m)
-		log(m)
+		add_log(m)
 		robot.bit_turnright(0.1)
 	elif key == Key.esc:
-		m = " [ " + str(time.asctime()) + " ]@" + "Exit now ..."
+		m = " [ " + str(time.asctime()) + " ]@" + "exit"
 		print(m)
-		log(m)
+		add_log(m)
 		robot.stop()
 		robot.GPIO.cleanup()
 		exit()
@@ -172,7 +218,7 @@ if __name__ == '__main__':
 			break
 
 	if log_con == "y":
-		create_file()
+		create_log()
 
 	print('''
 		Command:
