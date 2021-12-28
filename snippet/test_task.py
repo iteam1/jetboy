@@ -2,24 +2,21 @@
 Author: locchuong
 Updated: 28/12/21
 Description:
-	Inheritance from robot_gpio.py controller class, this class connect to robot database, read and update the signal
-	Inheritance from test_moving.py
-		- contoller, this class ignore robot database
-		- read_log, this function will read the log.txt and return a instruction
-		- do_log, this function will tell robot do the instruction 
-	Robot will move follow the log file
+	Robot will do the task (follow a specific way) if something wrong, press e to stop 
 '''
+
 import time
 import RPi.GPIO
 from robot_gpio import controller # you must run this code in the directory ./Jetson-Nano python3 ./snippet/moving.py
-#from robot.GPIO_controller import controller # run robot.__init__ first
-# from test_moving import controller
+import threading
 
 # OUTPUT pins name
 ML_DIR_pin = 24 # motor left direction
 ML_RUN_pin = 23 # motor left run
 MR_DIR_pin = 22 # motor right direction
 MR_RUN_pin = 21 # motor right run
+
+estop = ""
 
 class gpio_controller():
 	def __init__(self,ML_DIR_pin = ML_DIR_pin,ML_RUN_pin = ML_RUN_pin,MR_DIR_pin = MR_DIR_pin,MR_RUN_pin = MR_RUN_pin,GPIO = RPi.GPIO):
@@ -113,13 +110,18 @@ def read_log(path,mode):
 
 # Unkeyword arguments meaning uninitial value
 def do_log(robot,instruction,inter_t):
-
+	global estop
 	'''
 	Read the instruction and make robot do follow it
 	'''
-	print(instruction)
-
+	print("Doing task...")
 	for move in instruction:
+		
+		# Check estop contion
+		if estop == "x":
+			print("Emergency Stop Activated!")
+			break
+		
 		if move == 'bit_forward':
 			print(f'robot {move}')
 			robot.bit_forward(0.3)
@@ -141,6 +143,19 @@ def do_log(robot,instruction,inter_t):
 
 		time.sleep(inter_t) # Robot must take this time to do the instruction
 
+	# Stop robot before terminate the function
+	robot.stop()
+	print("Robot is stopped!")
+
+# This is the function to trigger the emergency stop
+def trig_estop():
+	global estop 
+	while True:
+		estop = input("Press x + enter to activate emergency stop ")
+		if estop == "x":
+			break
+	print("Emergency Stop Activating...")
+
 print("Test robot moving follow an instruction!")
 
 inter_t = int(input("Enter the interation time: "))
@@ -151,9 +166,15 @@ print("Do the instruction: "+ log_file )
 
 instruction = read_log(log_file,"r")
 
-#robot = gpio_controller()
-robot = controller()
+robot = gpio_controller()
+#robot = controller()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
-	do_log(robot,instruction,inter_t)
+	# Create threads
+	t1 = threading.Thread(target = trig_estop,daemon = False)
+	t2 = threading.Thread(target = do_log,args = (robot,instruction,inter_t),daemon = False)
+	
+	# Start threads
+	t1.start()
+	t2.start()

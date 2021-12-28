@@ -1,6 +1,6 @@
 '''
 Author: locchuong
-Updated: 27/12/21
+Updated: 28/12/21
 Description:
 	This python program control the GPIO of Jetson-Nano board, it read the command from the database and execute it
 	run this program at the begining.
@@ -81,7 +81,7 @@ class controller():
 	def forward(self):
 		self.stop()
 		# update all signals for the controller before you run
-		self.update_input()
+		#self.update_input()
 		# print(self.ESTOP)
 		if not self.ESTOP:
 			self.GPIO.output(self.MR_RUN_pin,1)
@@ -94,7 +94,7 @@ class controller():
 	def backward(self):
 		self.stop()
 		# update all signals for the controller before you run
-		self.update_input()
+		#self.update_input()
 		# print(self.ESTOP)
 		if not self.ESTOP:
 			self.GPIO.output(self.MR_RUN_pin,1)
@@ -107,7 +107,7 @@ class controller():
 	def turnleft(self):
 		self.stop()
 		# update all signals for the controller before you run
-		self.update_input()
+		#self.update_input()
 		# print(self.ESTOP)
 		if not self.ESTOP:
 			self.GPIO.output(self.MR_RUN_pin,1)
@@ -120,7 +120,7 @@ class controller():
 	def turnright(self):
 		self.stop()
 		# update all signals for the controller before you run
-		self.update_input()
+		#self.update_input()
 		# print(self.ESTOP)
 		if not self.ESTOP:
 			self.GPIO.output(self.MR_RUN_pin,1)
