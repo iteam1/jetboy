@@ -7,97 +7,14 @@ Description:
 	Also use this program to log the moving command
 '''
 
-import RPi.GPIO
 import sqlite3 
 import time
 import pynput 
 global releaseListening
 from pynput.keyboard import Key,Listener 
 
-# OUTPUT pins name
-ML_DIR_pin = 24 # motor left direction
-ML_RUN_pin = 23 # motor left run
-MR_DIR_pin = 22 # motor right direction
-MR_RUN_pin = 21 # motor right run
-
 # log condition y meaning i want to log robot motion, n meaning i don't want log robot motion, else loop until log_con value is y or n
 log_con = "a"
-
-class controller():
-	def __init__(self,ML_DIR_pin = ML_DIR_pin,ML_RUN_pin = ML_RUN_pin,MR_DIR_pin = MR_DIR_pin,MR_RUN_pin = MR_RUN_pin,GPIO = RPi.GPIO):
-		
-		self.ML_DIR_pin = ML_DIR_pin # driver left dir pin
-		self.ML_RUN_pin = ML_RUN_pin # driver left run pin
-		self.MR_DIR_pin = MR_DIR_pin # driver right dir pin
-		self.MR_RUN_pin = MR_RUN_pin # driver right run pin
-
-		self.GPIO = GPIO
-
-		#initialize gpio
-		self.GPIO.setmode(GPIO.BOARD)
-
-		self.GPIO.setup(self.ML_DIR_pin,self.GPIO.OUT)
-		self.GPIO.setup(self.ML_RUN_pin,self.GPIO.OUT)
-		self.GPIO.setup(self.MR_DIR_pin,self.GPIO.OUT)
-		self.GPIO.setup(self.MR_RUN_pin,self.GPIO.OUT)
-
-		# block motors run by EN pins
-		self.GPIO.output(self.MR_RUN_pin,0)
-		self.GPIO.output(self.ML_RUN_pin,0)
-		self.GPIO.output(self.MR_DIR_pin,0)
-		self.GPIO.output(self.ML_DIR_pin,0)
-
-	def stop(self):
-		self.GPIO.output(self.MR_RUN_pin,0)
-		self.GPIO.output(self.ML_RUN_pin,0)
-
-	def forward(self):
-		self.stop() # this command will stop your robot if you put it in the end of this function
-		self.GPIO.output(self.MR_RUN_pin,1)
-		self.GPIO.output(self.ML_RUN_pin,1)
-		self.GPIO.output(self.MR_DIR_pin,1)
-		self.GPIO.output(self.ML_DIR_pin,1)
-
-	def backward(self):
-		self.stop() # this command will stop your robot if you put it in the end of this function
-		self.GPIO.output(self.MR_RUN_pin,1)
-		self.GPIO.output(self.ML_RUN_pin,1)
-		self.GPIO.output(self.MR_DIR_pin,0)
-		self.GPIO.output(self.ML_DIR_pin,0)
-
-	def turnleft(self):
-		self.stop() # this command will stop your robot if you put it in the end of this function
-		self.GPIO.output(self.MR_RUN_pin,1)
-		self.GPIO.output(self.ML_RUN_pin,1)
-		self.GPIO.output(self.MR_DIR_pin,1)
-		self.GPIO.output(self.ML_DIR_pin,0)
-
-	def turnright(self):
-		self.stop() # this command will stop your robot if you put it in the end of this function
-		self.GPIO.output(self.MR_RUN_pin,1)
-		self.GPIO.output(self.ML_RUN_pin,1)
-		self.GPIO.output(self.MR_DIR_pin,0)
-		self.GPIO.output(self.ML_DIR_pin,1)
-
-	def bit_forward(self,delay):
-		self.forward()
-		time.sleep(delay)
-		self.stop()
-
-	def bit_backward(self,delay):
-		self.backward()
-		time.sleep(delay)
-		self.stop()
-
-	def bit_turnleft(self,delay):
-		self.turnleft()
-		time.sleep(delay)
-		self.stop()
-
-	def bit_turnright(self,delay):
-		self.turnright()
-		time.sleep(delay)
-		self.stop()
 
 # Create robot object
 robot = controller()
@@ -124,50 +41,6 @@ def add_log(message):
 			f.write("\n")
 	else: 
 		pass
-
-def read_log(path = "./log.txt",mode = "r"):
-	'''
-	Read the log file and return a list of moving, this is the instruction, robot will read this instruction and do like this instruction
-	'''
-	instruction = []
-	f = open(path,mode)
-	content = f.read()
-	e = content.split("\n") # return a list
-	for i in e:
-		move =  i.split("@")
-		instruction.append(move[-1])
-
-	return instruction
-# Unkeyword arguments meaning uninitial value
-def do_log(robot,instruction,inter_t):
-
-	'''
-	Read the instruction and make robot do follow it
-	'''
-	print(instruction)
-
-	for move in instruction:
-		if move == 'bit_forward':
-			print(f'robot {move}')
-			robot.bit_forward(0.3)
-		elif move == 'bit_backward':
-			print(f'robot {move}')
-			robot.bit_backward(0.3)
-		elif move == 'bit_turnleft':
-			print(f'robot {move}')
-			robot.bit_turnleft(0.1)
-		elif move == 'bit_turnright':
-			print(f'robot {move}')
-			robot.bit_turnright(0.1)
-		elif move == 'exit':
-			robot.stop()
-			print("The instruction is completed.")
-			exit()
-		else:
-			print("This move is not avaiable!")
-
-		time.sleep(inter_t) # Robot must take this time to do the instruction
-
 
 # Key listener function
 def on_press(key): 
