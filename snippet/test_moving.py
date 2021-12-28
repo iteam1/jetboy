@@ -20,6 +20,9 @@ ML_RUN_pin = 23 # motor left run
 MR_DIR_pin = 22 # motor right direction
 MR_RUN_pin = 21 # motor right run
 
+# log condition y meaning i want to log robot motion, n meaning i don't want log robot motion, else loop until log_con value is y or n
+log_con = "a"
+
 class controller():
 	def __init__(self,ML_DIR_pin = ML_DIR_pin,ML_RUN_pin = ML_RUN_pin,MR_DIR_pin = MR_DIR_pin,MR_RUN_pin = MR_RUN_pin,GPIO = RPi.GPIO):
 		
@@ -106,15 +109,20 @@ def create_file():
 	with open("log.txt",'w') as f:
 		print("Created log.txt")
 
-
 def log(message):
 	'''
 	If you use 'w' meaning write mode, it will create a log.txt file if you don't have one
-	If you use 'a' meaning append mode, it will append log.txt 's content  
+	If you use 'a' meaning append mode, it will append log.txt 's content 
+	If the log_con = y it will log the key presses, else pass
 	'''
-	with open("log.txt","a") as f:
-		f.write(message)
-		f.write("\n")
+	global log_con
+	if log_con == "y":
+		with open("log.txt","a") as f:
+			f.write(message)
+			f.write("\n")
+	else: 
+		pass
+
 
 def on_press(key): 
 	global robot
@@ -157,7 +165,14 @@ if __name__ == '__main__':
 
 	print("Test controlling robot's moving ")
 
-	create_file()
+	while True:
+		log_con = input("Do you want to log robot motion [y/n]? ")
+		if log_con == "y" or log_con == "n":
+			print(f"Log's robot's motion: {log_con}")
+			break
+
+	if log_con == "y":
+		create_file()
 
 	print('''
 		Command:
