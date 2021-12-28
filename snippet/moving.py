@@ -11,7 +11,8 @@ Description:
 '''
 import time
 import RPi.GPIO
-# from robot.GPIO_controller import controller # run robot.__init__ first
+from robot_gpio import controller # you must run this code in the directory ./Jetson-Nano python3 ./snippet/moving.py
+#from robot.GPIO_controller import controller # run robot.__init__ first
 # from test_moving import controller
 
 # OUTPUT pins name
@@ -20,7 +21,7 @@ ML_RUN_pin = 23 # motor left run
 MR_DIR_pin = 22 # motor right direction
 MR_RUN_pin = 21 # motor right run
 
-class controller():
+class gpio_controller():
 	def __init__(self,ML_DIR_pin = ML_DIR_pin,ML_RUN_pin = ML_RUN_pin,MR_DIR_pin = MR_DIR_pin,MR_RUN_pin = MR_RUN_pin,GPIO = RPi.GPIO):
 		
 		self.ML_DIR_pin = ML_DIR_pin # driver left dir pin
@@ -96,8 +97,7 @@ class controller():
 		time.sleep(delay)
 		self.stop()
 
-
-def read_log(path = "./log.txt",mode = "r"):
+def read_log(path,mode):
 	'''
 	Read the log file and return a list of moving, this is the instruction, robot will read this instruction and do like this instruction
 	'''
@@ -145,8 +145,13 @@ print("Test robot moving follow an instruction!")
 
 inter_t = int(input("Enter the interation time: "))
 
-instruction = read_log()
+log_file = input("Where is the instruction? ")
 
+print("Do the instruction: "+ log_file )
+
+instruction = read_log(log_file,"r")
+
+#robot = gpio_controller()
 robot = controller()
 
 if __name__ == '__main__':
