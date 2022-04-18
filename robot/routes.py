@@ -8,7 +8,7 @@ from flask import render_template,request,Response,flash,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 import cv2 
 import numpy as np
-import robot.realsense_depth as rd
+#import robot.realsense_depth as rd
 from robot import app,db,d455
 from robot.models import Robot
 

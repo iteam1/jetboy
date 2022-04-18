@@ -1,10 +1,15 @@
-'''
+"""
 Author: locchuong
 Updated: 27/12/21
 Description:
 	If you don't have a database, first you create the database table by this program,
-	Then from robot import db (The database you just created)
-	Then from robot.models import Robot (class) , create a robot object and add it to your database
+	'''
+		from robot import db
+		from robot.models import Robot
+		robot = Robot()
+		db.add(robot)
+		db.commit()
+	'''
 	This program will create a new robot database, then flask server will connect to this database will a robot model
 
 	1/ id: is the robot id (primary key)
@@ -37,7 +42,7 @@ Description:
 			- info: display content on the screen
 			- emo: display emotion or gif on the screen
 			- img: display the image on the screen
-'''
+"""
 
 import sqlite3 
 
