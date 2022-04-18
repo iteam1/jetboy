@@ -43,10 +43,14 @@ class App:
 		self.animate(1) # Start the animate function with the index = 1 
 
 	def dbconnect(self):
+		'''
+		Read into database, find out what kind of message we want to display then read the corresponding content
+		'''
 		self.conn = sqlite3.connect("./robot/site.db")
 		c = self.conn.cursor()
 		c.execute(f"SELECT *FROM robot WHERE id = 1") # fetch the robot id = 1
-		itype = c.fetchone()[6] 
+		itype = c.fetchone()[6] # read the kind of message first
+		# find out the corresponding content
 		if itype == 'emo':
 			c.execute(f"SELECT *FROM robot WHERE id = 1")
 			content = c.fetchone()[4] # read column emotion in the database
@@ -66,6 +70,9 @@ class App:
 			return None
 
 	def animate(self,counter,stime = 50):
+		'''
+		Display on screen the content of massage
+		'''
 		itype,item = self.dbconnect()
 
 		if itype == 'info':
