@@ -1,9 +1,14 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+
     <h1 style="color:green;text-align:center;">Jetboy's manual panel</h1>
     <br>
 
+    <!--Bit move-->
+    <h2 style="color:green;text-align:center;">Bit move</h2>
+    <br>
+    <!--button Estop-->
     <div clas = 'row'>
         <form action = "{{ url_for('estop') }}" method = 'POST'>
             <small class="form-text text-muted">.</small>
@@ -17,63 +22,125 @@
         </form>
         <!--{{estop}} -->
     </div>
-    <br><br><br><br>
-
+    <br><br>
     <div class = 'container h-100'>
         <div class="position-relative h-100">
+            <!--Cont forward
             <div class="position-absolute top-center">
                 <form action = "{{ url_for('manual') }}" method = 'POST'>
                     <input type = 'hidden' name = 'command' id = 'command'  value = 'forward'>
                     <button class="btn btn-primary">&#8593;</button>
                 </form>
             </div>
-            <br><br><br><br>
+            -->
 
+            <!--button Bit_forward -->
+            <div class="position-absolute top-center">
+                <form action = "{{ url_for('manual') }}" method = 'POST'>
+                    <input type = 'hidden' name = 'command' id = 'command'  value = 'bit_forward'>
+                    <button class="btn btn-primary">&#8593;</button>
+                </form>
+            </div>
+            <br><br><br>
+            <!--button Stop-->
             <div class="position-absolute mid-center">
                 <form action = "{{ url_for('manual') }}" method = 'POST'>
                     <input type = 'hidden' name = 'command' id = 'command'  value = 'stop'>
                     <button class= 'btn btn-warning'>Stop</button>
                 </form>
             </div>
-            <br><br><br><br>
-
+            <br><br><br>
+            <!--button Backward
             <div class="position-absolute bottom-center">
-                <form action = "{{ url_for('manual') }}" method = 'POST'>
-                    <!-- Why button type = 'button' i can not post the form ??? -->			
+                <form action = "{{ url_for('manual') }}" method = 'POST'>     
                     <input type = 'hidden' name = 'command' id = 'command' value = 'backward'>
                     <button class="btn btn-primary">&#8595;</button>
                 </form>
             </div>
-
-            <div class="position-absolute mid-left">
+            -->
+            <div class="position-absolute bottom-center">
+                <form action = "{{ url_for('manual') }}" method = 'POST'>
+                    <!-- Why button type = 'button' i can not post the form ??? -->			
+                    <input type = 'hidden' name = 'command' id = 'command' value = 'bit_backward'>
+                    <button class="btn btn-primary">&#8595;</button>
+                </form>
+            </div>
+            <!--button TurnLeft
+                <div class="position-absolute mid-left">
                 <form action = "{{ url_for('manual') }}" method = 'POST'>
                     <input type = 'hidden' name = 'command' id = 'command'  value = 'turnleft'>
                     <button class="btn btn-primary">&#8592;</button>
                 </form>
             </div>
-
+            -->
+            <!--button Bit_Turnleft-->
+            <div class="position-absolute mid-left">
+                <form action = "{{ url_for('manual') }}" method = 'POST'>
+                    <input type = 'hidden' name = 'command' id = 'command'  value = 'bit_turnleft'>
+                    <button class="btn btn-primary">&#8592;</button>
+                </form>
+            </div>
+            <!--button TurnRight 
             <div class = "position-absolute mid-right">
                 <form action = "{{ url_for('manual') }}" method = 'POST'>
                     <input type = 'hidden' name = 'command' id = 'command'  value = 'turnright'>
                     <button class="btn btn-primary">&#8594;</button>
                 </form>
             </div>
+            -->
+            <div class = "position-absolute mid-right">
+                <form action = "{{ url_for('manual') }}" method = 'POST'>
+                    <input type = 'hidden' name = 'command' id = 'command'  value = 'bit_turnright'>
+                    <button class="btn btn-primary">&#8594;</button>
+                </form>
+            </div>
         </div>
-    </div>
-    
+    </div>   
     <br>
-    <h1 style="color:green;text-align:center;">Content</h1>
+
+    <!--Continous move-->
+    <h2 style="color:green;text-align:center;">Cont move</h2>
+    <div class = 'row'>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'stop'>
+            <button class="btn btn-primary mb-2">Stop</button>
+        </form>
+        <p>_____</p>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'forward'>
+            <button class="btn btn-primary mb-2">&#8593;</button>
+        </form>
+        <p>_____</p>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'backward'>
+            <button class="btn btn-primary mb-2">&#8595;</button>
+        </form>
+        <p>_____</p>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'turnleft'>
+            <button class="btn btn-primary mb-2">&#8592;</button>
+        </form>
+        <p>_____</p>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'turnright'>
+            <button class="btn btn-primary mb-2">&#8594;</button>
+        </form>
+    </div>
+    <br>
+    
+    <!--Content manual-->
+    <h2 style="color:green;text-align:center;">Content</h2>
     <div clas = 'row'>
         <form action = "{{ url_for('content') }}" method = 'POST'>
             <input class="form-control form-control-lg" type="text" placeholder = "What you wanna say?" name = "content">
-            <small class="form-text text-muted">.</small>
+            <small class="form-text text-muted">.</small>     
             <button type="submit" class="btn btn-primary mb-2">Say it!</button>
         </form> 
     </div>
     <br>
-
-    <h1 style="color:green;text-align:center;">Emotion</h1>
     
+    <!--Emotion manual-->
+    <h2 style="color:green;text-align:center;">Emotion</h2>
     <div class = 'row'>
         <form action = "{{ url_for('emotion') }}" method = 'POST'>
             <input type = 'hidden' name = 'emotion' value = 'sleeping'>
@@ -108,6 +175,7 @@
             <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128054;</button>
         </form>
     </div>
+
 {% endblock content %}
 
 		

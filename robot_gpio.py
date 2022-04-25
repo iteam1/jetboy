@@ -146,6 +146,17 @@ class controller():
 		else:
 			print('Emergency stop activated! this command can not execute')
 
+	def db_stop_update(self):
+		'''
+		Use this function to set the command in database to stop after bit moving
+		'''
+		self.c.execute("""
+			UPDATE robot
+			SET command = "stop"
+			WHERE id = 1
+			""")
+		self.conn.commit()
+
 	def bit_forward(self,delay):
 		'''
 		Motors move abit forward
@@ -153,6 +164,7 @@ class controller():
 		self.forward()
 		time.sleep(delay)
 		self.stop()
+		self.db_stop_update()
 
 	def bit_backward(self,delay):
 		'''
@@ -169,6 +181,7 @@ class controller():
 		self.turnleft()
 		time.sleep(delay)
 		self.stop()
+		self.db_stop_update()
 
 	def bit_turnright(self,delay):
 		'''
@@ -301,18 +314,18 @@ if __name__ == "__main__":
 		elif command == "turnright":
 			controller.turnright()
 			
-		# moving a bit and stop
-		# elif command == "bit_forward":
-		#	controller.bit_forward()
+		# moving a bit and stop meaning we have to reset 
+		elif command == "bit_forward":
+			controller.bit_forward(0.2)
 
-		# elif command == "bit_backward":
-		# 	controller.bit_backward()
+		elif command == "bit_backward":
+			controller.bit_backward(0.2)
 
-		# elif command == "bit_turnleft":
-		# 	controller.bit_turnleft()
+		elif command == "bit_turnleft":
+			controller.bit_turnleft(0.1)
 
-		# elif command == "bit_turnright":
-		#	controller.bit_turnright()
+		elif command == "bit_turnright":
+			controller.bit_turnright(0.1)
 
 		else:
 			print("Command does not Exist!")

@@ -52,18 +52,18 @@ c = conn.cursor()
 
 c.execute("""
 	CREATE TABLE robot(
-	id INTEGER PRIMARY KEY,
-	name TEXT,
-	command TEXT,
-	content TEXT,
-	emotion TEXT,
-	image TEXT,
-	itype TEXT,
-	estop NUMERIC,
-	obs_f NUMERIC,
-	obs_b NUMERIC,
-	obs_l NUMERIC,
-	obs_r NUMERIC
+	id INTEGER PRIMARY KEY,# 0
+	name TEXT, # 1
+	command TEXT, # 2
+	content TEXT, # 3
+	emotion TEXT, # 4
+	image TEXT, # 5 
+	itype TEXT,# 6
+	estop NUMERIC, # 7
+	obs_f NUMERIC, # 8 
+	obs_b NUMERIC,# 9
+	obs_l NUMERIC, # 10
+	obs_r NUMERIC # 11
 	)
 	""")
 

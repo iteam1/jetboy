@@ -79,7 +79,6 @@ def manual():
 	estop = myrobot.estop # query estop value	
 	return render_template('manual.html',estop = estop)
 
-
 @app.route('/color')
 def colorstream():
 	return Response(gen_colorframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
@@ -87,7 +86,6 @@ def colorstream():
 @app.route('/depth')
 def depthstream():
 	return Response(gen_depthframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
-
 
 @app.route('/content',methods =['POST'])
 def content():
@@ -100,7 +98,6 @@ def content():
 	db.session.commit()
 	return render_template('manual.html',estop = estop)
 	
-
 @app.route('/emotion',methods =['POST'])
 def emotion():
 	emotion = request.form.get('emotion')
@@ -111,7 +108,6 @@ def emotion():
 	db.session.commit()
 	return render_template('manual.html',estop = estop)
 	
-
 @app.route('/image',methods =['GET','POST'])
 def image():
 	image = request.form.get('image')
