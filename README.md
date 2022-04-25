@@ -25,3 +25,28 @@ The library with have * mark meaning you can not install it with command `pip in
 - os (builtin lib)
 - pynput `pip3 install pynput`
     
+# Run all program via bash script
+
+`bash start.sh`
+
+# Run custom program
+
+- Run gpio controller `python3 robot_gpio.py`
+
+- Run gui controller `python3 robot_gui.py`
+
+- Run webserver `python3 robot_server.py`
+
+# Generate database
+
+`python3 gendata.py`
+
+Open terminal:
+
+	```
+	from robot import db
+	from robot.models import Robot
+	robot = Robot()
+	db.add(robot)
+	db.commit()
+	```

@@ -14,6 +14,9 @@ import threading
 c = "no"
 
 def f_cont(name):
+    '''
+    Print out c value thread
+    '''
     global c
     while True:
         logging.info("Thread %s: running",name)
@@ -23,13 +26,15 @@ def f_cont(name):
             break
 
 def f_trig(name):
+    '''
+    Update value c thread
+    '''
     global c
     while True:
         logging.info("Thread %s : running",name)
         c = input("What is your c: ")
         if c == "yes":
             break
-
 
 if __name__ == "__main__":
 
