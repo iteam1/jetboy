@@ -8,9 +8,6 @@ import cv2
 import cv2.aruco as aruco 
 import numpy as np
 import realsense_depth as rd  
-from utils import markup 
-
-markup.banner()
 
 # define color
 red = (0,0,255)
@@ -53,7 +50,6 @@ def check_TB(center_point,current_point,y_distance):
 		return 'Bottom'
 	elif (current_point[1] >= center_point[1] - y_distance) & (current_point[1] <= center_point[1] + y_distance):
 		return 'Center'
-
 
 def find_aruco_markers(img,depth,marker_size = 4,total_markers = 250,draw  = True):
 	'''

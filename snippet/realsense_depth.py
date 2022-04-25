@@ -4,7 +4,7 @@ Updated: 27/12/21
 Description:
     This python program test connection and streaming image from the depth camera
 '''
-from robot.pyrealsense2 import pyrealsense2 as rs
+from pyrealsense2 import pyrealsense2 as rs
 import numpy as np 
 
 class DepthCamera():
