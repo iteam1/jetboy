@@ -20,6 +20,7 @@ blue = (255,0,0)
 center_point = (320,240)
 vdim = 40 # vertical distance for gen_cvframe
 hdim = 30 # horizontal distance for gen_cvframe
+# check fine
 
 # Generate frame with computer vision functionality
 def gen_cvframe():
