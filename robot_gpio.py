@@ -156,7 +156,7 @@ class controller():
 			WHERE id = 1
 			""")
 		self.conn.commit()
-
+		
 	def bit_forward(self,delay):
 		'''
 		Motors move abit forward
@@ -292,6 +292,8 @@ if __name__ == "__main__":
 
 		# Read the input Allway read the input and write it into the database
 		controller.update_input()
+		# Reset the command value if estop bit is on
+		controller.db_stop_update()
 		#print(controller.ESTOP,controller.OBS_F_value,controller.OBS_B_value,controller.OBS_L_value,controller.OBS_R_value)
 
 		#Write the output
@@ -317,16 +319,16 @@ if __name__ == "__main__":
 			
 		# moving a bit and stop meaning we have to reset 
 		elif command == "bit_forward":
-			controller.bit_forward(0.2)
+			controller.bit_forward(0.5)
 
 		elif command == "bit_backward":
-			controller.bit_backward(0.2)
+			controller.bit_backward(0.5)
 
 		elif command == "bit_turnleft":
-			controller.bit_turnleft(0.1)
+			controller.bit_turnleft(0.2)
 
 		elif command == "bit_turnright":
-			controller.bit_turnright(0.1)
+			controller.bit_turnright(0.2)
 
 		else:
 			print("Command does not Exist!")
