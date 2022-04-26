@@ -85,28 +85,19 @@ def gen_cvframe():
 			centroid = tuple(centroid[0])
 			centroids.append(centroid)
 
-			pt = bbox[0][1].astype('int')
+			pt = bbox[0][1].astype('int') # top right
 			distance = depth[pt[1],pt[0]]
 			
-			if i == 0:
-				
-				cv2.putText(img, f'{distance}',(50,25), cv2.FONT_HERSHEY_SIMPLEX,
-				1, green, 1, cv2.LINE_AA)
-
-				cv2.putText(img, f'{check_LR(center_point,centroid,vdim)}',(50,50), cv2.FONT_HERSHEY_SIMPLEX,
-				1, green, 1, cv2.LINE_AA)
-
-				cv2.putText(img, f'{check_TB(center_point,centroid,hdim)}',(50,75), cv2.FONT_HERSHEY_SIMPLEX,
-				1, green, 1, cv2.LINE_AA)
-
-				cv2.putText(img, f'{distance}',(pt[0],pt[1]-15), cv2.FONT_HERSHEY_SIMPLEX,
-				0.5, green, 1, cv2.LINE_AA)
-
-				cv2.putText(img, f'{ids[i]}',(pt[0],pt[1]), cv2.FONT_HERSHEY_SIMPLEX,
-				0.5, green, 1, cv2.LINE_AA)
-				cv2.putText(img, f'{centroid}',(pt[0],pt[1]+15), cv2.FONT_HERSHEY_SIMPLEX,
-				0.5, green, 1, cv2.LINE_AA)
-				cv2.circle(img,centroid,3,green,-1) # center point
+			cv2.putText(img, f'{distance}',(pt[0],pt[1]-15), cv2.FONT_HERSHEY_SIMPLEX,
+			0.5, green, 1, cv2.LINE_AA)
+			cv2.putText(img, f'{ids[i]}',(pt[0],pt[1]), cv2.FONT_HERSHEY_SIMPLEX,
+			0.5, green, 1, cv2.LINE_AA)
+			cv2.putText(img, f'{centroid}',(pt[0],pt[1]+15), cv2.FONT_HERSHEY_SIMPLEX,
+			0.5, green, 1, cv2.LINE_AA)
+			cv2.circle(img,centroid,3,green,-1) # center point
+			
+			if ids[i] == 7:
+				cv2.putText(img, f'ID7: {distance} {check_LR(center_point,centroid,vdim)} {check_TB(center_point,centroid,hdim)}',(50,25), cv2.FONT_HERSHEY_SIMPLEX,1, green, 1, cv2.LINE_AA)
 				cv2.line(img,center_point,centroid,red,2)
 
 		if draw:

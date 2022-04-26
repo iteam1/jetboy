@@ -173,6 +173,7 @@ class controller():
 		self.backward()
 		time.sleep(delay)
 		self.stop()
+		self.db_stop_update()
 
 	def bit_turnleft(self,delay):
 		'''
@@ -190,6 +191,7 @@ class controller():
 		self.turnright()
 		time.sleep(delay)
 		self.stop()
+		self.db_stop_update()
 
 	def update_input(self):
 		'''
@@ -303,7 +305,6 @@ if __name__ == "__main__":
 
 		elif command == "forward":
 			controller.forward()
-
 
 		elif command == "backward":
 			controller.backward()
