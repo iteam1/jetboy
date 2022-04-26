@@ -27,7 +27,6 @@ def gen_cvframe():
 	'''
 	This function stream frame with computer vision functionality
 	'''
-
 	# support function for cvframe
 	def check_LR(center_point,current_point,x_distance):
 		'''
