@@ -32,20 +32,15 @@ center_point = (320,240)
 vdim = 40
 hdim = 30
 
-# Create the connection to the database and the cursor
-conn = sqlite3.connect("./robot/site.db") # ./Jetson-Nano you must define this conn before add in into default keyword arg 
-c = conn.cursor()  # you must define this c before add in into default keyword arg
-
 # Connect with depth camera
 d455 = rd.DepthCamera() # initial depth camera
 # Check the connection and try to get data
 ret,depth_frame,color_frame = d455.get_frame()
 
-# inheriate from robot_gpio 
+# inheriate from robot_gpio but no connect to database
 class controller():
 	def __init__(self,ML_DIR_pin = ML_DIR_pin,ML_RUN_pin = ML_RUN_pin,MR_DIR_pin = MR_DIR_pin,MR_RUN_pin = MR_RUN_pin,
-					OBS_F_pin = OBS_F_pin,OBS_B_pin = OBS_B_pin,OBS_L_pin = OBS_L_pin,OBS_R_pin = OBS_R_pin,GPIO = RPi.GPIO,
-						conn = conn, c = c):
+					OBS_F_pin = OBS_F_pin,OBS_B_pin = OBS_B_pin,OBS_L_pin = OBS_L_pin,OBS_R_pin = OBS_R_pin,GPIO = RPi.GPIO):
 		
 		self.ML_DIR_pin = ML_DIR_pin # driver left dir pin
 		self.ML_RUN_pin = ML_RUN_pin # driver left run pin
@@ -82,10 +77,6 @@ class controller():
 		self.GPIO.output(self.ML_RUN_pin,0)
 		self.GPIO.output(self.MR_DIR_pin,0)
 		self.GPIO.output(self.ML_DIR_pin,0)
-
-		# set database connection and cursor
-		self.conn = conn 
-		self.c = c 
 
 	def stop(self):
 		'''
@@ -157,17 +148,6 @@ class controller():
 			self.GPIO.output(self.ML_RUN_pin,1)
 		else:
 			print('Emergency stop activated! this command can not execute')
-
-	def db_stop_update(self):
-		'''
-		Use this function to set the command in database to stop after bit moving
-		'''
-		self.c.execute("""
-			UPDATE robot
-			SET command = "stop"
-			WHERE id = 1
-			""")
-		self.conn.commit()
 		
 	def bit_forward(self,delay):
 		'''
@@ -176,7 +156,6 @@ class controller():
 		self.forward()
 		time.sleep(delay)
 		self.stop()
-		self.db_stop_update()
 
 	def bit_backward(self,delay):
 		'''
@@ -185,7 +164,6 @@ class controller():
 		self.backward()
 		time.sleep(delay)
 		self.stop()
-		self.db_stop_update()
 
 	def bit_turnleft(self,delay):
 		'''
@@ -194,7 +172,6 @@ class controller():
 		self.turnleft()
 		time.sleep(delay)
 		self.stop()
-		self.db_stop_update()
 
 	def bit_turnright(self,delay):
 		'''
@@ -203,90 +180,6 @@ class controller():
 		self.turnright()
 		time.sleep(delay)
 		self.stop()
-		self.db_stop_update()
-
-	def update_input(self):
-		'''
-		Use this function to read ESTOP value in database and read sensor values and update it into robot's database
-			conn: the connection to database
-			c: cusor of the connection to database
-		'''
-
-		# Fetch all value columns in database
-		self.c.execute("""
-			SELECT *FROM robot WHERE id = 1
-			""")
-
-		data = self.c.fetchone() # Get all row
-		self.conn.commit()
-
-		# Read ESTOP from the server ,write it out to database and storage it into robot object
-		self.ESTOP = data[7] # read emergency stop
-
-		# Read ultrasonic sensor signal save it to database
-		self.OBS_F_value = self.GPIO.input(self.OBS_F_pin) # read front obstacle value
-		self.OBS_B_value = self.GPIO.input(self.OBS_B_pin) # read back obstacle value
-		self.OBS_L_value = self.GPIO.input(self.OBS_L_pin) # read left obstacle value
-		self.OBS_R_value = self.GPIO.input(self.OBS_R_pin) # read right obstacle value
-
-		# c.execute("""
-		# 	INSERT INTO robot(obs_f,obs_b,obs_l,obs_r) VALUES(?,?,?,?)
-		# 	""",(self.OBS_F_value,self.OBS_B_value,self.OBS_L_value,self.OBS_B_value))
-
-		# Update the values of sensor into database
-		self.c.execute("""
-			UPDATE robot
-			SET obs_f = ?,
-				obs_b = ?,
-				obs_l = ?,
-				obs_r = ?
-			WHERE id = 1
-			""",(self.OBS_F_value,self.OBS_B_value,self.OBS_L_value,self.OBS_R_value))
-		self.conn.commit()
-
-	def estop(self):
-		'''
-		This function read the estop value in the database and return it
-		'''
-		self.c.execute("""
-			SELECT *FROM robot WHERE id = 1
-			""")
-
-		data = self.c.fetchone() # Get all row
-		self.conn.commit()
-
-		# Read ESTOP from the server 
-		estop = data[7] # read emergency stop
-
-		return estop
-
-	def obstacles(self):
-		'''
-		This function read the estop value in the database and return it
-		'''
-		self.c.execute("""
-			SELECT *FROM robot WHERE id = 1
-			""")
-
-		data = self.c.fetchone() # Get all row
-		self.conn.commit()
-
-		# Read ESTOP from the server 
-		obs_f = data[8] # read front ultrasonics sensors
-		obs_b = data[9] # read back ultrasonics sensors
-		obs_l = data[10] # read left ultrasonics sensors
-		obs_r = data[11] # read right ultrasonics sensors
-
-		return obs_f,obs_b,obs_l,obs_r
-
-	def command(self):
-		'''
-		This function read the command value in database and return it
-		'''
-		self.c.execute(f"SELECT *FROM robot WHERE id = 1")
-		command = self.c.fetchone()[2]
-		self.conn.commit()
-		return command
 
 def check_LR(center_point,current_point,x_distance):
 	'''
@@ -323,67 +216,124 @@ def check_TB(center_point,current_point,y_distance):
 		return 'Center'
 
 def find_aruco_markers(img,depth,marker_size = 4,total_markers = 250,draw  = True):
-		'''
-		Find aruco in frame
-		Arguments:
-			img --- color frame of image
-			marker_size --- size of marker default = 4 (4,5,6)
-			total_markers --- total markers in frame
-			draw --- option to draw marker on the screen
-		'''
-		centroids = [] # list of centroids marker
-		gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY) 
-		key = getattr(aruco,f'DICT_{marker_size}X{marker_size}_{total_markers}')
-		aruco_dict = aruco.Dictionary_get(key)
-		aruco_param = aruco.DetectorParameters_create()
-		bboxs,ids,rejected = aruco.detectMarkers(gray,aruco_dict, parameters = aruco_param)
+	'''
+	Find aruco in frame
+	Arguments:
+		img --- color frame of image
+		marker_size --- size of marker default = 4 (4,5,6)
+		total_markers --- total markers in frame
+		draw --- option to draw marker on the screen
+	'''
+	centroids = [] # list of centroids marker
+	gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY) 
+	key = getattr(aruco,f'DICT_{marker_size}X{marker_size}_{total_markers}')
+	aruco_dict = aruco.Dictionary_get(key)
+	aruco_param = aruco.DetectorParameters_create()
+	bboxs,ids,rejected = aruco.detectMarkers(gray,aruco_dict, parameters = aruco_param)
+	
+	# find the centroids list, if bboxs empty, this for loop does not break program
+	for i,bbox in enumerate(bboxs):
 		
-		# find the centroids list, if bboxs empty, this for loop does not break program
-		for i,bbox in enumerate(bboxs):
-			
-			centroid = np.mean(bbox,axis = 1).astype('int')
-			centroid = tuple(centroid[0])
-			centroids.append(centroid)
+		centroid = np.mean(bbox,axis = 1).astype('int')
+		centroid = tuple(centroid[0])
+		centroids.append(centroid)
 
+		pt = bbox[0][1].astype('int') # top right
+		distance = depth[pt[1],pt[0]]
+		
+		cv2.putText(img, f'{distance}',(pt[0],pt[1]-15), cv2.FONT_HERSHEY_SIMPLEX,
+		0.4, green, 1, cv2.LINE_AA)
+		cv2.putText(img, f'{ids[i]}',(pt[0],pt[1]), cv2.FONT_HERSHEY_SIMPLEX,
+		0.4, green, 1, cv2.LINE_AA)
+		cv2.putText(img, f'{centroid}',(pt[0],pt[1]+15), cv2.FONT_HERSHEY_SIMPLEX,
+		0.4, green, 1, cv2.LINE_AA)
+		cv2.circle(img,centroid,3,green,-1) # center point
+		
+		if ids[i] == target_id:
+			cv2.putText(img, f'ID{target_id}: {distance} {check_LR(center_point,centroid,vdim)} {check_TB(center_point,centroid,hdim)}',(10,25), cv2.FONT_HERSHEY_SIMPLEX,0.5, green, 1, cv2.LINE_AA)
+			cv2.line(img,center_point,centroid,red,2)
+
+	if draw:
+		aruco.drawDetectedMarkers(img,bboxs)
+
+def track_aruco_markers(img,depth,target_id,marker_size =4, total_markers =250, draw = True):
+	'''
+	Tracking aruco 
+	'''
+	# convert frame to gray
+	gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY) 
+	# init aruco marker
+	key = getattr(aruco,f'DICT_{marker_size}X{marker_size}_{total_markers}')
+	aruco_dict = aruco.Dictionary_get(key)
+	aruco_param = aruco.DetectorParameters_create()
+	# find aruco marker
+	bboxs,ids,rejected = aruco.detectMarkers(gray,aruco_dict, parameters = aruco_param) # list of np.array,np.array([[]]), list of np.array
+	# loop over the ids, if use numpy array ids, there must be error if you get null, so let use list bboxs,
+	for i,bbox in enumerate(bboxs):
+		# if the id is match target_id
+		index = ids[i]
+		if index == target_id:
+			# find centroid
+			centroid = np.mean(bboxs[i],axis = 1).astype('int')
+			centroid = tuple(centroid[0])
+			# find distance
 			pt = bbox[0][1].astype('int') # top right
 			distance = depth[pt[1],pt[0]]
-			
-			cv2.putText(img, f'{distance}',(pt[0],pt[1]-15), cv2.FONT_HERSHEY_SIMPLEX,
-			0.5, green, 1, cv2.LINE_AA)
-			cv2.putText(img, f'{ids[i]}',(pt[0],pt[1]), cv2.FONT_HERSHEY_SIMPLEX,
-			0.5, green, 1, cv2.LINE_AA)
-			cv2.putText(img, f'{centroid}',(pt[0],pt[1]+15), cv2.FONT_HERSHEY_SIMPLEX,
-			0.5, green, 1, cv2.LINE_AA)
-			cv2.circle(img,centroid,3,green,-1) # center point
-			
-			if ids[i] == 7:
-				cv2.putText(img, f'ID7: {distance} {check_LR(center_point,centroid,vdim)} {check_TB(center_point,centroid,hdim)}',(50,25), cv2.FONT_HERSHEY_SIMPLEX,1, green, 1, cv2.LINE_AA)
-				cv2.line(img,center_point,centroid,red,2)
+			# soon return
+			return (centroid,distance,ids[i])
+	# return None if you can find nothing
+	return None
 
-		if draw:
-			aruco.drawDetectedMarkers(img,bboxs)
+def recommend_command(img,centroid,distance,display = True):
+	'''
+	This function return a recommend command for robot
+	'''
+	h_pos = check_LR(center_point,centroid,vdim)
+	if display:
+		cv2.putText(img, f'{h_pos}',(10,40), cv2.FONT_HERSHEY_SIMPLEX,0.5, (140,140,140), 1, cv2.LINE_AA)
+	return h_pos			
+
+def draw_frame(frame):
+	cv2.circle(frame,center_point,10,blue,2) # center point
+	cv2.line(frame,(320,220),(320,260),blue,2) # vertical line
+	cv2.line(frame,(300,240),(340,240),blue,2) # horizontal line
+	cv2.line(frame,(320-vdim,0),(320-vdim,480),blue,2) # vertical frontline left
+	cv2.line(frame,(320+vdim,0),(320+vdim,480),blue,2) # vertical frontline right
+	cv2.line(frame,(0,240-hdim),(640,240-hdim),blue,2) # horizontal frontline top
+	cv2.line(frame,(0,240+hdim),(640,240+hdim),blue,2) # horizontal frontline top
 
 if __name__ == '__main__':
+	# init control gpio object
+	robot = controller()
 	while ret:
+		# read camera
 		ret,depth_frame,color_frame = d455.get_frame()
 		colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_frame,alpha = 0.08),cv2.COLORMAP_JET)
-		#print(depth_frame.shape)
+		
+		# find aruco target
+		result = track_aruco_markers(color_frame,depth_frame,target_id)
+		if result:
+			centroid,distance,index  = result[0],result[1],result[2]
+			#print(centroid,distance,index)
+			r_command = recommend_command(color_frame,centroid,distance)
+			if r_command == 'Right':
+				#print("robot turn right")
+				robot.bit_turnright(0.2)
+			elif r_command == 'Left':
+				#print("robot turn left")
+				robot.bit_turnleft(0.2)
 		
 		# find aruco in frame
 		find_aruco_markers(color_frame,depth_frame)
-		
-		# draw info on color_frame
-		cv2.circle(color_frame,center_point,10,blue,2) # center point
-		cv2.line(color_frame,(320,220),(320,260),blue,2) # vertical line
-		cv2.line(color_frame,(300,240),(340,240),blue,2) # horizontal line
-		cv2.line(color_frame,(320-vdim,0),(320-vdim,480),blue,2) # vertical frontline left
-		cv2.line(color_frame,(320+vdim,0),(320+vdim,480),blue,2) # vertical frontline right
-		cv2.line(color_frame,(0,240-hdim),(640,240-hdim),blue,2) # horizontal frontline top
-		cv2.line(color_frame,(0,240+hdim),(640,240+hdim),blue,2) # horizontal frontline top
 
+		# draw info on color_frame
+		draw_frame(color_frame)
+
+		# stack depth frame and colorframe
+		stack_frame = np.hstack((color_frame,colormap)) # display side by side RGB and Depth next to
+	
 		# Display color frame
-		cv2.imshow('color_frame',color_frame)
-		cv2.imshow('depth_frame',colormap)
+		cv2.imshow('rame',stack_frame)
 
 		if cv2.waitKey(1) == 27:
 			break 
