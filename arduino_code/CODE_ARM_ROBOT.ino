@@ -1,26 +1,41 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
-byte reload = 50;  //100us
-int count = 0;
-unsigned long Tmoi,T_delay;
+byte reload = 50;  //100us for interupt timer
+int count = 0; //make a pulse for step motor if count == 8
+unsigned long Tmoi,T_delay; // T_delay for delay function
 #include <EEPROM.h>
 #include <SoftwareSerial.h>
-SoftwareSerial mySerial(11, 10); // RX, TX
+SoftwareSerial mySerial(11, 10); // create a serial object for uart communicate 11 = RX, 10 = TX
 #include <Servo.h>
 #include <string.h>
 Servo sv4,sv3, sv2, sv1;  // create servo object to control a servo
-#define motorInterfaceType 1String s="";
-int g1,g2,g3,g4;
-float tdcu[5], tdmoi[5], h[4], denta[5],tdcu1[5], tdmoi1[5], h1[5], denta1[5];
-int S1,S2,S3,S4,ST1, STmoi = 0,STcu = 0, EN = 0;
-
-int Xung_Xoay = 0, dem = 0;
-int S = 0;
-byte Home = 0;
-boolean s1 = false;
-byte Run_Step = 0;
-String str;
-char buf[100];
+#define motorInterfaceType 1
+String s=""; // the framework string to communicate with main control board
+int g1,g2,g3,g4; // useless
+float tdcu[5]; // for storage previous RC angle 
+float tdmoi[5]; // for storage new RC angle 
+float h[4]; // for storage previous RC angle 
+float denta[5]; // for storage the distance between set value of RC servo angle and previous one
+// float tdcu1[5];
+// float tdmoi1[5];
+// float h1[5];
+// float denta1[5];
+int S1; // the value angle of servo 1 you received from framework
+int S2; // the value angle of servo 2 you received from framework
+int S3; // the value angle of servo 3 you received from framework
+int S4; // the value angle of servo 4 you received from framework
+int ST1; // the value angle of step motor you received from the framework
+int STmoi = 0; // the new value of angle calculated by set pulse - current pulse
+int STcu = 0; // the old value angle of step motor for comparing with new current value angle
+int EN = 0; // working mode received from framework
+int Xung_Xoay = 0; // the set pulse value
+int dem = 0; // the current pulse value for comparing with Xung_Xoay
+int S = 0; // the set value of gripping angle
+byte Home = 0; // get 1 value if robot go home
+boolean s1 = false; // limit switch
+byte Run_Step = 0; // get value 1 if step motor is running, 0 if step stopped
+String str; // the string framework
+char buf[100]; // useless
 int  chuoi[] = {
     20,90,90,90, //trang thai mat dinh
     110, 20,45, 140,   //Dua ra phia truoc
@@ -29,30 +44,33 @@ int  chuoi[] = {
 //    20, 90, 90, 90
 };
 //unsigned long timer, timer1;
-const int BT =  12;
-const int RES =  A0;
-const int BZ =  A5;
-const int stepPin = 4; 
-const int dirPin = 7; 
-const int enPin = 8;
+const int BT =  12; // button 
+const int RES =  A0; // the potential meter
+const int BZ =  A5; // buzzer
+const int stepPin = 4; // make pulse for step motor
+const int dirPin = 7; // direction for step motor pin
+const int enPin = 8; // brake step motor pin
 
+// move the robot to zero position
 void setgoc();
 void Run(int G1, int G2, int G3, int G4, int T, int Dir);
 void setup() {
-  Serial.begin(9600);
-  mySerial.begin(9600);
-  
-  pinMode(stepPin,OUTPUT); 
-  pinMode(dirPin,OUTPUT);
-  pinMode(enPin,OUTPUT);
-  pinMode(BZ,OUTPUT);
-  pinMode(BT,INPUT);
-  pinMode(RES,INPUT);
-  pinMode(13, OUTPUT);
+  // STEP1: Serial setup
+  Serial.begin(9600); // Arduino internal serial
+  mySerial.begin(9600); // your custom serial
+  // STEP2: Pinmode setup
+  pinMode(stepPin,OUTPUT); // init stepPin for step motor is output
+  pinMode(dirPin,OUTPUT); // init dirPin for step motor direction is output
+  pinMode(enPin,OUTPUT); // init enable for step motor is output, BRAKE control
+  pinMode(BZ,OUTPUT); // buzzer
+  pinMode(BT,INPUT); // button
+  pinMode(RES,INPUT); // potential resistor
+  pinMode(13, OUTPUT); // led builtin
   digitalWrite(13,0);
   attachInterrupt(0, Ngat, FALLING);
   Serial.println("1");
-  cli();
+  // STEP3: Timer setup
+  cli(); // init timer, disable all interupt before you done setup
   Serial.println("2");
   TCCR0B = 0; 
   OCR2A = reload;
@@ -62,43 +80,53 @@ void setup() {
   Serial.println("3");
   sei();
   Serial.println("4");
+  // STEP4: brake and buzzer setup
   digitalWrite(enPin,1); //0 la thang, 1 la nha
   digitalWrite(BZ,0);
+  // STEP5: RC servo setup
   sv4.attach(3);  // goc tang la kep lai
   sv3.attach(5);  // goc tang la gap vao
   sv2.attach(6);  //goc giam la dua ra
   sv1.attach(9);  //goc tang la dua ra
   setgoc();
-  if(digitalRead(BT) == 0)
+  // STEP6: set grip angle, push the button 
+  if(digitalRead(BT) == 0) // if the button is pushed
   {
+    // activate the buzzer 2 time for announcement
     digitalWrite(BZ,1);
-    Delay(1000);
+    Delay(1000); // delay by custom function
     digitalWrite(BZ,0);
     Delay(2000);
     digitalWrite(BZ,1);
     Delay(1000);
     digitalWrite(BZ,0);
     Delay(10000);
-    while(digitalRead(BT) == 0);
+    // wait until you release the button
+    while(digitalRead(BT) == 0); // if the condition is true, continue loop
+    // starting set the grip angle
     while(1)
     {
-      int Val = analogRead(RES);
-      S = map(Val, 0, 1024, 0, 180);
-      Serial.println(S);
-      sv4.write(S);
-      Delay(1000);
+      int Val = analogRead(RES); // read the analog value of potential metter
+      S = map(Val, 0, 1024, 0, 180); // map to range (0,180)
+      Serial.println(S); // print out the value of grip angle
+      sv4.write(S); // write the angle to gripping servo
+      Delay(1000); // delay 1000ms 
+      // if you have a correct angle, press the button to release
       if(digitalRead(BT) == 0)
       {
-        EEPROM.write(0,S);
+        EEPROM.write(0,S); // save the value to arduino eeprom, make sure this
         Delay(100);
-        break;
+        break; // jump out the while
       }
      }
   }
+  // print out the gripping angle
   Serial.print("GT GOC: ");
   S = EEPROM.read(0);
   Serial.println(S);
+  // return robot to zero position again
   setgoc();
+  // announcement by buzzer that all setup is done
   digitalWrite(BZ,1);
   Delay(10000); //1s
   digitalWrite(BZ,0);
@@ -106,56 +134,78 @@ void setup() {
 
 //------------------
 void loop() {
+  // if you received someting
   if (mySerial.available()) {
-    Serial.println("RX....");
-    //90,20,80,90,90,1
-    str = mySerial.readStringUntil('\n');
+      // print out the content you received
+      Serial.println("RX....");
+      //90,20,80,90,90,1
+      str = mySerial.readStringUntil('\n');
       Serial.println(str);
-
+      /*
+      convert a character string to double precision floating point value,
+      get the sub string then convert it into integer
+      */ 
       ST1 = atof(strtok(str.c_str(),","));
       S1 = atof(strtok(NULL,","));
       S2 = atoi(strtok(NULL,","));
       S3 = atoi(strtok(NULL,","));
       S4 = atoi(strtok(NULL,","));
       EN = atoi(strtok(NULL,","));
-      Serial.println(EN);
+      Serial.println(EN); // print out the working mode
+      /*
+      Check the angle of step motor if it get over the limit then set it as the previous value
+      */
       if(ST1 > 350 || ST1 < 0) {
           Serial.println("angle Step is over the limit");
-          ST1 = STcu;
+          ST1 = STcu;// 
         }
+      /*
+      Check the working mode
+      1: for go to specific position
+      2: for go home
+      3: robot go forward
+      4: robot grip
+      5: robot release
+      */
       switch (EN) {
       case 1:    
         Run(ST1,S1,S2,S3,S4,600);
+        // wait if xung_xoay of step motor still greater than dem
         while(Xung_Xoay >= dem){Serial.print(dem);Serial.print(" ");Serial.println(Xung_Xoay);}
         Run_Step = 0;
       break;
-      case 2:   // TT mac dinh
+      
+      case 2:   // TT mac dinh , go home and set angle STcu to 90
         Home = 1;
         Run(80,20,80,90,90,600);
         STcu = 90;
+        // wait if xung_xoay of step motor still greater than dem
         while(Xung_Xoay >= dem){Serial.print(dem);Serial.print(" ");Serial.println(Xung_Xoay);}
     
         Serial.println("2");
       break;
-      case 3:    
+      
+      case 3:
+        // robot go forward    
         Serial.println("3");
-        
       break;
+      
       case 4:    
-        Serial.println("4");
-        
+        // robot grip
+        Serial.println("4");  
       break;
-      case 5:    
+      
+      case 5:
+        // robot release    
         Serial.println("5");
         
       break;
     }
   }
-
+  // if you press the button then start to do a specific task
 
   if(digitalRead(BT) == 0)
   {
-    
     Run(160,70,80,90,90,600);
     while(Xung_Xoay >= dem){Serial.print(dem);Serial.print(" ");Serial.println(Xung_Xoay);}
     Run(190,70,160,90,90,600);//190,70,160,90,90,1,A
@@ -194,31 +244,32 @@ void loop() {
     digitalWrite(enPin,1);
   }
 }
-//--------------------
+// specific interupt function each 100us...................
 ISR(TIMER2_COMPA_vect)
 {
-  count++;
-  T_delay++;
-  if(count >= 8)
+  count++; // count this var for create a pulse
+  T_delay++; // increase T_delay for time delay
+  if(count >= 8) // if count == 8 then make a pulse
   {
+    // if your motor is runing and dem < Xung_Xoay
     if( Run_Step == 1 && dem <= Xung_Xoay) {
       digitalWrite(stepPin,!digitalRead(stepPin)); 
     }
-    dem++;
-    count = 0;
+    dem++; // increase the current pulse after make a pulse
+    count = 0; // reset count value
   }
-  OCR2A = reload;
+  OCR2A = reload; // reload timer 
 }
 //----------------------------------------
 void Run(int ST, int G1, int G2, int G3, int G4, int F)
 {
   
-  digitalWrite(enPin,0);
-  Run_Step = 1;
-  count = 0;
-  dem = 0;
+  digitalWrite(enPin,0); // release the brake
+  Run_Step = 1; // set run_step motor state  =1 
+  count = 0; // reset the count var
+  dem = 0; // reset the dem var
  
-  STmoi= ST - STcu;
+  STmoi= ST - STcu;// new step  = set step - current step
   Serial.print(ST);
   Serial.print("  ");
   Serial.print(STmoi);
@@ -226,7 +277,7 @@ void Run(int ST, int G1, int G2, int G3, int G4, int F)
   Serial.println(STcu);
   if(STmoi > 0) {
     digitalWrite(dirPin,0);
-    Xung_Xoay = STmoi * 89; // 89 = 16000/360*2 vi 2 lan ngat moi dc 1 xung
+    Xung_Xoay = STmoi * 89; // 89 = (16000/360)*2 vi 2 lan ngat moi dc 1 xung # 16000 = 1 round
     STcu = ST;
     Serial.println(" 1 ");
   }
