@@ -173,6 +173,7 @@ class controller():
 		self.backward()
 		time.sleep(delay)
 		self.stop()
+		self.db_stop_update()
 
 	def bit_turnleft(self,delay):
 		'''
@@ -190,6 +191,7 @@ class controller():
 		self.turnright()
 		time.sleep(delay)
 		self.stop()
+		self.db_stop_update()
 
 	def update_input(self):
 		'''
@@ -316,16 +318,16 @@ if __name__ == "__main__":
 			
 		# moving a bit and stop meaning we have to reset 
 		elif command == "bit_forward":
-			controller.bit_forward(0.2)
+			controller.bit_forward(0.3)
 
 		elif command == "bit_backward":
-			controller.bit_backward(0.2)
+			controller.bit_backward(0.3)
 
 		elif command == "bit_turnleft":
-			controller.bit_turnleft(0.1)
+			controller.bit_turnleft(0.2)
 
 		elif command == "bit_turnright":
-			controller.bit_turnright(0.1)
+			controller.bit_turnright(0.2)
 
 		else:
 			print("Command does not Exist!")

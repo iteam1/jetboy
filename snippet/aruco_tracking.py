@@ -9,7 +9,6 @@ import cv2.aruco as aruco
 import numpy as np
 import realsense_depth as rd # pyrealsense2 package is already in snippet
 import RPi.GPIO
-import sqlite3 
 import time
 
 # Define pin number
