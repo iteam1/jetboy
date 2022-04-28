@@ -1,4 +1,4 @@
-e#!usr/bin/python3 
+#!usr/bin/python3 
 
 python3 robot_gpio.py &
 
