@@ -180,6 +180,13 @@ class controller():
 		time.sleep(delay)
 		self.stop()
 
+	def read_obstacles(self):
+		f= self.GPIO.input(self.OBS_F_pin)
+		b= self.GPIO.input(self.OBS_B_pin)
+		l= self.GPIO.input(self.OBS_L_pin)
+		r= self.GPIO.input(self.OBS_R_pin)
+		return f,b,l,r
+
 def check_LR(center_point,current_point,x_distance):
 	'''
 	Check the position of target
@@ -249,7 +256,7 @@ def find_aruco_markers(img,depth,marker_size = 4,total_markers = 250,draw  = Tru
 		cv2.circle(img,centroid,3,green,-1) # center point
 		
 		if ids[i] == target_id:
-			cv2.putText(img, f'ID{target_id}: {distance} {check_LR(center_point,centroid,vdim)} {check_TB(center_point,centroid,hdim)}',(10,25), cv2.FONT_HERSHEY_SIMPLEX,0.5, green, 1, cv2.LINE_AA)
+			cv2.putText(img, f'ID{target_id}: {distance} {check_LR(center_point,centroid,vdim)} {check_TB(center_point,centroid,hdim)}',(10,45), cv2.FONT_HERSHEY_SIMPLEX,0.5, green, 1, cv2.LINE_AA)
 			cv2.line(img,center_point,centroid,red,2)
 
 	if draw:
@@ -289,7 +296,7 @@ def recommend_command(img,centroid,distance,display = True):
 	'''
 	h_pos = check_LR(center_point,centroid,vdim)
 	if display:
-		cv2.putText(img, f'{h_pos}',(10,40), cv2.FONT_HERSHEY_SIMPLEX,0.5, (140,140,140), 1, cv2.LINE_AA)
+		cv2.putText(img, f'{h_pos}',(10,62), cv2.FONT_HERSHEY_SIMPLEX,0.5,green, 1, cv2.LINE_AA)
 	return h_pos			
 
 def draw_frame(frame):
@@ -308,6 +315,10 @@ if __name__ == '__main__':
 		# read camera
 		ret,depth_frame,color_frame = d455.get_frame()
 		colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_frame,alpha = 0.08),cv2.COLORMAP_JET)
+
+		# Read obstacles
+		f,b,l,r = robot.read_obstacles()
+		cv2.putText(color_frame, f'f:{f} b:{b} l:{l} r:{r}',(10,25), cv2.FONT_HERSHEY_SIMPLEX,0.5, green, 1, cv2.LINE_AA)
 		
 		# find aruco target
 		result = track_aruco_markers(color_frame,depth_frame,target_id)
@@ -336,6 +347,9 @@ if __name__ == '__main__':
 
 		if cv2.waitKey(1) == 27:
 			break 
+
+	robot.stop()
+	robot.GPIO.cleanup()
 
 	d455.release()
 	cv2.destroyAllWindows()
