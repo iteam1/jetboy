@@ -21,7 +21,6 @@ Description:
 
 	This program continously read the database and display it
 '''
-
 import tkinter 
 from PIL import Image,ImageTk,ImageSequence
 import os 

@@ -47,6 +47,6 @@ Open terminal:
 	from robot import db
 	from robot.models import Robot
 	robot = Robot()
-	db.add(robot)
-	db.commit()
+	db.session.add(robot)
+	db.session.commit()
 	```
