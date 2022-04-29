@@ -306,7 +306,6 @@ if __name__ == "__main__":
 		elif command == "forward":
 			controller.forward()
 
-
 		elif command == "backward":
 			controller.backward()
 
