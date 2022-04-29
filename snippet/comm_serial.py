@@ -3,7 +3,6 @@ from serial.tools import list_ports
 import time 
 
 ports = list_ports.comports()
-print(ports)
 for port,desc,hwid in sorted(ports):
 	print("{}: {} [{}]".format(port,desc,hwid))
 
