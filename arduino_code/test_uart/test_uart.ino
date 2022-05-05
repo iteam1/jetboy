@@ -15,7 +15,7 @@ void loop() {
     //Serial.println("Received: ");
     //str = Serial.read();
     str = Serial.readStringUntil('\n');
-    if(str == "90,90,90,90,90,1"){
+    if(str == "90,90,90,90,90,1a"){
       digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
       delay(1000);                       // wait for a second
       digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
