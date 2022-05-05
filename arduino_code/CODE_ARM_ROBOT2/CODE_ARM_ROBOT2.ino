@@ -159,6 +159,8 @@ void loop() {
         Serial.println("5");
         
       break;
+      case 7:
+        beep();
     }
   }
 
