@@ -117,10 +117,11 @@ void loop() {
     //90,20,80,90,90,1
     //char c = mySerial.read();
     //Serial.println(c);
+    longbeep();
     str = Serial.readStringUntil('a');
       //Serial.println(str);
     
-    beep();
+    shortbeep();
 
       ST1 = atof(strtok(str.c_str(),","));
       S1 = atof(strtok(NULL,","));
@@ -160,7 +161,7 @@ void loop() {
         
       break;
       case 7:
-        beep();
+        doublebeep();
     }
   }
 
@@ -312,8 +313,26 @@ void Delay(unsigned int T)  //T = 10000 = 1s
   while(T_delay < T){Serial.println(T_delay);}
 }
 
-void beep(){
+void longbeep(){
   digitalWrite(BZ,1);
-  Delay(10000); //1s
+  Delay(2000); //1s
   digitalWrite(BZ,0);
   }
+  
+void shortbeep(){
+  digitalWrite(BZ,1);
+  Delay(1000); //1s
+  digitalWrite(BZ,0);
+
+}
+
+void doublebeep(){
+  digitalWrite(BZ,1);
+  Delay(1000); //1s
+  digitalWrite(BZ,0);
+  Delay(1000);
+  digitalWrite(BZ,1);
+  Delay(1000); //1s
+  digitalWrite(BZ,0);
+
+}
