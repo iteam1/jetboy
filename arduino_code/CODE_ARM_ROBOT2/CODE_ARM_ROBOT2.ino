@@ -104,7 +104,7 @@ void setup() {
   Delay(10000); //1s
   digitalWrite(BZ,0);
 Serial.println("-------....");
-  Run(180,20,80,90,90,600); //robot go to ready position from begining
+  //Run(180,20,80,90,90,600); //robot go to ready position from begining
   while(Xung_Xoay >= dem){Serial.print(dem);Serial.print(" ");Serial.println(Xung_Xoay);}
   Run_Step = 0;
   Serial.println("++++--....");
