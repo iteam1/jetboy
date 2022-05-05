@@ -118,7 +118,7 @@ void loop() {
     //char c = mySerial.read();
     //Serial.println(c);
     str = mySerial.readString();
-    if (str == 'x'){
+    if (str == "xa"){
        beep();
       }
     //str = Serial.readStringUntil('a');
