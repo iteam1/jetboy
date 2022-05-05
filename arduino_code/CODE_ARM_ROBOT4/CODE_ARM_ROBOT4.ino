@@ -117,11 +117,14 @@ void loop() {
     //90,20,80,90,90,1
     //char c = mySerial.read();
     //Serial.println(c);
-    //str = mySerial.readString();
-    str = Serial.readStringUntil('a');
+    str = mySerial.readString();
+    if (str == 'x'){
+       beep();
+      }
+    //str = Serial.readStringUntil('a');
       //Serial.println(str);
     
-    beep();
+   
 
       ST1 = atof(strtok(str.c_str(),","));
       S1 = atof(strtok(NULL,","));
