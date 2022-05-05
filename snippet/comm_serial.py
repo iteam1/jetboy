@@ -12,7 +12,7 @@ arduino = serial.Serial(port,baudrate = 9600,timeout = 0.1)
 if __name__ == "__main__":
 	while True:
 		x = input('Enter the framework: ')
-		x = x+ "a"
+		x = x + "a" # use a character you can see to recognize a frame
 		print(x)
 		#arduino.write(bytes(x,'utf-8'))
 		arduino.write(x.encode())

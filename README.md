@@ -50,3 +50,11 @@ Open terminal:
 	db.session.add(robot)
 	db.session.commit()
 	```
+
+# Memos
+`/dev/ttyUSB0` permission denied, `username =  jetboy`. `portname = /dev/ttyUSB0`
+
+```
+sudo usermod -a -G dialout <username>
+sudo chmod a+rw <portname>
+```
