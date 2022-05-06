@@ -122,7 +122,7 @@ void loop() {
        beep();
       }
     //str = Serial.readStringUntil('a');
-      //Serial.println(str);
+     Serial.println(str);
     
    
 
