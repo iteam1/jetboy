@@ -149,18 +149,16 @@ void loop() {
 
     beep_3();
 
-    //str = Serial.readStringUntil('a');
+    str = Serial.readStringUntil('a');
     //str = Serial.read();
     //str = Serial.readString();
-    str = Serial.readStringUntil('\n');
+    //str = Serial.readStringUntil('\n');
 
     Serial.println(str);
     /*
       convert a character string to double precision floating point value,
       get the sub string then convert it into integer
       */ 
-    
-    beep_4();
     
     /*
       convert a character string to double precision floating point value,
@@ -446,4 +444,3 @@ void beep_5(){
   Delay(1000); //100ms
   digitalWrite(BZ,0);
   }
-

@@ -55,9 +55,11 @@ const int enPin = 8; // brake step motor pin
 void setgoc();
 void Run(int G1, int G2, int G3, int G4, int T, int Dir);
 void setup() {
+  
   // STEP1: Serial setup
   Serial.begin(9600); // Arduino internal serial
   mySerial.begin(9600); // your custom serial
+  
   // STEP2: Pinmode setup
   pinMode(stepPin,OUTPUT); // init stepPin for step motor is output
   pinMode(dirPin,OUTPUT); // init dirPin for step motor direction is output
@@ -69,6 +71,7 @@ void setup() {
   digitalWrite(13,0);
   attachInterrupt(0, Ngat, FALLING);
   Serial.println("1");
+  
   // STEP3: Timer setup
   cli(); // init timer, disable all interupt before you done setup
   Serial.println("2");
@@ -80,15 +83,18 @@ void setup() {
   Serial.println("3");
   sei();
   Serial.println("4");
+  
   // STEP4: brake and buzzer setup
   digitalWrite(enPin,1); //0 la thang, 1 la nha
   digitalWrite(BZ,0);
+  
   // STEP5: RC servo setup
   sv4.attach(3);  // goc tang la kep lai
   sv3.attach(5);  // goc tang la gap vao
   sv2.attach(6);  //goc giam la dua ra
   sv1.attach(9);  //goc tang la dua ra
   setgoc();
+  
   // STEP6: set grip angle, push the button 
   if(digitalRead(BT) == 0) // if the button is pushed
   {
