@@ -141,10 +141,11 @@ void setup() {
 
 //LOOP--------------------------------------------------------
 void loop() {
+  
   // if you received someting
   if (Serial.available()) {
     // print out the content you received
-    Serial.println("RX....");
+    Serial.println("RX++++++++++++++++++++++++.");
 
     beep_3();
 
@@ -152,6 +153,7 @@ void loop() {
     //str = Serial.read();
     //str = Serial.readString();
     str = Serial.readStringUntil('\n');
+
     Serial.println(str);
     /*
       convert a character string to double precision floating point value,
@@ -159,6 +161,7 @@ void loop() {
       */ 
     
     beep_4();
+    
     /*
       convert a character string to double precision floating point value,
       get the sub string then convert it into integer
@@ -218,7 +221,7 @@ void loop() {
     }
   }
 
-
+  // if you press the button then start to do a specific task
   if(digitalRead(BT) == 0)
   {
     Serial.println("-----============--....");
