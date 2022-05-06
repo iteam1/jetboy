@@ -36,13 +36,6 @@ boolean s1 = false; // limit switch
 byte Run_Step = 0; // get value 1 if step motor is running, 0 if step stopped
 String str; // the string framework
 char buf[100]; // useless
-int  chuoi[] = {
-    20,90,90,90, //trang thai mat dinh
-    110, 20,45, 140,   //Dua ra phia truoc
-//    20, 90, 90, 90,    
-//    110, 20,45, 140,   
-//    20, 90, 90, 90
-};
 //unsigned long timer, timer1;
 const int BT =  12; // button 
 const int RES =  A0; // the potential meter
@@ -51,11 +44,12 @@ const int stepPin = 4; // make pulse for step motor
 const int dirPin = 7; // direction for step motor pin
 const int enPin = 8; // brake step motor pin
 
-// move the robot to zero position
 void setgoc();
+
 void Run(int G1, int G2, int G3, int G4, int T, int Dir);
+
 void setup() {
-  
+
   // STEP1: Serial setup
   Serial.begin(9600); // Arduino internal serial
   mySerial.begin(9600); // your custom serial
@@ -80,9 +74,9 @@ void setup() {
   TCCR2A = 1<<WGM21;
   TCCR2B = ((1<<CS21) | (1<<CS20));//1<<CS22)
   TIMSK2 = (1<<OCIE2A);
-  Serial.println("3");
+  Serial.println("3zzzzz");
   sei();
-  Serial.println("4");
+  Serial.println("4xxxxx");
   
   // STEP4: brake and buzzer setup
   digitalWrite(enPin,1); //0 la thang, 1 la nha
@@ -95,8 +89,10 @@ void setup() {
   sv1.attach(9);  //goc tang la dua ra
   setgoc();
   
+  Serial.println("dddd");
+   
   // STEP6: set grip angle, push the button 
-  if(digitalRead(BT) == 0) // if the button is pushed
+  if(digitalRead(BT) == 0)
   {
     // activate the buzzer 2 time for announcement
     digitalWrite(BZ,1);
@@ -132,40 +128,59 @@ void setup() {
   Serial.println(S);
   // return robot to zero position again
   setgoc();
+
+  Serial.println("-------....");
+  // Run(180,20,80,90,90,600); //robot go to ready position from begining
+  // while(Xung_Xoay >= dem){Serial.print(dem);Serial.print(" ");Serial.println(Xung_Xoay);}
+  // Run_Step = 0;
+  Serial.println("++++--....");
+
   // announcement by buzzer that all setup is done
-  digitalWrite(BZ,1);
-  Delay(10000); //1s
-  digitalWrite(BZ,0);
+  beep_long();
 }
 
-//------------------
+//LOOP--------------------------------------------------------
 void loop() {
+  
   // if you received someting
-  if (mySerial.available()) {
-      // print out the content you received
-      Serial.println("RX....");
-      //90,20,80,90,90,1
-      str = mySerial.readStringUntil('\n');
-      Serial.println(str);
-      /*
+  if (Serial.available()) {
+    // print out the content you received
+    Serial.println("RX++++++++++++++++++++++++.");
+
+    beep_3();
+
+    str = Serial.readStringUntil('a');
+    //str = Serial.read();
+    //str = Serial.readString();
+    //str = Serial.readStringUntil('\n');
+
+    Serial.println(str);
+    /*
       convert a character string to double precision floating point value,
       get the sub string then convert it into integer
       */ 
-      ST1 = atof(strtok(str.c_str(),","));
-      S1 = atof(strtok(NULL,","));
-      S2 = atoi(strtok(NULL,","));
-      S3 = atoi(strtok(NULL,","));
-      S4 = atoi(strtok(NULL,","));
-      EN = atoi(strtok(NULL,","));
-      Serial.println(EN); // print out the working mode
-      /*
+    
+    /*
+      convert a character string to double precision floating point value,
+      get the sub string then convert it into integer
+      */
+    ST1 = atof(strtok(str.c_str(),","));
+    S1 = atof(strtok(NULL,","));
+    S2 = atoi(strtok(NULL,","));
+    S3 = atoi(strtok(NULL,","));
+    S4 = atoi(strtok(NULL,","));
+    EN = atoi(strtok(NULL,","));
+    Serial.println(EN);  // print out the working mode
+    
+    /*
       Check the angle of step motor if it get over the limit then set it as the previous value
       */
-      if(ST1 > 350 || ST1 < 0) {
-          Serial.println("angle Step is over the limit");
-          ST1 = STcu;// 
-        }
-      /*
+    if(ST1 > 350 || ST1 < 0) {
+        Serial.println("angle Step is over the limit");
+        ST1 = STcu;
+      }
+    
+    /*
       Check the working mode
       1: for go to specific position
       2: for go home
@@ -173,45 +188,41 @@ void loop() {
       4: robot grip
       5: robot release
       */
-      switch (EN) {
-      case 1:    
-        Run(ST1,S1,S2,S3,S4,600);
-        // wait if xung_xoay of step motor still greater than dem
-        while(Xung_Xoay >= dem){Serial.print(dem);Serial.print(" ");Serial.println(Xung_Xoay);}
-        Run_Step = 0;
-      break;
+    switch (EN) {
+    case 1:    
+      Run(ST1,S1,S2,S3,S4,600);
+      while(Xung_Xoay >= dem){Serial.print(dem);Serial.print(" ");Serial.println(Xung_Xoay);}
+      Run_Step = 0;
+    break;
+    case 2:   // TT mac dinh
+      Home = 1;
+      Run(80,20,80,90,90,600);
+      STcu = 90;
+      while(Xung_Xoay >= dem){Serial.print(dem);Serial.print(" ");Serial.println(Xung_Xoay);}
+      Run_Step = 0;
+      Serial.println("2");
+    break;
+    case 3:    
+      Serial.println("3");
       
-      case 2:   // TT mac dinh , go home and set angle STcu to 90
-        Home = 1;
-        Run(80,20,80,90,90,600);
-        STcu = 90;
-        // wait if xung_xoay of step motor still greater than dem
-        while(Xung_Xoay >= dem){Serial.print(dem);Serial.print(" ");Serial.println(Xung_Xoay);}
-    
-        Serial.println("2");
-      break;
+    break;
+    case 4:    
+      Serial.println("4");
       
-      case 3:
-        // robot go forward    
-        Serial.println("3");
-      break;
+    break;
+    case 5:    
+      Serial.println("5");
       
-      case 4:    
-        // robot grip
-        Serial.println("4");  
-      break;
-      
-      case 5:
-        // robot release    
-        Serial.println("5");
-        
-      break;
+    break;
+    case 7:
+      beep_5();
     }
   }
-  // if you press the button then start to do a specific task
 
+  // if you press the button then start to do a specific task
   if(digitalRead(BT) == 0)
   {
+    Serial.println("-----============--....");
     Run(160,70,80,90,90,600);
     while(Xung_Xoay >= dem){Serial.print(dem);Serial.print(" ");Serial.println(Xung_Xoay);}
     Run(190,70,160,90,90,600);//190,70,160,90,90,1,A
@@ -250,32 +261,33 @@ void loop() {
     digitalWrite(enPin,1);
   }
 }
-// specific interupt function each 100us...................
+
+//INTERUPT----------------------------------------------------
 ISR(TIMER2_COMPA_vect)
 {
-  count++; // count this var for create a pulse
-  T_delay++; // increase T_delay for time delay
-  if(count >= 8) // if count == 8 then make a pulse
+  count++;
+  T_delay++;
+  if(count >= 8)
   {
-    // if your motor is runing and dem < Xung_Xoay
     if( Run_Step == 1 && dem <= Xung_Xoay) {
       digitalWrite(stepPin,!digitalRead(stepPin)); 
     }
-    dem++; // increase the current pulse after make a pulse
-    count = 0; // reset count value
+    dem++;
+    count = 0;
   }
-  OCR2A = reload; // reload timer 
+  OCR2A = reload;
 }
-//----------------------------------------
+
+//RUN robot function------------------------------------------
 void Run(int ST, int G1, int G2, int G3, int G4, int F)
 {
   
-  digitalWrite(enPin,0); // release the brake
-  Run_Step = 1; // set run_step motor state  =1 
-  count = 0; // reset the count var
-  dem = 0; // reset the dem var
+  digitalWrite(enPin,0);
+  Run_Step = 1;
+  count = 0;
+  dem = 0;
  
-  STmoi= ST - STcu;// new step  = set step - current step
+  STmoi= ST - STcu;
   Serial.print(ST);
   Serial.print("  ");
   Serial.print(STmoi);
@@ -283,7 +295,7 @@ void Run(int ST, int G1, int G2, int G3, int G4, int F)
   Serial.println(STcu);
   if(STmoi > 0) {
     digitalWrite(dirPin,0);
-    Xung_Xoay = STmoi * 89; // 89 = (16000/360)*2 vi 2 lan ngat moi dc 1 xung # 16000 = 1 round
+    Xung_Xoay = STmoi * 89; // 89 = 16000/360*2 vi 2 lan ngat moi dc 1 xung
     STcu = ST;
     Serial.println(" 1 ");
   }
@@ -326,33 +338,109 @@ void Run(int ST, int G1, int G2, int G3, int G4, int F)
     }
     Serial.println(Xung_Xoay);
 }
-//--------------------------------------------
+
+//GO HOME function--------------------------------------------
 void setgoc()
 { 
     STcu=90;
   
-   tdcu[0]=20;          //nhin tu trc, ben phai
-   sv1.write(tdcu[0]);
-   Serial.println("7");
-   //
-   tdcu[1]=80;
-   sv2.write(tdcu[1]);
-   //
-   tdcu[2]=90;
-   sv3.write(tdcu[2]);
-   //
-   tdcu[3]=90;
-   sv4.write(tdcu[3]); 
-Serial.println("8");
-  Delay(10000);
-    Serial.println("9");
+    tdcu[0]=20;          //nhin tu trc, ben phai
+    sv1.write(tdcu[0]);
+    Serial.println("7kkkkk");
+    //
+    tdcu[1]=80;
+    sv2.write(tdcu[1]);
+    //
+    tdcu[2]=90;
+    sv3.write(tdcu[2]);
+    //
+    tdcu[3]=90;
+    sv4.write(tdcu[3]); 
+    Serial.println("8yyyyy");
+    Delay(10000);
+    Serial.println("9fffff");
 }
+
+// OVER LIMIT STOP function----------------------------------
 void Ngat()
 {
   if(Home == 1){ digitalWrite(enPin,1); Home = 0;}
 }
+
+// DELAY by interupt ----------------------------------------
 void Delay(unsigned int T)  //T = 10000 = 1s
 {
   T_delay = 0;
   while(T_delay < T){Serial.println(T_delay);}
 }
+
+// BEEP functions--------------------------------------------
+void beep_long(){
+  digitalWrite(BZ,1);
+  Delay(20000); //2s
+  digitalWrite(BZ,0);
+  }
+
+void beep_2(){
+  digitalWrite(BZ,1);
+  Delay(1000); //100ms
+  digitalWrite(BZ,0);
+  Delay(1000); //100ms
+  digitalWrite(BZ,1);
+  Delay(1000); //100ms
+  digitalWrite(BZ,0);
+  }
+
+void beep_3(){
+  digitalWrite(BZ,1);
+  Delay(1000); //100ms
+  digitalWrite(BZ,0);
+  Delay(1000); //100ms
+  digitalWrite(BZ,1);
+  Delay(1000); //100ms
+  digitalWrite(BZ,0);
+  Delay(1000); //100ms
+  digitalWrite(BZ,1);
+  Delay(1000); //100ms
+  digitalWrite(BZ,0);
+  }
+
+void beep_4(){
+  digitalWrite(BZ,1);
+  Delay(1000); //100ms
+  digitalWrite(BZ,0);
+  Delay(1000); //100ms
+  digitalWrite(BZ,1);
+  Delay(1000); //100ms
+  digitalWrite(BZ,0);
+  Delay(1000); //100ms
+  digitalWrite(BZ,1);
+  Delay(1000); //100ms
+  digitalWrite(BZ,0);
+  Delay(1000); //100ms
+  digitalWrite(BZ,1);
+  Delay(1000); //100ms
+  digitalWrite(BZ,0);
+  }
+
+void beep_5(){
+  digitalWrite(BZ,1);
+  Delay(1000); //100ms
+  digitalWrite(BZ,0);
+  Delay(1000); //100ms
+  digitalWrite(BZ,1);
+  Delay(1000); //100ms
+  digitalWrite(BZ,0);
+  Delay(1000); //100ms
+  digitalWrite(BZ,1);
+  Delay(1000); //100ms
+  digitalWrite(BZ,0);
+  Delay(1000); //100ms
+  digitalWrite(BZ,1);
+  Delay(1000); //100ms
+  digitalWrite(BZ,0);
+  Delay(1000); //100ms
+  digitalWrite(BZ,1);
+  Delay(1000); //100ms
+  digitalWrite(BZ,0);
+  }

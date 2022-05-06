@@ -13,10 +13,12 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  if (Serial.available()) {
+  if (mySerial.available()) {
     //char c = mySerial.read();
     //Serial.println(c);
-    str = Serial.readStringUntil('a');
-      mySerial.println(str);
+    //str = mySerial.read();
+    str = mySerial.readString();
+    //str = mySerial.readStringUntil('a');
+      Serial.println(str);
   }
   }
