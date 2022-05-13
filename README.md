@@ -1,7 +1,7 @@
-## Hardware
+### Hardware
 Jetson-nano B01 
 
-## Features
+### Features
 - Control manually via webserver
 - Display GIF, images, words on screen
 - 4 sensors HC-SR04 for detect obstacles Best range: 0-100cm, sweep angle: 15 degrees, 44kHz 
@@ -9,11 +9,11 @@ Jetson-nano B01
 - Streaming depth camera realsense D455
 - Detect object with GPU on Jetson Nano board via Yolo v3 model
 
-## Developing
+### Developing
 - Follow a path automatically
 - Do a specific task
 
-## Required libraries
+### Required libraries
 The library with have * mark meaning you can not install it with command `pip install -r requirements.txt`, (*) meaning can not install this library normally
 - jetson.GPIO (*This libary is built-in jetson-nano board or rasberry pi board, and just can run on this hardware)
 - flask `pip3 install flask`
@@ -25,11 +25,11 @@ The library with have * mark meaning you can not install it with command `pip in
 - os (builtin lib)
 - pynput `pip3 install pynput`
     
-# Run all program via bash script
+### Run all program via bash script
 
 `bash start.sh`
 
-# Run custom program
+### Run custom program
 
 - Run gpio controller `python3 robot_gpio.py`
 
@@ -37,7 +37,7 @@ The library with have * mark meaning you can not install it with command `pip in
 
 - Run webserver `python3 robot_server.py`
 
-# Generate database
+### Generate database
 
 `python3 gendata.py`
 
@@ -51,7 +51,7 @@ Open terminal:
 	db.session.commit()
 	```
 
-# Memos
+### Memos
 `/dev/ttyUSB0` permission denied, `username =  jetboy`. `portname = /dev/ttyUSB0`
 
 ```
