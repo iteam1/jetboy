@@ -1,4 +1,4 @@
-## Hardware
+### Hardware
 Jetson-nano B01 
 
 ### Features
