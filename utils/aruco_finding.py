@@ -106,7 +106,7 @@ def find_aruco_markers(img,depth,marker_size = 4,total_markers = 250,draw  = Tru
 		cv2.putText(img, f'{distance}',(pt[0],pt[1]-15), cv2.FONT_HERSHEY_SIMPLEX,0.5, green, 1, cv2.LINE_AA)
 		cv2.putText(img, f'{ids[i]}',(pt[0],pt[1]), cv2.FONT_HERSHEY_SIMPLEX,0.5, green, 1, cv2.LINE_AA)
 		cv2.putText(img, f'{centroid}',(pt[0],pt[1]+15), cv2.FONT_HERSHEY_SIMPLEX,0.5, green, 1, cv2.LINE_AA)
-		cv2.putText(img, f'{S}',(pt[0],pt[1]+25), cv2.FONT_HERSHEY_SIMPLEX,0.5, green, 1, cv2.LINE_AA)
+		cv2.putText(img, f'{S}',(pt[0],pt[1]+25), cv2.FONT_HERSHEY_SIMPLEX,1, green, 2, cv2.LINE_AA)
 		cv2.circle(img,centroid,3,green,-1) # center point
 		# if the current aruco get id equal to your specification
 		if ids[i] == 7:
