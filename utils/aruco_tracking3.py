@@ -10,7 +10,8 @@ import cv2.aruco as aruco
 import numpy as np
 import realsense_depth as rd 
 import RPi.GPIO 
-import time 
+import time
+import datetime 
 import math  
 
 # Define pin number
@@ -311,6 +312,23 @@ def hunt_aruco_markers(color_frame,depth_frame,target_id,aruco_dict,aruco_param,
 
 	# give the recomment
 
+def guider(command):
+	'''
+	Get command then execute
+	'''
+	current_time = datetime.datetime.now()
+
+	if command != 'stop':
+		confirm = input(f'{current_time} Do you want {command}? ')
+		if confirm == 'y':
+			print(f'{current_time} - {command}')
+		else:
+			pass
+	else:
+		pass
+
+
+
 # connect to depth camera
 d455 = rd.DepthCamera() # initial depth camera object
 
@@ -333,10 +351,6 @@ if __name__ == "__main__":
 		
 		# convert depth frame
 		colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_frame,alpha = 0.08),cv2.COLORMAP_JET)
-	
-
-		# find aruco
-		command = hunt_aruco_markers(color_frame,depth_frame,target_id,aruco_dict,aruco_param,draw = draw_info)
 
 		# draw info
 		if draw_info:
@@ -344,6 +358,11 @@ if __name__ == "__main__":
 			f,b,l,r = robot.read_obstacles()
 			cv2.putText(color_frame,f'f:{f} b:{b} l:{l} r:{r}',(10,25),cv2.FONT_HERSHEY_SIMPLEX,0.5,green,1,cv2.LINE_AA)
 			draw_frame(color_frame)
+	
+		# find aruco
+		command = hunt_aruco_markers(color_frame,depth_frame,target_id,aruco_dict,aruco_param,draw = draw_info)
+
+		guider(command)
 
 		# stack depth frame and colorframe
 		stack_frame = np.hstack((color_frame,colormap)) # display depth_frame and color_frame side by side
