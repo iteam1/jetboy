@@ -138,9 +138,10 @@ if __name__ == '__main__':
 		cv2.line(color_frame,(0,240-hdim),(640,240-hdim),blue,2) # horizontal frontline top
 		cv2.line(color_frame,(0,240+hdim),(640,240+hdim),blue,2) # horizontal frontline top
 
+		stack_frame = np.hstack((color_frame,colormap))
+
 		# Display color frame
-		cv2.imshow('color_frame',color_frame)
-		cv2.imshow('depth_frame',colormap)
+		cv2.imshow('frame',stack_frame)
 
 		if cv2.waitKey(1) == 27:
 			break 
