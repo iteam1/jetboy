@@ -312,7 +312,7 @@ def hunt_aruco_markers(color_frame,depth_frame,target_id,aruco_dict,aruco_param,
 
 	# give the recomment
 
-def guider(command):
+def guider(command,robot):
 	'''
 	Get command then execute
 	'''
@@ -322,12 +322,21 @@ def guider(command):
 		confirm = input(f'{current_time} Do you want {command}? ')
 		if confirm == 'y':
 			print(f'{current_time} - {command}')
+			if command == 'forward':
+				robot.bit_forward(0.2)
+				print('robot forward done ')
+			elif command == 'right':
+				robot.bit_turnright(0.2)
+				print('robot turnright done ')
+			elif command == 'left':
+				robot.bit_turnleft(0.2)
+				print('robot turnleft done ')
+			else:
+				pass
 		else:
 			pass
 	else:
 		pass
-
-
 
 # connect to depth camera
 d455 = rd.DepthCamera() # initial depth camera object
@@ -362,7 +371,7 @@ if __name__ == "__main__":
 		# find aruco
 		command = hunt_aruco_markers(color_frame,depth_frame,target_id,aruco_dict,aruco_param,draw = draw_info)
 
-		guider(command)
+		guider(command,robot)
 
 		# stack depth frame and colorframe
 		stack_frame = np.hstack((color_frame,colormap)) # display depth_frame and color_frame side by side
