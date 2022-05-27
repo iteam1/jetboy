@@ -37,7 +37,6 @@ vdim = 40
 hdim = 30
 
 # params for aruco finding
-draw_info = True
 marker_size = 4
 total_markers = 250
 
@@ -231,11 +230,11 @@ def check_TB(center_point,current_point,y_distance):
 		(string) top bottom or center
 	'''
 	if current_point[1] < center_point[1] - y_distance:
-		return 'Top'
+		return 'top'
 	elif current_point[1] > center_point[1] + y_distance:
-		return 'Bottom'
+		return 'bottom'
 	elif (current_point[1] >= center_point[1] - y_distance) & (current_point[1] <= center_point[1] + y_distance):
-		return 'Center'
+		return 'center'
 
 def calc_aruco(bbox):
 	'''
@@ -259,6 +258,8 @@ def calc_aruco(bbox):
 	return centroid,S
 
 def draw_frame(frame):
+	f,b,l,r = robot.read_obstacles()
+	cv2.putText(color_frame,f'f:{f} b:{b} l:{l} r:{r}',(10,25),cv2.FONT_HERSHEY_SIMPLEX,0.5,green,1,cv2.LINE_AA)
 	cv2.circle(frame,center_point,10,blue,2) # center point
 	cv2.line(frame,(320,220),(320,260),blue,2) # vertical line
 	cv2.line(frame,(300,240),(340,240),blue,2) # horizontal line
@@ -267,19 +268,9 @@ def draw_frame(frame):
 	cv2.line(frame,(0,240-hdim),(640,240-hdim),blue,2) # horizontal frontline top
 	cv2.line(frame,(0,240+hdim),(640,240+hdim),blue,2) # horizontal frontline top
 
-def hunt_aruco_markers(color_frame,depth_frame,target_id,aruco_dict,aruco_param,draw = True):
-	'''
-	- draw info on screen
-	- find aruco
-	- give recomment
-	'''
-	command = 'stop'
-	# convert frame to gray
-	gray = cv2.cvtColor(color_frame,cv2.COLOR_BGR2GRAY)
-	# detect aruco marker
-	bboxs,ids,rejected = aruco.detectMarkers(gray,aruco_dict,parameters = aruco_param)
-	
-	# loop over the results, check condition and draw infomation
+def find_aruco_markers(color_frame,depth_frame,marker_size = 4,total_markers = 250,draw  = True):
+	gray = cv2.cvtColor(color_frame,cv2.COLOR_BGR2GRAY) # convert your image to gray color
+	bboxs,ids,rejected = aruco.detectMarkers(gray,aruco_dict, parameters = aruco_param) # detect aruco targets
 	for i,bbox in enumerate(bboxs):
 		centroid,S = calc_aruco(bbox)
 		# anchor is top right point
@@ -292,43 +283,16 @@ def hunt_aruco_markers(color_frame,depth_frame,target_id,aruco_dict,aruco_param,
 			cv2.putText(color_frame, f'{distance}',(anchor[0],anchor[1]+15), cv2.FONT_HERSHEY_SIMPLEX,0.4, green, 1, cv2.LINE_AA)
 			cv2.putText(color_frame, f'{S}',(anchor[0],anchor[1]+30), cv2.FONT_HERSHEY_SIMPLEX,0.4, green, 1, cv2.LINE_AA)
 			cv2.circle(color_frame,centroid,3,green,-1) # center point
-			# draw aruco bounding box
-			aruco.drawDetectedMarkers(color_frame,bboxs)
 			if ids[i] == target_id:
-				cv2.line(color_frame,center_point,centroid,red,2)
 				pos = check_LR(center_point,centroid,vdim)
-				# base on S and position to give a recomment
-				if pos != 'center':
-					command = pos 
-				else:
-					if S < S_max:
-						command = 'forward'
-					else:
-						command ='stop'
-				cv2.putText(color_frame,f'P: {pos} S: {S} => {command}',(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.5,green,1,cv2.LINE_AA)
+				cv2.line(color_frame,center_point,centroid,red,2)
+				cv2.putText(color_frame,f'P: {pos} S: {S} => ',(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.5,green,1,cv2.LINE_AA)
+				return pos,S
+	return None
 
-	return command
-				
-
-	# give the recomment
-
-def guider(command):
-	'''
-	Get command then execute
-	'''
-	current_time = datetime.datetime.now()
-
-	if command != 'stop':
-		confirm = input(f'{current_time} Do you want {command}? ')
-		if confirm == 'y':
-			print(f'{current_time} - {command}')
-		else:
-			pass
-	else:
-		pass
-
-
-
+	if draw:
+		aruco.drawDetectedMarkers(color_frame,bboxs)
+	
 # connect to depth camera
 d455 = rd.DepthCamera() # initial depth camera object
 
@@ -351,23 +315,40 @@ if __name__ == "__main__":
 		
 		# convert depth frame
 		colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_frame,alpha = 0.08),cv2.COLORMAP_JET)
-
-		# draw info
-		if draw_info:
-			# read obstacles
-			f,b,l,r = robot.read_obstacles()
-			cv2.putText(color_frame,f'f:{f} b:{b} l:{l} r:{r}',(10,25),cv2.FONT_HERSHEY_SIMPLEX,0.5,green,1,cv2.LINE_AA)
-			draw_frame(color_frame)
+		
+		draw_frame(color_frame)
 	
 		# find aruco
-		command = hunt_aruco_markers(color_frame,depth_frame,target_id,aruco_dict,aruco_param,draw = draw_info)
+		
+		result = find_aruco_markers(color_frame,depth_frame,target_id,aruco_dict,aruco_param)
 
-		guider(command)
+		if result:
+			pos = result[0]
+			S = result[1]
+			timestamp = datetime.datetime.now()
+			if pos == 'center':
+				if S < S_max:
+					print(f'{timestamp} - forward')
+					robot.bit_forward(0.3)
+				else:
+					print(f'{timestamp} - stop')
+			elif pos == 'right':
+				print(f'{timestamp} - turnright')
+				robot.bit_turnright(0.2)
+			elif pos == 'left':
+				print(f'{timestamp} - left')
+				robot.bit_turnleft(0.2)
+			
+			# there are nothing else to concern
+
+		# guider(command,robot)
 
 		# stack depth frame and colorframe
 		stack_frame = np.hstack((color_frame,colormap)) # display depth_frame and color_frame side by side
+		
 		# display color frame
 		cv2.imshow('frame',stack_frame)
+		
 		# wait frame
 		if cv2.waitKey(1) == 27:
 			break 
