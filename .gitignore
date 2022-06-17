@@ -1,0 +1,8 @@
+# virtual environment
+env
+
+# python interpreter
+__pycache__
+
+# sqlite3
+site.db-journal
