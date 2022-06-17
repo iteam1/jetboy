@@ -1,0 +1,11 @@
+# virtual environment
+
+/env
+
+# pycache 
+
+__pycache__
+
+# sqlite3
+
+site.db-journal
