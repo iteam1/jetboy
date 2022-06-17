@@ -2,7 +2,7 @@
 
 This document contain the issues of developing the repository
 
-|No|Issue|Status|---|Description|Comment|Solution|
+|No|Issue|Status|Date|Description|Comment|Solution|
 
 |---|---|---|---|---|---|---|
 
