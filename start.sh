@@ -4,3 +4,4 @@ python3 robot_gpio.py &
 
 python3 robot_server.py &
 
+python3 robot_gui.py &
