@@ -70,10 +70,6 @@
     <!--Continous move-->
     <h2 style="color:green;text-align:center;">Cont move</h2>
     <div class = 'row'>
-        <form action = "{{ url_for('manual') }}" method = 'POST'>
-            <input type = 'hidden' name = 'command' id = 'command' value = 'kill'>
-            <button class="btn btn-danger mb-2">Close GPIO</button>
-        </form>
         <p>_____</p>
         <form action = "{{ url_for('manual') }}" method = 'POST'>
             <input type = 'hidden' name = 'command' id = 'command' value = 'forward'>
@@ -94,6 +90,7 @@
             <input type = 'hidden' name = 'command' id = 'command' value = 'turnright'>
             <button class="btn btn-primary mb-2">&#8594;</button>
         </form>
+        <p>_____</p>
     </div>
     <br>
     
@@ -144,6 +141,21 @@
             <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128054;</button>
         </form>
     </div>
+
+    <!--Program control-->
+    <h2 style="color:green;text-align:center;">Program controll</h2>
+    <div class = 'row'>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'kill'>
+            <button class="btn btn-danger mb-2">Close GPIO</button>
+        </form>
+        <p>_____</p>
+        <form action = "{{ url_for('shutdown') }}" method = 'POST'>
+            <button class="btn btn-danger mb-2">Shutdown server</button>
+        </form>
+        <p>_____</p>
+    </div>
+    <br>
 
 {% endblock content %}
 

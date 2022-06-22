@@ -21,6 +21,13 @@ center_point = (320,240)
 vdim = 40 # vertical distance for gen_cvframe
 hdim = 30 # horizontal distance for gen_cvframe
 
+# shutdown function
+def shutdown_server():
+	func = request.environ.get('werkzeug.server.shutdown')
+	if func is None:
+		raise RunTimeError('Not running with Werkzeug Server')
+	func()
+
 # Generate frame with computer vision functionality
 def gen_cvframe():
 	'''
@@ -269,3 +276,8 @@ def estop():
 		myrobot.estop = 0
 		db.session.commit()
 		return render_template('manual.html',estop = myrobot.estop)
+
+@app.route('/shutdown',methods = ['POST'])
+def shutdown():
+	shutdown_server()
+	return 'Server shutting down'
