@@ -1,6 +1,6 @@
 '''
 Author: locchuong
-Updated: 27/12/21
+Updated: 22/6/22
 Description: 
 	This is contain routes of the flask server
 '''
@@ -20,6 +20,13 @@ blue = (255,0,0)
 center_point = (320,240)
 vdim = 40 # vertical distance for gen_cvframe
 hdim = 30 # horizontal distance for gen_cvframe
+
+# shutdown function
+def shutdown_server():
+	func = request.environ.get('werkzeug.server.shutdown')
+	if func is None:
+		raise RunTimeError('Not running with Werkzeug Server')
+	func()
 
 # Generate frame with computer vision functionality
 def gen_cvframe():
@@ -213,9 +220,11 @@ def depthstream():
 def cvstream():
 	return Response(gen_cvframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
 
-
 @app.route('/content',methods =['POST'])
 def content():
+	'''
+	change display screen to display a content for robot_gui 
+	'''
 	#if request.method == 'POST':
 	content = request.form.get('content')
 	myrobot = Robot.query.get(1)
@@ -227,6 +236,9 @@ def content():
 	
 @app.route('/emotion',methods =['POST'])
 def emotion():
+	'''
+	change display screen to emotion for robot_gui 
+	'''
 	emotion = request.form.get('emotion')
 	myrobot = Robot.query.get(1)
 	myrobot.itype = 'emo'
@@ -235,8 +247,11 @@ def emotion():
 	db.session.commit()
 	return render_template('manual.html',estop = estop)
 	
-@app.route('/image',methods =['GET','POST'])
+@app.route('/image',methods =['POST'])
 def image():
+	'''
+	change display screen to image for robot_gui 
+	'''
 	image = request.form.get('image')
 	myrobot = Robot.query.get(1)
 	myrobot.itype = 'img'
@@ -261,3 +276,8 @@ def estop():
 		myrobot.estop = 0
 		db.session.commit()
 		return render_template('manual.html',estop = myrobot.estop)
+
+@app.route('/shutdown',methods = ['POST'])
+def shutdown():
+	shutdown_server()
+	return 'Server shutting down'

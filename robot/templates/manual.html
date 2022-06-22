@@ -4,7 +4,6 @@
 
     <h1 style="color:green;text-align:center;">Jetboy's manual panel</h1>
     <br>
-
     <!--Bit move-->
     <h2 style="color:green;text-align:center;">Bit move</h2>
     <br>
@@ -25,14 +24,6 @@
     <br><br>
     <div class = 'container h-100'>
         <div class="position-relative h-100">
-            <!--Cont forward
-            <div class="position-absolute top-center">
-                <form action = "{{ url_for('manual') }}" method = 'POST'>
-                    <input type = 'hidden' name = 'command' id = 'command'  value = 'forward'>
-                    <button class="btn btn-primary">&#8593;</button>
-                </form>
-            </div>
-            -->
 
             <!--button Bit_forward -->
             <div class="position-absolute top-center">
@@ -50,14 +41,7 @@
                 </form>
             </div>
             <br><br><br>
-            <!--button Backward
-            <div class="position-absolute bottom-center">
-                <form action = "{{ url_for('manual') }}" method = 'POST'>     
-                    <input type = 'hidden' name = 'command' id = 'command' value = 'backward'>
-                    <button class="btn btn-primary">&#8595;</button>
-                </form>
-            </div>
-            -->
+
             <div class="position-absolute bottom-center">
                 <form action = "{{ url_for('manual') }}" method = 'POST'>
                     <!-- Why button type = 'button' i can not post the form ??? -->			
@@ -65,29 +49,14 @@
                     <button class="btn btn-primary">&#8595;</button>
                 </form>
             </div>
-            <!--button TurnLeft
-                <div class="position-absolute mid-left">
-                <form action = "{{ url_for('manual') }}" method = 'POST'>
-                    <input type = 'hidden' name = 'command' id = 'command'  value = 'turnleft'>
-                    <button class="btn btn-primary">&#8592;</button>
-                </form>
-            </div>
-            -->
-            <!--button Bit_Turnleft-->
+
             <div class="position-absolute mid-left">
                 <form action = "{{ url_for('manual') }}" method = 'POST'>
                     <input type = 'hidden' name = 'command' id = 'command'  value = 'bit_turnleft'>
                     <button class="btn btn-primary">&#8592;</button>
                 </form>
             </div>
-            <!--button TurnRight 
-            <div class = "position-absolute mid-right">
-                <form action = "{{ url_for('manual') }}" method = 'POST'>
-                    <input type = 'hidden' name = 'command' id = 'command'  value = 'turnright'>
-                    <button class="btn btn-primary">&#8594;</button>
-                </form>
-            </div>
-            -->
+
             <div class = "position-absolute mid-right">
                 <form action = "{{ url_for('manual') }}" method = 'POST'>
                     <input type = 'hidden' name = 'command' id = 'command'  value = 'bit_turnright'>
@@ -101,10 +70,6 @@
     <!--Continous move-->
     <h2 style="color:green;text-align:center;">Cont move</h2>
     <div class = 'row'>
-        <form action = "{{ url_for('manual') }}" method = 'POST'>
-            <input type = 'hidden' name = 'command' id = 'command' value = 'stop'>
-            <button class="btn btn-primary mb-2">Stop</button>
-        </form>
         <p>_____</p>
         <form action = "{{ url_for('manual') }}" method = 'POST'>
             <input type = 'hidden' name = 'command' id = 'command' value = 'forward'>
@@ -125,6 +90,7 @@
             <input type = 'hidden' name = 'command' id = 'command' value = 'turnright'>
             <button class="btn btn-primary mb-2">&#8594;</button>
         </form>
+        <p>_____</p>
     </div>
     <br>
     
@@ -175,6 +141,21 @@
             <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128054;</button>
         </form>
     </div>
+
+    <!--Program control-->
+    <h2 style="color:green;text-align:center;">Program controll</h2>
+    <div class = 'row'>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'kill'>
+            <button class="btn btn-danger mb-2">Close GPIO</button>
+        </form>
+        <p>_____</p>
+        <form action = "{{ url_for('shutdown') }}" method = 'POST'>
+            <button class="btn btn-danger mb-2">Shutdown server</button>
+        </form>
+        <p>_____</p>
+    </div>
+    <br>
 
 {% endblock content %}
 

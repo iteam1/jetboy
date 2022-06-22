@@ -79,7 +79,7 @@ class App:
 			self.canvas.delete("all") # clear canvas before draw something new
 			content = tkinter.Label(self.parent,text = item,fg = 'black',font= ('Arial',30))
 			self.canvas.create_window(312,250,anchor = 'nw',window = content)
-			self.parent.after(stime, lambda: self.animate(0))
+			self.parent.after(900, lambda: self.animate(0)) # hard set stime quickly refesh
 
 		elif itype == 'emo':
 			self.canvas.delete("all")
