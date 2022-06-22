@@ -33,7 +33,7 @@ c = conn.cursor()  # you must define this c before add in into default keyword a
 class controller():
 	def __init__(self,ML_DIR_pin = ML_DIR_pin,ML_RUN_pin = ML_RUN_pin,MR_DIR_pin = MR_DIR_pin,MR_RUN_pin = MR_RUN_pin,
 					OBS_F_pin = OBS_F_pin,OBS_B_pin = OBS_B_pin,OBS_L_pin = OBS_L_pin,OBS_R_pin = OBS_R_pin,GPIO = RPi.GPIO,
-						conn = conn, c = c):
+						conn = conn):
 		
 		self.ML_DIR_pin = ML_DIR_pin # driver left dir pin
 		self.ML_RUN_pin = ML_RUN_pin # driver left run pin
@@ -75,7 +75,7 @@ class controller():
 
 		# set database connection and cursor
 		self.conn = conn 
-		self.c = c 
+		#self.c = c 
 
 	def stop(self):
 		'''
@@ -152,12 +152,14 @@ class controller():
 		'''
 		Use this function to set the command in database to stop after bit moving
 		'''
-		self.c.execute("""
+		c = self.conn.cursor()
+		c.execute("""
 			UPDATE robot
 			SET command = "stop"
 			WHERE id = 1
 			""")
 		self.conn.commit()
+		#self.conn.close()
 
 	def bit_forward(self,delay):
 		'''
@@ -203,13 +205,14 @@ class controller():
 		'''
 
 		# Fetch all value columns in database
-		self.c.execute("""
+		c = self.conn.cursor()
+		c.execute("""
 			SELECT *FROM robot WHERE id = 1
 			""")
 
-		data = self.c.fetchone() # Get all row
+		data = c.fetchone() # Get all row
 		self.conn.commit()
-
+		# self.conn.close()
 		# Read ESTOP from the server ,write it out to database and storage it into robot object
 		self.ESTOP = data[7] # read emergency stop
 
@@ -224,7 +227,7 @@ class controller():
 		# 	""",(self.OBS_F_value,self.OBS_B_value,self.OBS_L_value,self.OBS_B_value))
 
 		# Update the values of sensor into database
-		self.c.execute("""
+		c.execute("""
 			UPDATE robot
 			SET obs_f = ?,
 				obs_b = ?,
@@ -238,12 +241,14 @@ class controller():
 		'''
 		This function read the estop value in the database and return it
 		'''
-		self.c.execute("""
+		c = self.conn.cursor()
+		c.execute("""
 			SELECT *FROM robot WHERE id = 1
 			""")
 
 		data = self.c.fetchone() # Get all row
 		self.conn.commit()
+		# self.conn.close()
 
 		# Read ESTOP from the server 
 		estop = data[7] # read emergency stop
@@ -254,12 +259,16 @@ class controller():
 		'''
 		This function read the estop value in the database and return it
 		'''
-		self.c.execute("""
+
+		c = self.conn.cursor()
+
+		c.execute("""
 			SELECT *FROM robot WHERE id = 1
 			""")
 
-		data = self.c.fetchone() # Get all row
+		data = c.fetchone() # Get all row
 		self.conn.commit()
+		# self.conn.close()
 
 		# Read ESTOP from the server 
 		obs_f = data[8] # read front ultrasonics sensors
@@ -273,9 +282,11 @@ class controller():
 		'''
 		This function read the command value in database and return it
 		'''
-		self.c.execute(f"SELECT *FROM robot WHERE id = 1")
-		command = self.c.fetchone()[2]
+		c = self.conn.cursor()
+		c.execute(f"SELECT *FROM robot WHERE id = 1")
+		command = c.fetchone()[2]
 		self.conn.commit()
+		# self.conn.close()
 		return command
 
 if __name__ == "__main__":
