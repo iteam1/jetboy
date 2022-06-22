@@ -7,7 +7,8 @@ Description:
 '''
 
 import sqlite3
-import time  
+import time 
+import os 
 
 id = int(input("What is your robot's id? "))
 
@@ -20,8 +21,11 @@ column_list = ['id','name','command','content','emotion','image','itype','estop'
 print("Start reading robot id = {id}")
 
 while True:
+	
 	c.execute(f"""
-		SELECT *FROM robot WHERE id = {id} """)
+		SELECT *FROM robot WHERE id = {id} 
+		""")
+	
 	conn.commit()
 
 	data = c.fetchone()
