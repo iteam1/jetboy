@@ -47,11 +47,12 @@ if __name__ == "__main__":
 				message = message + column_list[i] + ' = ' + str(data[i])
 			else:
 				message = message + column_list[i] + ' = ' + str(data[i]) + ', \n'
-
 		message = message + "\n}\n" 
-
+		# print out the message
 		print(message)
+		# delay
 		time.sleep(0.1)
+		# clear the output
 		os.system('clear')
 
 	conn.close()
