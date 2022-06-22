@@ -1,6 +1,6 @@
 '''
 Author: locchuong
-Updated: 27/12/21
+Updated: 22/6/22
 Description:
 	This python program display robot's GUI by tkinter
 	These ones in the robot database will be use:

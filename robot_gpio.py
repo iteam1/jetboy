@@ -1,6 +1,6 @@
 '''
 Author: locchuong
-Updated: 28/12/21
+Updated: 22/6/22
 Description:
 	This python program control the GPIO of Jetson-Nano board, it read the command from the database and execute it.
 	Run this program at the begining.

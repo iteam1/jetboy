@@ -1,6 +1,6 @@
 '''
 Author: locchuong
-Updated: 22/6/21
+Updated: 22/6/22
 Description:
 	This python program continously read all value of the database print it out the screen
 	Run this python program on the directory ./Jetson-Nano
