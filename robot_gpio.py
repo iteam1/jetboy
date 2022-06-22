@@ -1,6 +1,6 @@
 '''
 Author: locchuong
-Updated: 28/12/21
+Updated: 22/6/22
 Description:
 	This python program control the GPIO of Jetson-Nano board, it read the command from the database and execute it.
 	Run this program at the begining.
@@ -54,11 +54,13 @@ class controller():
 
 		#initialize gpio
 		self.GPIO.setmode(GPIO.BOARD) # Set the pin's definition mode
+
 		# Define I/O for motor control pins
 		self.GPIO.setup(self.ML_DIR_pin,self.GPIO.OUT)
 		self.GPIO.setup(self.ML_RUN_pin,self.GPIO.OUT)
 		self.GPIO.setup(self.MR_DIR_pin,self.GPIO.OUT)
 		self.GPIO.setup(self.MR_RUN_pin,self.GPIO.OUT)
+		
 		# Define I/O for sensor control pins
 		self.GPIO.setup(self.OBS_F_pin,self.GPIO.IN)
 		self.GPIO.setup(self.OBS_B_pin,self.GPIO.IN)
@@ -232,7 +234,7 @@ class controller():
 			""",(self.OBS_F_value,self.OBS_B_value,self.OBS_L_value,self.OBS_R_value))
 		self.conn.commit()
 
-	def estop(self):
+	def read_estop(self):
 		'''
 		This function read the estop value in the database and return it
 		'''
@@ -248,7 +250,7 @@ class controller():
 
 		return estop
 
-	def obstacles(self):
+	def read_obstacles(self):
 		'''
 		This function read the estop value in the database and return it
 		'''
@@ -267,7 +269,7 @@ class controller():
 
 		return obs_f,obs_b,obs_l,obs_r
 
-	def command(self):
+	def read_command(self):
 		'''
 		This function read the command value in database and return it
 		'''
@@ -288,7 +290,7 @@ if __name__ == "__main__":
 	while True:
 
 		# Read the command
-		command = controller.command()
+		command = controller.read_command()
 
 		# Read the input Allway read the input and write it into the database
 		controller.update_input()
@@ -332,6 +334,9 @@ if __name__ == "__main__":
 			print("Command does not Exist!")
 			pass
 
+		time.sleep(0.1) # if you don't delay, the while loop run so fast and it will crack the other propgram has queries to the database
+
+	# if you out the while loop
 	controller.stop()
 
 	controller.GPIO.cleanup()

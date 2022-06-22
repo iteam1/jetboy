@@ -1,6 +1,6 @@
 '''
 Author: locchuong
-Updated: 27/12/21
+Updated: 22/6/22
 Description:
 	This python program display robot's GUI by tkinter
 	These ones in the robot database will be use:
@@ -38,14 +38,13 @@ class App:
 		self.canvas = tkinter.Canvas(parent,width = self.width,height = self.height) # Create a canvas object for drawing
 		self.sequence = [ImageTk.PhotoImage(img) for img in ImageSequence.Iterator(Image.open(self.path + 'happyblink' +'.gif'))] # Split the gif and turn it into sequence object
 		self.canvas.pack() # Pack the canvas into tkinter window
-		
+		self.conn = sqlite3.connect("./robot/site.db")
 		self.animate(1) # Start the animate function with the index = 1 
 
 	def dbconnect(self):
 		'''
 		Read into database, find out what kind of message we want to display then read the corresponding content
-		'''
-		self.conn = sqlite3.connect("./robot/site.db")
+		'''	
 		c = self.conn.cursor()
 		c.execute(f"SELECT *FROM robot WHERE id = 1") # fetch the robot id = 1
 		itype = c.fetchone()[6] # read the kind of message first
@@ -67,6 +66,8 @@ class App:
 			return itype,content # return the itype and content si the image's name  
 		else:
 			return None
+		# close the connection to your database
+		self.conn.close()
 
 	def animate(self,counter,stime = 50):
 		'''
@@ -104,4 +105,10 @@ if __name__ == '__main__':
 
 	app = App(root) # Create a app object by app class
 
+	print("robot GUI created!")
+
 	root.mainloop() # continously run the  program
+
+	print("robot GUI closed!")
+
+	#app.conn.close()
