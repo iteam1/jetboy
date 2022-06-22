@@ -104,4 +104,8 @@ if __name__ == '__main__':
 
 	app = App(root) # Create a app object by app class
 
+	print("robot GUI created!")
+
 	root.mainloop() # continously run the  program
+
+	print("robot GUI closed!")
