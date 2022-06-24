@@ -1,7 +1,7 @@
 
 '''
 Author: locchuong
-Date: 27/5/2022
+Date: 24/6/2022
 Descript:
 	Tracking specify aruco ID target, find the way go to that target
 '''
@@ -34,7 +34,7 @@ green = (0,255,0)
 blue = (255,0,0)
 center_point = (320,240) # x_max = 640, y_max = 480
 vdim = 40 
-hdim = 30
+hdim = 25
 
 # params for aruco finding
 marker_size = 4
@@ -284,7 +284,7 @@ def find_aruco_markers(color_frame,depth_frame,marker_size = 4,total_markers = 2
 			cv2.putText(color_frame, f'{S}',(anchor[0],anchor[1]+30), cv2.FONT_HERSHEY_SIMPLEX,0.4, green, 1, cv2.LINE_AA)
 			cv2.circle(color_frame,centroid,3,green,-1) # center point
 			if ids[i] == target_id:
-				pos = check_LR(center_point,centroid,vdim)
+				pos = check_LR(center_point,centroid,hdim) # horizontal
 				cv2.line(color_frame,center_point,centroid,red,2)
 				cv2.putText(color_frame,f'P: {pos} S: {S} => ',(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.5,green,1,cv2.LINE_AA)
 				return pos,S
