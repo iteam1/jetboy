@@ -212,11 +212,11 @@ def check_LR(center_point,current_point,x_distance):
 	Return:
 		(string) left right or center
 	'''
-	if current_point[0] < center_point[0] - x_distance:
+	if current_point[0] < center_point[1] - x_distance:
 		return 'left'
-	elif current_point[0] > center_point[0] + x_distance:
+	elif current_point[0] > center_point[1] + x_distance:
 		return 'right'
-	elif (current_point[0] >= center_point[0] - x_distance) & (current_point[0] <= center_point[0] + x_distance):
+	elif (current_point[0] >= center_point[1] - x_distance) & (current_point[0] <= center_point[0] + x_distance):
 		return 'center'
 
 def check_TB(center_point,current_point,y_distance):
@@ -278,10 +278,10 @@ def find_aruco_markers(color_frame,depth_frame,marker_size = 4,total_markers = 2
 		distance = depth_frame[anchor[1],anchor[0]]
 		if draw:
 			# display info in anchor point
-			cv2.putText(color_frame, f'{ids[i]}',(anchor[0],anchor[1]-15), cv2.FONT_HERSHEY_SIMPLEX,0.4, green, 1, cv2.LINE_AA)
-			cv2.putText(color_frame, f'{centroid}',(anchor[0],anchor[1]), cv2.FONT_HERSHEY_SIMPLEX,0.4, green, 1, cv2.LINE_AA)
-			cv2.putText(color_frame, f'{distance}',(anchor[0],anchor[1]+15), cv2.FONT_HERSHEY_SIMPLEX,0.4, green, 1, cv2.LINE_AA)
-			cv2.putText(color_frame, f'{S}',(anchor[0],anchor[1]+30), cv2.FONT_HERSHEY_SIMPLEX,0.4, green, 1, cv2.LINE_AA)
+			cv2.putText(color_frame, f'{ids[i]}',(anchor[0],anchor[1]-15), cv2.FONT_HERSHEY_SIMPLEX,0.4, green, 2, cv2.LINE_AA)
+			cv2.putText(color_frame, f'{centroid}',(anchor[0],anchor[1]), cv2.FONT_HERSHEY_SIMPLEX,0.4, green, 2, cv2.LINE_AA)
+			cv2.putText(color_frame, f'{distance}',(anchor[0],anchor[1]+15), cv2.FONT_HERSHEY_SIMPLEX,0.4, green, 2, cv2.LINE_AA)
+			cv2.putText(color_frame, f'{S}',(anchor[0],anchor[1]+30), cv2.FONT_HERSHEY_SIMPLEX,0.4, green, 2, cv2.LINE_AA)
 			cv2.circle(color_frame,centroid,3,green,-1) # center point
 			if ids[i] == target_id:
 				pos = check_LR(center_point,centroid,hdim) # horizontal
