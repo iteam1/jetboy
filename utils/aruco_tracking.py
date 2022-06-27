@@ -359,10 +359,10 @@ if __name__ == "__main__":
 					print(f'{timestamp} - stop')
 			elif pos == 'right':
 				print(f'{timestamp} - turnright')
-				robot.bit_turnright(0.3)
+				robot.bit_turnright(0.2)
 			elif pos == 'left':
 				print(f'{timestamp} - left')
-				robot.bit_turnleft(0.3)
+				robot.bit_turnleft(0.2)
 			
 		# display color frame
 		if args.display:
