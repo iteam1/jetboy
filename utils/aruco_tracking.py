@@ -284,8 +284,8 @@ def draw_frame(frame):
 	cv2.line(frame,(int(f_width/2)-vdim,0),(int(f_width/2-vdim),f_height),blue,2) # vertical frontline left
 	cv2.line(frame,(int(f_width/2+vdim),0),(int(f_width/2+vdim),f_height),blue,2) # vertical frontline right
 	
-	#cv2.line(frame,(0,int(f_height-hdim),int(f_width,f_height-hdim),blue,2) # horizontal frontline top
-	#cv2.line(frame,(0,int(f_height+hdim)),(f_width,f_height+hdim),blue,2) # horizontal frontline top
+	cv2.line(frame,(0,int(f_height/2)-hdim),(f_width,int(f_height/2)-hdim),blue,2) # horizontal frontline top
+	cv2.line(frame,(0,int(f_height/2)+hdim),(f_width,int(f_height/2)+hdim),blue,2) # horizontal frontline bottom
 
 def find_aruco_markers(color_frame,depth_frame,marker_size = 4,total_markers = 250,draw  = True):
 	'''
@@ -354,15 +354,15 @@ if __name__ == "__main__":
 			if pos == 'center':
 				if S < S_max:
 					print(f'{timestamp} - forward')
-					robot.bit_forward(0.3)
+					robot.bit_forward(0.4)
 				else:
 					print(f'{timestamp} - stop')
 			elif pos == 'right':
 				print(f'{timestamp} - turnright')
-				robot.bit_turnright(0.2)
+				robot.bit_turnright(0.3)
 			elif pos == 'left':
 				print(f'{timestamp} - left')
-				robot.bit_turnleft(0.2)
+				robot.bit_turnleft(0.3)
 			
 		# display color frame
 		if args.display:
