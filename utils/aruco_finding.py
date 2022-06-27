@@ -11,7 +11,7 @@ Descript:
 import cv2  
 import cv2.aruco as aruco 
 import numpy as np
-import realsense_depth as rd # pyrealsense2 package is already in snippet
+import realsense_depth as rd # pyrealsense2 package is already in utils
 import math
 
 # define color
