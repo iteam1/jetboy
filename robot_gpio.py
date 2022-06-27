@@ -310,6 +310,9 @@ if __name__ == "__main__":
 		#Write the output
 		if command == "kill":
 			print("Stop motor & Clean up")
+			# reset kill command for the next start
+			controller.db_stop_update()
+			print('database cleaned up command!')
 			break
 
 		# continously moving 
