@@ -1,7 +1,8 @@
 '''
 Author: locchuong
-Updated: 22/6/22
-Description: 
+Updated: 27/6/22
+Description:
+	Update calculation function 
 	This is contain routes of the flask server
 '''
 from flask import render_template,request,Response,flash,redirect,url_for
@@ -12,6 +13,7 @@ import numpy as np
 #import robot.realsense_depth as rd
 from robot import app,db,d455
 from robot.models import Robot
+import math
 
 # define color
 red = (0,0,255)
@@ -34,6 +36,28 @@ def gen_cvframe():
 	This function stream frame with computer vision functionality
 	'''
 
+	def calc_aruco(bbox):
+		'''
+		bbox contain (top_left,top_right,bottom_right,bottom_left)
+		this function return centroid of the bbox and square area
+		'''
+		# find centroid
+		centroid = np.mean(bbox,axis = 1).astype('int')
+		centroid = tuple(centroid[0])
+		# calculate S
+		top_left  = bbox[0][0] # top left corner (x,y)
+		top_right = bbox[0][1] # top right corner (x,y)
+		bottom_right = bbox[0][2] # bottom left corner (x,y)
+		bottom_left = bbox[0][3] # bottom right corner (x,y)
+		l = math.sqrt((top_right[0]-bottom_left[0])**2+(top_right[1]-bottom_left[1])**2) # the distane between of top-right and bottom-left (x,y)
+		m = (top_right[1] - bottom_left[1])/(top_right[0]-bottom_left[0])
+		b = top_right[1] - m * top_right[0]
+		h1 = abs(m * top_left[0] - top_left[1] + b)/math.sqrt(m**2 + 1)
+		h2 = abs(m * bottom_right[0] - bottom_right[1] + b)/math.sqrt(m**2 + 1)
+		S = round((0.5*l*h1 + 0.5*l*h2),2)
+		return centroid,S
+
+
 	# support function for cvframe
 	def check_LR(center_point,current_point,x_distance):
 		'''
@@ -51,6 +75,7 @@ def gen_cvframe():
 			return 'Right'
 		elif (current_point[0] >= center_point[0] - x_distance) & (current_point[0] <= center_point[0] + x_distance):
 			return 'Center'
+	
 	# support function for cvframe
 	def check_TB(center_point,current_point,y_distance):
 		'''
@@ -68,6 +93,7 @@ def gen_cvframe():
 			return 'Bottom'
 		elif (current_point[1] >= center_point[1] - y_distance) & (current_point[1] <= center_point[1] + y_distance):
 			return 'Center'
+	
 	# support function for cvframe
 	def find_aruco_markers(img,depth,marker_size = 4,total_markers = 250,draw  = True):
 		'''
@@ -78,7 +104,7 @@ def gen_cvframe():
 			total_markers --- total markers in frame
 			draw --- option to draw marker on the screen
 		'''
-		centroids = [] # list of centroids marker
+		#centroids = [] # list of centroids marker
 		gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY) 
 		key = getattr(aruco,f'DICT_{marker_size}X{marker_size}_{total_markers}')
 		aruco_dict = aruco.Dictionary_get(key)
@@ -88,9 +114,9 @@ def gen_cvframe():
 		# find the centroids list, if bboxs empty, this for loop does not break program
 		for i,bbox in enumerate(bboxs):
 			
-			centroid = np.mean(bbox,axis = 1).astype('int')
-			centroid = tuple(centroid[0])
-			centroids.append(centroid)
+			centroid,S = calc_aruco(bbox)# np.mean(bbox,axis = 1).astype('int')
+			# centroid = tuple(centroid[0])
+			# centroids.append(centroid)
 
 			pt = bbox[0][1].astype('int') # top right
 			distance = depth[pt[1],pt[0]]
@@ -101,10 +127,12 @@ def gen_cvframe():
 			0.5, green, 1, cv2.LINE_AA)
 			cv2.putText(img, f'{centroid}',(pt[0],pt[1]+15), cv2.FONT_HERSHEY_SIMPLEX,
 			0.5, green, 1, cv2.LINE_AA)
+			cv2.putText(img, f'{S}',(pt[0],pt[1]+25), cv2.FONT_HERSHEY_SIMPLEX,
+			0.5, green, 1, cv2.LINE_AA)
 			cv2.circle(img,centroid,3,green,-1) # center point
 			
 			if ids[i] == 7:
-				cv2.putText(img, f'ID7: {distance} {check_LR(center_point,centroid,vdim)} {check_TB(center_point,centroid,hdim)}',(10,20), cv2.FONT_HERSHEY_SIMPLEX,0.5, green, 1, cv2.LINE_AA)
+				cv2.putText(img, f'ID7: {distance} | {check_LR(center_point,centroid,vdim)} | {check_TB(center_point,centroid,hdim)} | {S}',(10,20), cv2.FONT_HERSHEY_SIMPLEX,0.5, green, 1, cv2.LINE_AA)
 				cv2.line(img,center_point,centroid,red,2)
 
 		if draw:
