@@ -279,5 +279,9 @@ def estop():
 
 @app.route('/shutdown',methods = ['POST'])
 def shutdown():
+	# retset kill command to stop for the next start
+	myrobot = Robot.query.get(1)
+	myrobot.command = command
+	db.session.commit()
 	shutdown_server()
 	return 'Server shutting down'
