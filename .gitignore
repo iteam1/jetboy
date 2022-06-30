@@ -6,3 +6,9 @@ __pycache__
 
 # sqlite3
 site.db-journal
+
+# .jpeg image
+*.jpg
+
+# pointcloud file
+*.ply
