@@ -4,7 +4,7 @@ Author: locchuong
 Date: 30/6/2022
 Descript:
 	- robot auto find and go to specific id
-	- stop when get obstacles
+	- stop when get obstacles 
 	- auto find target
 	- timestep delay
 	- capture frame
@@ -311,19 +311,16 @@ def find_aruco_markers(color_frame,depth_frame,marker_size = 4,total_markers = 2
 	'''
 	This function detect every marker in frame, if marker id is the same with your specific
 	id then draw the pointing line
-
 	Arguments:
 		color_frame --- camera's color frame
 		depth_frame --- camera's depth frame
 		marker_size --- default = 4
 		total_markers --- default = 250
 		draw --- default True
-
 	Return:
 		pos --- postion of the marker
 		S --- Square area of the marker
 		centroid --- centroid of the marker have target id
-
 	'''
 	gray = cv2.cvtColor(color_frame,cv2.COLOR_BGR2GRAY) # convert your image to gray color
 	bboxs,ids,rejected = aruco.detectMarkers(gray,aruco_dict, parameters = aruco_param) # detect aruco targets
@@ -386,11 +383,11 @@ if __name__ == "__main__":
 		timestamp = datetime.datetime.now()
 
 		# decide the action
-		if result:
+		if result: # if we got re soon return
 			pos = result[0]
 			S = result[1]
-			centroid = result[2]
-			distance 
+			centroid = result[2] # y,x
+			distance = depth_frame[centroid[1],centroid[0]] # x,y
 			if pos == 'center':
 				if S < S_max:
 					command = 'forward'
@@ -403,13 +400,22 @@ if __name__ == "__main__":
 			elif pos == 'left':
 				command = 'turnleft'
 				robot.bit_turnleft(args.tr)
+		# if we don't find out the marker
+		else:
+			pos = "Unknown"
+			S = 0.0
+			centroid = (0,0) # y,x
+			distance = 0.0 # x,y
+			command = 'stop'
+
+
 			
 		# printout the action
-		if args.print:
-			print(f'{timestamp}-{pos}-{command}-{S}-{distance}-[f={f},b={b},l={l},r={r}]')
+		if args.print: # already true
+			print(f'{timestamp} - {pos} - {command} - {S} - {distance} - [f={f},b={b},l={l},r={r}]')
 
 		# display color frame
-		if args.display:
+		if args.display: # already false
 			draw_frame(color_frame)
 			# stack depth frame and colorframe
 			stack_frame = np.hstack((color_frame,colormap)) # display depth_frame and color_frame side by side
