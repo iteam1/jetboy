@@ -13,6 +13,7 @@ import numpy as np
 #import robot.realsense_depth as rd
 from robot import app,db,d455
 from robot import pc,points,colorizer # for pointcloud capture
+from robot.pyrealsense2 import pyrealsense2 as rs
 from robot.models import Robot
 import math
 import datetime
@@ -312,15 +313,38 @@ def shutdown():
 	shutdown_server()
 	return 'Server shutting down'
 
-# capture frame
+# capture color frame
 @app.route("/capture_img",methods = ['POST'])
 def capture_img():
 	# get current frame
 	ret,depth_frame,color_frame,frames = d455.get_frame()
+	# get timestamp
 	now = datetime.datetime.now()
 	now = now.isoformat().replace(".","-")
-	now = "./imgs/" + now + ".jpg"
-	cv2.imwrite(now,color_frame)
+	filename = "./imgs/" + now + ".jpg"
+	# write out the frame
+	cv2.imwrite(filename,color_frame)
+	# update estop
+	myrobot = Robot.query.get(1)
+	estop = myrobot.estop # query estop value	
+	return render_template('manual.html',estop = estop)
+
+# capture depth frame
+@app.route("/capture_pointcloud",methods = ['POST'])
+def capture_pointcloud():
+	# get timestamp
+	now = datetime.datetime.now()
+	now = now.isoformat().replace(".","-")
+	filename = "./pointcloud/" + now + ".ply"
+	# get current frame
+	ret,depth_frame,color_frame,frames = d455.get_frame()
+	colorized = colorizer.process(frames)
+	ply =rs.save_to_ply(filename)
+	# set options to desired values, generate a textual PLY with normals (mesh is already created by default)
+	ply.set_option(rs.save_to_ply.option_ply_binary,False)
+	ply.set_option(rs.save_to_ply.option_ply_normals,True)
+	# process your pointcloud
+	ply.process(colorized)
 	# update estop
 	myrobot = Robot.query.get(1)
 	estop = myrobot.estop # query estop value	
