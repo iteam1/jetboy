@@ -312,8 +312,8 @@ def shutdown():
 	return 'Server shutting down'
 
 # capture frame
-@app.route("/capture",methods = ['POST'])
-def capture():
+@app.route("/capture_img",methods = ['POST'])
+def capture_img():
 	ret,depth_frame,color_frame = d455.get_frame()
 	now = datetime.datetime.now()
 	now = now.isoformat().replace(".","-")

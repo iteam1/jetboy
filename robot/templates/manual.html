@@ -5,7 +5,7 @@
     <h1 style="color:green;text-align:center;">Jetboy's manual panel</h1>
     <br>
     
-    <!-- Bit move -->
+    <!-- Estop -->
     <h2 style="color:green;text-align:center;">bit move</h2>
     <br>
     
@@ -15,9 +15,9 @@
             <small class="form-text text-muted">.</small>
             <p class = 'text-center'>
                 {% if estop == True %}
-                    <button type="Estop" class="btn btn-danger mb-4">Estop</button>
+                    <button type="Estop" class="btn btn-danger mb-4">ESTOP</button>
                 {% else %}
-                    <button type="Estop" class="btn btn-primary mb-6">Estop</button>
+                    <button type="Estop" class="btn btn-primary mb-6">ESTOP</button>
                 {% endif %}
             </p>
         </form>
@@ -97,11 +97,11 @@
     <br>
 
     <!-- function -->
-    <h2 style="color:green;text-align:center;">continous move</h2>
+    <h2 style="color:green;text-align:center;">function</h2>
     <div class = 'row'>
-        <form action = "{{ url_for('capture') }}" method = 'POST'>
+        <form action = "{{ url_for('capture_img') }}" method = 'POST'>
             <input type = 'hidden' name = 'capture'>
-            <button class="btn btn-primary mb-2">Capture</button>
+            <button class="btn btn-primary mb-2">cap img</button>
         </form>
     </div>
     <br>
@@ -113,7 +113,7 @@
         <form action = "{{ url_for('content') }}" method = 'POST'>
             <input class="form-control form-control-lg" type="text" placeholder = "What you wanna say?" name = "content">
             <small class="form-text text-muted">.</small>     
-            <button type="submit" class="btn btn-primary mb-2">Say it!</button>
+            <button type="submit" class="btn btn-primary mb-2">say it!</button>
         </form> 
     </div>
     <br>
@@ -160,16 +160,15 @@
     <div class = 'row'>
         <form action = "{{ url_for('manual') }}" method = 'POST'>
             <input type = 'hidden' name = 'command' id = 'command' value = 'kill'>
-            <button class="btn btn-danger mb-2">Close GPIO</button>
+            <button class="btn btn-danger mb-2">close GPIO</button>
         </form>
         <p>_____</p>
         <form action = "{{ url_for('shutdown') }}" method = 'POST'>
-            <button class="btn btn-danger mb-2">Shutdown server</button>
+            <button class="btn btn-danger mb-2">shutdown server</button>
         </form>
         <p>_____</p>
     </div>
     <br>
-
 {% endblock content %}
 
 		
