@@ -24,6 +24,7 @@ import argparse
 parser = argparse.ArgumentParser(description = 'tracking aruco marker')
 # add argument to parser
 parser.add_argument('-d','--display', action = 'store_true', help = 'option to display frame')
+parser.add_argument('-p','--print', action = 'store_false', help = 'option to do not print out frame')
 parser.add_argument('-i','--id', type = int, required = True,help  = 'the target id')
 parser.add_argument('-r','--tr', type = float, required = False, default = 0.4, help  = 'timestep rotate')
 parser.add_argument('-l','--tl', type = float, required = False, default = 0.2, help  = 'timestep linear')
@@ -63,10 +64,12 @@ total_markers = 250
 # params for give recomment command
 S_max = 4000.0 # max square
 
-# command action 
-command = 'stop'
-# define timestamp
-timestamp = datetime.datetime.now()
+# init some variable
+command = 'stop' # command action 
+timestamp = datetime.datetime.now() # define timestamp
+pos = "Unknown" # position for robot
+S = 0.0 # square erea of the target marker
+distance = 0.0 # distance of the target marker
 
 # inheriate from robot_gpio but no connect to database
 class controller():
@@ -265,6 +268,11 @@ def calc_aruco(bbox):
 	'''
 	bbox contain (top_left,top_right,bottom_right,bottom_left)
 	this function return centroid of the bbox and square area
+	Arguments:
+		bbox --- the marker bounding box
+	Return:
+		centroid --- centroid of the marker
+		S --- square area of the marker
 	'''
 	# find centroid
 	centroid = np.mean(bbox,axis = 1).astype('int')
@@ -303,6 +311,19 @@ def find_aruco_markers(color_frame,depth_frame,marker_size = 4,total_markers = 2
 	'''
 	This function detect every marker in frame, if marker id is the same with your specific
 	id then draw the pointing line
+
+	Arguments:
+		color_frame --- camera's color frame
+		depth_frame --- camera's depth frame
+		marker_size --- default = 4
+		total_markers --- default = 250
+		draw --- default True
+
+	Return:
+		pos --- postion of the marker
+		S --- Square area of the marker
+		centroid --- centroid of the marker have target id
+
 	'''
 	gray = cv2.cvtColor(color_frame,cv2.COLOR_BGR2GRAY) # convert your image to gray color
 	bboxs,ids,rejected = aruco.detectMarkers(gray,aruco_dict, parameters = aruco_param) # detect aruco targets
@@ -328,7 +349,7 @@ def find_aruco_markers(color_frame,depth_frame,marker_size = 4,total_markers = 2
 				pos = check_LR(center_point,centroid,hdim) # horizontal
 				cv2.line(color_frame,center_point,centroid,red,2)
 				cv2.putText(color_frame,f'P: {pos} S: {S} => ',(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.5,green,1,cv2.LINE_AA)
-				return pos,S
+				return pos,S,centroid
 	return None
 
 	if draw:
@@ -364,28 +385,28 @@ if __name__ == "__main__":
 		# update timestamp
 		timestamp = datetime.datetime.now()
 
+		# decide the action
 		if result:
 			pos = result[0]
 			S = result[1]
+			centroid = result[2]
+			distance 
 			if pos == 'center':
 				if S < S_max:
 					command = 'forward'
-					# print(f'{timestamp} cmd: forward signal: {f,b,l,r}')
 					robot.bit_forward(args.tl)
 				else:
 					command = 'stop'
-					# print(f'{timestamp} cmd: stop signal: {f,b,l,r}')
 			elif pos == 'right':
 				command = 'turnright'
-				# print(f'{timestamp} cmd: turnright signal: {f,b,l,r}')
 				robot.bit_turnright(args.tr)
 			elif pos == 'left':
 				command = 'turnleft'
-				# print(f'{timestamp} cmd: turnleft signal: {f,b,l,r}')
 				robot.bit_turnleft(args.tr)
 			
 		# printout the action
-		print(f'{timestamp} cmd: {command} signal: {f,b,l,r}')
+		if args.print:
+			print(f'{timestamp}-{pos}-{command}-{S}-{distance}-[f={f},b={b},l={l},r={r}]')
 
 		# display color frame
 		if args.display:
@@ -395,11 +416,11 @@ if __name__ == "__main__":
 			cv2.imshow('frame',stack_frame)
 		
 		# delay
-		if args.td:
-			time.sleep(args.td)
+		# if args.td:
+		# 	time.sleep(args.td)
 
-		# wait frame
-		if cv2.waitKey(1) == 27:
+		# wait frame millisecond
+		if cv2.waitKey(int(args.td)) == 27:
 			break 
 
 	# stop manipulate gpio 
