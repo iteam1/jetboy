@@ -12,6 +12,7 @@ import cv2.aruco as aruco
 import numpy as np
 #import robot.realsense_depth as rd
 from robot import app,db,d455
+from robot import pc,points,colorizer # for pointcloud capture
 from robot.models import Robot
 import math
 import datetime
@@ -140,7 +141,7 @@ def gen_cvframe():
 			aruco.drawDetectedMarkers(img,bboxs)
 
 	while True:
-		ret,depth_frame,color_frame = d455.get_frame()
+		ret,depth_frame,color_frame,frames = d455.get_frame()
 		colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_frame,alpha = 0.08),cv2.COLORMAP_JET)
 		if not ret:
 			print('Connection to camera failed!')
@@ -172,7 +173,7 @@ def gen_cvframe():
 
 def gen_colorframe():
 	while True:
-		ret,depth_frame,color_frame = d455.get_frame()
+		ret,depth_frame,color_frame,frames = d455.get_frame()
 		if not ret:
 			print('Connection to camera failed!')
 			break 
@@ -185,7 +186,7 @@ def gen_colorframe():
 # Generate depth frame
 def gen_depthframe():
 	while True:
-		ret,depth_frame,color_frame = d455.get_frame()
+		ret,depth_frame,color_frame,frames = d455.get_frame()
 
 		depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_frame,alpha=0.08),cv2.COLORMAP_JET)
 		if not ret:
@@ -200,7 +201,7 @@ def gen_depthframe():
 #Generate depth frame and color frame
 def gen_both():
 	while True:
-		ret,depth_frame,color_frame = d455.get_frame()
+		ret,depth_frame,color_frame,frames = d455.get_frame()
 
 		# In the heat map conversion
 		depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_frame,alpha = 0.08),cv2.COLORMAP_JET)
@@ -314,7 +315,8 @@ def shutdown():
 # capture frame
 @app.route("/capture_img",methods = ['POST'])
 def capture_img():
-	ret,depth_frame,color_frame = d455.get_frame()
+	# get current frame
+	ret,depth_frame,color_frame,frames = d455.get_frame()
 	now = datetime.datetime.now()
 	now = now.isoformat().replace(".","-")
 	now = "./imgs/" + now + ".jpg"
