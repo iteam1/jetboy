@@ -4,10 +4,12 @@
 
     <h1 style="color:green;text-align:center;">Jetboy's manual panel</h1>
     <br>
-    <!--Bit move-->
-    <h2 style="color:green;text-align:center;">Bit move</h2>
+    
+    <!-- Bit move -->
+    <h2 style="color:green;text-align:center;">bit move</h2>
     <br>
-    <!--button Estop-->
+    
+    <!-- button Estop -->
     <div clas = 'row'>
         <form action = "{{ url_for('estop') }}" method = 'POST'>
             <small class="form-text text-muted">.</small>
@@ -19,13 +21,13 @@
                 {% endif %}
             </p>
         </form>
-        <!--{{estop}} -->
+    
+    <!-- bit move -->
     </div>
     <br><br>
     <div class = 'container h-100'>
         <div class="position-relative h-100">
 
-            <!--button Bit_forward -->
             <div class="position-absolute top-center">
                 <form action = "{{ url_for('manual') }}" method = 'POST'>
                     <input type = 'hidden' name = 'command' id = 'command'  value = 'bit_forward'>
@@ -33,7 +35,7 @@
                 </form>
             </div>
             <br><br><br>
-            <!--button Stop-->
+
             <div class="position-absolute mid-center">
                 <form action = "{{ url_for('manual') }}" method = 'POST'>
                     <input type = 'hidden' name = 'command' id = 'command'  value = 'stop'>
@@ -67,8 +69,8 @@
     </div>   
     <br>
 
-    <!--Continous move-->
-    <h2 style="color:green;text-align:center;">Cont move</h2>
+    <!-- Continous move -->
+    <h2 style="color:green;text-align:center;">continous move</h2>
     <div class = 'row'>
         <p>_____</p>
         <form action = "{{ url_for('manual') }}" method = 'POST'>
@@ -93,9 +95,20 @@
         <p>_____</p>
     </div>
     <br>
+
+    <!-- function -->
+    <h2 style="color:green;text-align:center;">continous move</h2>
+    <div class = 'row'>
+        <form action = "{{ url_for('capture') }}" method = 'POST'>
+            <input type = 'hidden' name = 'capture'>
+            <button class="btn btn-primary mb-2">Capture</button>
+        </form>
+    </div>
+    <br>
+
     
-    <!--Content manual-->
-    <h2 style="color:green;text-align:center;">Content</h2>
+    <!-- Content manual -->
+    <h2 style="color:green;text-align:center;">content</h2>
     <div clas = 'row'>
         <form action = "{{ url_for('content') }}" method = 'POST'>
             <input class="form-control form-control-lg" type="text" placeholder = "What you wanna say?" name = "content">
@@ -105,8 +118,8 @@
     </div>
     <br>
     
-    <!--Emotion manual-->
-    <h2 style="color:green;text-align:center;">Emotion</h2>
+    <!-- Emotion manual -->
+    <h2 style="color:green;text-align:center;">emotion</h2>
     <div class = 'row'>
         <form action = "{{ url_for('emotion') }}" method = 'POST'>
             <input type = 'hidden' name = 'emotion' value = 'sleeping'>
@@ -142,8 +155,8 @@
         </form>
     </div>
 
-    <!--Program control-->
-    <h2 style="color:green;text-align:center;">Program controll</h2>
+    <!-- Program control -->
+    <h2 style="color:green;text-align:center;">program controll</h2>
     <div class = 'row'>
         <form action = "{{ url_for('manual') }}" method = 'POST'>
             <input type = 'hidden' name = 'command' id = 'command' value = 'kill'>

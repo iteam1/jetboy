@@ -14,6 +14,7 @@ import numpy as np
 from robot import app,db,d455
 from robot.models import Robot
 import math
+import datetime
 
 # define color
 red = (0,0,255)
@@ -21,7 +22,7 @@ green = (0,255,0)
 blue = (255,0,0)
 center_point = (320,240)
 vdim = 40 # vertical distance for gen_cvframe
-hdim = 30 # horizontal distance for gen_cvframe
+hdim = 40 # horizontal distance for gen_cvframe
 
 # shutdown function
 def shutdown_server():
@@ -309,3 +310,16 @@ def estop():
 def shutdown():
 	shutdown_server()
 	return 'Server shutting down'
+
+# capture frame
+@app.route("/capture",methods = ['POST'])
+def capture():
+	ret,depth_frame,color_frame = d455.get_frame()
+	now = datetime.datetime.now()
+	now = now.isoformat().replace(".","-")
+	now = "./imgs/" + now + ".jpg"
+	cv2.imwrite(now,color_frame)
+	# update estop
+	myrobot = Robot.query.get(1)
+	estop = myrobot.estop # query estop value	
+	return render_template('manual.html',estop = estop)
