@@ -1,6 +1,6 @@
 '''
 Author: locchuong
-Updated: 27/12/21
+Updated: 30/6/22
 Description:
     This python program test connection and streaming image from the depth camera
 '''
@@ -41,9 +41,10 @@ class DepthCamera():
         color_image = np.asanyarray(color_frame.get_data())
         
         if not depth_frame or not color_frame:
-            return False,None,None
+            return False,None,None,None
 
-        return True,depth_image,color_image 
+        # return full frame for colorizer
+        return True,depth_image,color_image,frames
 
     def release(self):
         self.pipeline.stop()
