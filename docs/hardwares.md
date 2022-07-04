@@ -1,6 +1,6 @@
 ### Hardware
 
-This document contain the desciption about robot's hardware
+This document contain the desciption about robot's hardwares
 
 |No|Hardware|Quantity|Description|Comment|Status|
 |---|---|---|---|---|---|
