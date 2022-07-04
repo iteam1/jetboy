@@ -3,12 +3,12 @@
 This document contain some common commands for this repository
 ______
 
-**Run all program via bash script**
+**1/ Run all program via bash script**
 
 `bash start.sh`
 ______
 
-**Run custom program**
+**2/ Run custom program**
 
 - Run gpio controller `python3 robot_gpio.py`
 
@@ -17,7 +17,7 @@ ______
 - Run webserver `python3 robot_server.py`
 ______
 
-**Generate database**
+**3/ Generate database**
 
 Run python script for generate a `sqlite` database: `python3 gendata.py`
 
@@ -32,11 +32,13 @@ db.session.commit()
 ```
 ______
 
-**Memos**
+**4/ Give permission**
 
 Add permission for connecting to serial port
 
-`/dev/ttyUSB0` permission denied, `username =  jetboy`. `portname = /dev/ttyUSB0`
+     /dev/ttyUSB0` permission denied, `username =  jetboy`. `portname = /dev/ttyUSB0
+
+by
 
 ```
 sudo usermod -a -G dialout <username>
@@ -44,7 +46,7 @@ sudo chmod a+rw <portname>
 ```
 ______
 
-**Run python from bash**
+**5/ Run python from bash**
 
 This by default will already run one after the other.
 
@@ -69,7 +71,7 @@ To run them at the same time as background processes:
 python a.py && python b.py && python c.py && python d.py 
 ______
 
-**Install sublime-text**
+**6/ Install sublime-text**
 
 install `sublime-text` for code editor
 
@@ -84,7 +86,7 @@ install `sublime-text` for code editor
      sudo apt install sublime-text
 ______
 
-**GPIO**
+**7/ GPIO**
 
 install `jetson-nano` servo libraries
 
@@ -93,7 +95,7 @@ install `jetson-nano` servo libraries
      sudo pip3 install adafruit-circuitpython-servokit
 ______
 
-**Nvidia Jetson nano & Node-Red & GPIO pins**
+**8/ Nvidia Jetson nano & Node-Red & GPIO pins**
 
 connect `i2c`
 
@@ -106,12 +108,12 @@ connect `i2c`
      i2cdetect -y -r 1
 ______
      
-**PWM**
+**9/ PWM**
 
 Install  `GPIO` package for `jetson nano`: `sudo /opt/nvidia/jetson-io/jetson-io.py`
 ______
 
-**jetpack Tensorflow Realsense**
+**10/ jetpack Tensorflow Realsense**
 
 Install `tensorflow` on `jetson-nano`
 
@@ -142,7 +144,7 @@ Check the GPU begin recognize corectlly
 
 ______
 
-**Install Pyrealsense on jetson nano**
+**11/ Install Pyrealsense on jetson nano**
 
 Clone the repository `git clone https://github.com/JetsonHacksNano/installLibrealsense.git`
      
@@ -164,7 +166,7 @@ Install some libraries
 
 ______
 
-**implement YOLOV3**
+**12/ implement YOLOV3**
 
 Open the karas-yolo page [keras-repo](https://github.com/qqwweee/keras-yolo3)
 
@@ -191,9 +193,9 @@ Run
 
 ______
      
-**Backup Jetson Nano's Linux system**
+**13/ Backup Jetson Nano's Linux system**
 
-Go to \
+Go to `\` as `super user`
 
      sudo su
      
@@ -226,7 +228,7 @@ Run command to create backup.tar.gz file
 
 ______
       
-**Restore linux with backup.tar**
+**14/ Restore linux with backup.tar**
 
 Make sure you are root and that you and the backup file are in the root of the filesystem.
 
@@ -234,7 +236,7 @@ Make sure you are root and that you and the backup file are in the root of the f
       
 ______
 
-**Connect to rplidar**
+**15/ Connect to rplidar**
 
      sudo su
      cd /
