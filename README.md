@@ -21,6 +21,7 @@ These libraries below can not be install by command `pip install -r requirements
 |4|[github](https://github.com/)|cloud platform for manage your project|
 |5|[git](https://git-scm.com/)|control your repository|
 |6|[ezgif](https://ezgif.com/maker)|ezgif maker|
-|7|[symbolcopy](https://www.symbolcopy.com/)|get sympol character|
+|7|[symbolcopy](https://www.symbolcopy.com/)|get symbol character|
 |8|[shields](https://shields.io/)|create your own git badges|
+|9|[kleki](https://kleki.com/)|drawing sketch online|
     
