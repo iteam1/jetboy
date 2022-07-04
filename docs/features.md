@@ -1,6 +1,6 @@
 ## Features
 
-This document contain features functions of the robot
+This document contain the features and the functions of the robot
 
 |No|Feature|Status|Description|Comment|
 |---|---|---|---|---|
