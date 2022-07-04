@@ -1,6 +1,6 @@
 ## Issues
 
-This document contain the issues of developing the repository
+This document contain the issues of developing this repository
 
 |No|Issue|Status|Date|Description|Comment|Solution|
 |---|---|---|---|---|---|---|
