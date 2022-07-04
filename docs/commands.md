@@ -1,12 +1,14 @@
 ## Commands
 
-This document contain common commands for the repository
+This document contain some common commands for this repository
 
-### Run all program via bash script
+**Run all program via bash script**
 
 `bash start.sh`
 
-### Run custom program
+______
+
+**Run custom program**
 
 - Run gpio controller `python3 robot_gpio.py`
 
