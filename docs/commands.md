@@ -1,11 +1,11 @@
 ## Commands
 
 This document contain some common commands for this repository
+______
 
 **Run all program via bash script**
 
 `bash start.sh`
-
 ______
 
 **Run custom program**
@@ -15,30 +15,36 @@ ______
 - Run gui controller `python3 robot_gui.py`
 
 - Run webserver `python3 robot_server.py`
+______
 
-### Generate database
+**Generate database**
 
-`python3 gendata.py`
+Run python script for generate a `sqlite` database: `python3 gendata.py`
 
 Open terminal:
 
-     ```
-     from robot import db
-     from robot.models import Robot
-     robot = Robot()
-     db.session.add(robot)
-     db.session.commit()
-     ```
+```
+from robot import db
+from robot.models import Robot
+robot = Robot()
+db.session.add(robot)
+db.session.commit()
+```
+______
 
-### Memos
+**Memos**
+
+Add permission for connecting to serial port
+
 `/dev/ttyUSB0` permission denied, `username =  jetboy`. `portname = /dev/ttyUSB0`
 
 ```
 sudo usermod -a -G dialout <username>
 sudo chmod a+rw <portname>
 ```
+______
 
-### Run python from bash
+**Run python from bash**
 
 This by default will already run one after the other.
 
@@ -61,8 +67,11 @@ To run them at the same time as background processes:
 (Responding to comment) - You can chain this for several commands in a row, for example:
 
 python a.py && python b.py && python c.py && python d.py 
+______
 
-### Install sublime-text
+**Install sublime-text**
+
+install `sublime-text` for code editor
 
      sudo apt update
 
@@ -73,15 +82,20 @@ python a.py && python b.py && python c.py && python d.py
      sudo add-apt-repository "deb https://download.sublimetext.com/ apt/stable/"
 
      sudo apt install sublime-text
+______
 
-### GPIO
+**GPIO**
+
+install `jetson-nano` servo libraries
 
      pip3 install adafruit-circuitpython-servokit
      
      sudo pip3 install adafruit-circuitpython-servokit
+______
 
-### Nvidia Jetson nano & Node-Red & GPIO pins
-https://www.youtube.com/watch?v=30Fj1mo0Uqw
+**Nvidia Jetson nano & Node-Red & GPIO pins**
+
+connect `i2c`
 
      sudo usermod -aG i2c jetboy 
      sudo groupadd -f -r gpio
@@ -90,12 +104,16 @@ https://www.youtube.com/watch?v=30Fj1mo0Uqw
      sudo udevadm control –reload-rules && sudo udevadm trigger
      reboot now
      i2cdetect -y -r 1
+______
      
-### pwm
+**PWM**
 
-     sudo /opt/nvidia/jetson-io/jetson-io.py
+Install  `GPIO` package for `jetson nano`: `sudo /opt/nvidia/jetson-io/jetson-io.py`
+______
 
-### jetpack Tensorflow Realsense
+**jetpack Tensorflow Realsense**
+
+Install `tensorflow` on `jetson-nano`
 
      sudo apt-get update
      
@@ -122,21 +140,17 @@ Check the GPU begin recognize corectlly
      print(tf.__version__)
      print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
-Install Pyrealsense on jetson nano
+______
 
-     git clone https://github.com/JetsonHacksNano/installLibrealsense.git
+**Install Pyrealsense on jetson nano**
+
+Clone the repository `git clone https://github.com/JetsonHacksNano/installLibrealsense.git`
      
-Correct the cuda version in buildLibrealsense.sh file
+Correct the cuda version in buildLibrealsense.sh file `NVCC_PATH=/usr/local/cuda-10.2/bin/nvcc`
      
-     NVCC_PATH=/usr/local/cuda-10.2/bin/nvcc
+Execute buildLibrealsense file `./buildLibrealsense.sh`
      
-Execute buildLibrealsense file
-     
-     ./buildLibrealsense.sh
-     
-Refesh your current shell invironment
-     
-     source ~/.bashrc
+Refesh your current shell invironment `source ~/.bashrc`
      
 Install some libraries
 
@@ -148,7 +162,11 @@ Install some libraries
      
      sudo apt-get install libcanberra-gtk*
 
-Open the karas-yolo page: https://github.com/qqwweee/keras-yolo3
+______
+
+**implement YOLOV3**
+
+Open the karas-yolo page [keras-repo](https://github.com/qqwweee/keras-yolo3)
 
      git clone https://github.com/qqwweee/keras-yolo3.git
      
@@ -170,8 +188,10 @@ Modify the tiny-yolo.py
 Run
 
      python3 yolo.py
+
+______
      
-### Backup Jetson Nano's Linux system
+**Backup Jetson Nano's Linux system**
 
 Go to \
 
@@ -203,15 +223,18 @@ Run command to create backup.tar.gz file
       --exclude=/usr\
       --exclude=/var\
       /
+
+______
       
-### Restore linux with backup.tar 
+**Restore linux with backup.tar**
 
 Make sure you are root and that you and the backup file are in the root of the filesystem.
 
      tar xvpfz backup.tar.gz -C /
       
+______
 
-### Connect to rplidar
+**Connect to rplidar**
 
      sudo su
      cd /
