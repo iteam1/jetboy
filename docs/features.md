@@ -1,4 +1,4 @@
-## Features
+### Features
 
 This document contain the features and the functions of the robot
 

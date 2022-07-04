@@ -1,50 +1,58 @@
-## References 
+### References 
 
 This document contain the references for the repository
 
-### Step by step instructions to bind OpenCV libraries with CUDA drivers to enable GPU processing on OpenCV codes.
-https://towardsdatascience.com/opencv-cuda-aws-ec2-no-more-tears-60af2b751c46
+**tensorflow-opencv-jetson_boards**
 
-### opencv, tensorflow, deep learning model
+[1] [Step by step instructions to bind OpenCV libraries with CUDA drivers to enable GPU processing on OpenCV codes](https://towardsdatascience.com/opencv-cuda-aws-ec2-no-more-tears-60af2b751c46)
 
-https://towardsdatascience.com/object-detection-with-tensorflow-model-and-opencv-d839f3e42849
+[2] [object-detection with tensorflow and opencv](https://towardsdatascience.com/object-detection-with-tensorflow-model-and-opencv-d839f3e42849)
 
-https://machinelearningmastery.com/how-to-perform-object-detection-in-photographs-with-mask-r-cnn-in-keras/
+[3] [object detection rnn-keras](https://machinelearningmastery.com/how-to-perform-object-detection-in-photographs-with-mask-r-cnn-in-keras/)
 
-https://www.tensorflow.org/hub/installation
+[4] [install tensorflow on jetson-nano board](https://www.tensorflow.org/hub/installation)
 
-### librealsense2 python examples
+[] [install opencv-contrib on jetson board](https://automaticaddison.com/how-to-install-opencv-4-5-on-nvidia-jetson-nano/)
 
-https://dev.intelrealsense.com/docs/python2
+[] [install opencv-contrib](
+https://pysource.com/2019/08/26/install-opencv-4-1-on-nvidia-jetson-nano/)
 
-https://github.com/IntelRealSense/librealsense/tree/master/wrappers/python/examples
+______
 
-### Install opencv contrib python jetson-nano
+**librealsense2**
 
-https://automaticaddison.com/how-to-install-opencv-4-5-on-nvidia-jetson-nano/
+[5] [librealsense-python-documents](https://dev.intelrealsense.com/docs/python2)
 
-https://pysource.com/2019/08/26/install-opencv-4-1-on-nvidia-jetson-nano/
+[6] [librealsense-github](
+https://github.com/IntelRealSense/librealsense/tree/master/wrappers/python/examples)
 
-### Run python from bash
+______
 
-https://ao.ms/how-to-always-run-python-3-from-bash/
+**python from bash**
 
-https://stackoverflow.com/questions/13692519/linux-bash-script-running-multiple-python
+[] [python-bash_script](https://ao.ms/how-to-always-run-python-3-from-bash/)
 
-## Install sublime-text
-https://linuxize.com/post/how-to-install-sublime-text-3-on-ubuntu-20-04/
+[] [run multiple python bash script](https://stackoverflow.com/questions/13692519/linux-bash-script-running-multiple-python)
 
-## NVIDIA
+______
 
-https://www.youtube.com/watch?v=FyrXnNpPR6s&list=PLGs0VKk2DiYxP-ElZ7-QXIERFFPkOuP4_&index=5
+**Install sublime-text**
 
-https://github.com/NVIDIA
+[] [install sublime_text](https://linuxize.com/post/how-to-install-sublime-text-3-on-ubuntu-20-04/)
 
-https://www.nvidia.com/en-us/training/online/
+______
 
-https://developer.nvidia.com/embedded/learn/jetson-ai-certification-programs
+**NVIDIA repository, documents**
 
-https://developer.nvidia.com/embedded/twodaystoademo#hello_ai_world
+[] [NVIDIA github](https://github.com/NVIDIA)
+
+[] [NVIDIA training](https://www.nvidia.com/en-us/training/online/)
+
+[] [NVIDIA certification-programs](https://developer.nvidia.com/embedded/learn/jetson-ai-certification-programs)
+
+[] [NVIDIA hello-ai-word](https://developer.nvidia.com/embedded/twodaystoademo#hello_ai_world)
+
+______
 
 ### Jetbot
 https://jetbot.org/master/index.html
