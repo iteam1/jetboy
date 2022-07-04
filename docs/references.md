@@ -2,7 +2,7 @@
 
 This document contain the references for the repository
 
-**tensorflow-opencv-jetson_boards**
+**1/ tensorflow_opencv_jetson-boards**
 
 [1] [Step by step instructions to bind OpenCV libraries with CUDA drivers to enable GPU processing on OpenCV codes](https://towardsdatascience.com/opencv-cuda-aws-ec2-no-more-tears-60af2b751c46)
 
@@ -16,33 +16,29 @@ This document contain the references for the repository
 
 [] [install opencv-contrib](
 https://pysource.com/2019/08/26/install-opencv-4-1-on-nvidia-jetson-nano/)
-
 ______
 
-**librealsense2**
+**2/ librealsense2**
 
 [5] [librealsense-python-documents](https://dev.intelrealsense.com/docs/python2)
 
 [6] [librealsense-github](
 https://github.com/IntelRealSense/librealsense/tree/master/wrappers/python/examples)
-
 ______
 
-**python from bash**
+**3/ python from bash**
 
 [] [python-bash_script](https://ao.ms/how-to-always-run-python-3-from-bash/)
 
 [] [run multiple python bash script](https://stackoverflow.com/questions/13692519/linux-bash-script-running-multiple-python)
-
 ______
 
-**Install sublime-text**
+**4/ Install sublime-text**
 
 [] [install sublime_text](https://linuxize.com/post/how-to-install-sublime-text-3-on-ubuntu-20-04/)
-
 ______
 
-**NVIDIA repository, documents**
+**5/ NVIDIA repository, documents**
 
 [] [NVIDIA github](https://github.com/NVIDIA)
 
@@ -51,13 +47,13 @@ ______
 [] [NVIDIA certification-programs](https://developer.nvidia.com/embedded/learn/jetson-ai-certification-programs)
 
 [] [NVIDIA hello-ai-word](https://developer.nvidia.com/embedded/twodaystoademo#hello_ai_world)
-
 ______
 
-### Jetbot
-https://jetbot.org/master/index.html
+**6/ Jetbot**
 
-https://github.com/NVIDIA-AI-IOT/jetbot
+[] [jetbot document](https://jetbot.org/master/index.html)
+
+[] [jetbot repo](https://github.com/NVIDIA-AI-IOT/jetbot)
 
 ### GPIO
 ![JetsonNano-expansion-pinout](https://user-images.githubusercontent.com/73679364/136185152-faec5c9b-4d30-427f-9b10-27345fca6dde.png)
