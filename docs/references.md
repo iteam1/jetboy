@@ -49,7 +49,7 @@ ______
 [18] [systemd-python](https://www.linuxbabe.com/linux-server/how-to-enable-etcrc-local-with-systemd)
 ______
 
-**4/ Install sublime-text**
+**4/ Install softwares**
 
 [19] [install sublime_text](https://linuxize.com/post/how-to-install-sublime-text-3-on-ubuntu-20-04/)
 ______
@@ -86,10 +86,12 @@ ______
 ______
 
 **8/ sensors**
+
 [31] [newPing_c++_library_for_communicate_with_sensor](https://github.com/microflo/NewPing)
 
 [32] [distance-sensor-arduino](https://dronebotworkshop.com/hc-sr04-ultrasonic-distance-sensor-arduino/)
 
 **9/ pytorch on jetson-nano board**
+
 [33] [install-pytorch-on-jetson](https://qengineering.eu/install-pytorch-on-jetson-nano.html)
 
