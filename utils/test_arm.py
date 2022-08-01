@@ -1,3 +1,10 @@
+'''
+Author: locchuong
+Updated: 1/8/22
+Description:
+	communicate with robot's arm via serial communication
+'''
+
 import serial
 from serial.tools import list_ports
 import time 

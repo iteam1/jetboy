@@ -2,7 +2,7 @@
 Author: locchuong
 Updated: 22/6/22
 Description:
-    Test stream camera with opencv-contrib-python library
+    Test stream depth camera D455 with opencv-python library
 '''
 
 import cv2
