@@ -6,7 +6,17 @@
 
 **step3**: install python packages virtual enviroment `pip3 install virtualenv`.
 
-**step4**: install pyrealsense for using D455 depth camera `bash pyrealsense.sh`.
+**step4**: install pyrealsense for using D455 depth camera `bash pyrealsense.sh`. pyrealsense can not install normally by `pip3`
+
+**other requirements**:
+
+these packages can be install normally by `pip3 install [package_name]`
+
+     flask
+     flask_sqlalchemy
+     sqlite3
+
+install opencv `sudo apt-get install python3-opencv`
 
 **bash-scripts table**
 
