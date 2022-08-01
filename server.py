@@ -17,3 +17,5 @@ if __name__ == "__main__":
 	d455.release()
 
 	print('Camera released!')
+
+	exit()
