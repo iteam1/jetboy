@@ -4,7 +4,7 @@
 
 ### robot-jetboy
 
-**Quick-guide**
+#### Quick-guide
 
 - clone this repo `git clone git@github.com:iteam1/robot-jetboy.git`
 
@@ -16,15 +16,7 @@
 
 [gui.py](/gui.py): create a robot's face for visual-communication
 
-if you want to run multi programs in the terminal, example: `python3 gpio.py & server.py` 
-
-*Notes:*
-
-- `jetson.GPIO`: This libary is built-in jetson-nano board or rasberry pi board, and just can run on this hardware.
-
-- `pyrealsense2`: build from source C with Cmake by bash-script.
-
-- `opencv-contrib-python`: build from source C with C make by bash-script but now it not necessary.
+if you want to run multi programs in the terminal, example: `python3 gpio.py & server.py`
 
 #### Tools
 
