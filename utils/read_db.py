@@ -1,9 +1,9 @@
 '''
 Author: locchuong
-Updated: 22/6/22
+Updated: 1/8/22
 Description:
 	This python program continously read all value of the database print it out the screen
-	Run this python program on the directory ./Jetson-Nano
+	Run this python program on the directory ./robot-jetboy
 '''
 
 import os 
@@ -31,6 +31,7 @@ column_list = ['id','name','command','content','emotion','image','itype','estop'
 print("Start reading robot id = {id}")
 
 if __name__ == "__main__":
+	
 	while True:
 		# query database
 		c.execute(f"""
@@ -51,9 +52,8 @@ if __name__ == "__main__":
 		# print out the message
 		print(message)
 		# delay
-		time.sleep(0.1)
+		time.sleep(0.1) # delay abit, if you don't this program will occupy database and won't let any program else give request
 		# clear the output
 		os.system('clear')
 
 	conn.close()
-

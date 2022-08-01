@@ -1,3 +1,10 @@
+'''
+Author: locchuong
+Updated: 1/8/22
+Description:
+	test serial communicate with arduino
+'''
+
 import serial
 from serial.tools import list_ports
 import time 

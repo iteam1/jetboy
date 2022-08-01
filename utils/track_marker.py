@@ -1,10 +1,12 @@
 
 '''
 Author: locchuong
-Date: 24/6/2022
+Date: 30/6/2022
 Descript:
-	- arparse arugment 
-	- Tracking specify aruco ID target, find the way go to that target
+	- robot auto find and go to specific id
+	- stop when get obstacles 
+	- auto find target
+	- timestep delay
 '''
 import cv2
 import cv2.aruco as aruco 
@@ -20,6 +22,11 @@ import argparse
 parser = argparse.ArgumentParser(description = 'tracking aruco marker')
 # add argument to parser
 parser.add_argument('-d','--display', action = 'store_true', help = 'option to display frame')
+parser.add_argument('-p','--print', action = 'store_false', help = 'option to do not print out frame')
+parser.add_argument('-i','--id', type = int, required = True,help  = 'the target id')
+parser.add_argument('-r','--tr', type = float, required = False, default = 0.4, help  = 'timestep rotate')
+parser.add_argument('-l','--tl', type = float, required = False, default = 0.2, help  = 'timestep linear')
+parser.add_argument('-t','--td', type = float, required = False,help = 'time delay')
 # create arguments
 args = parser.parse_args()
 
@@ -35,7 +42,6 @@ OBS_F_pin = 15 # front ultrasonic sensor
 OBS_B_pin = 16 # back ultrasonic sensor
 OBS_L_pin = 18 # left ultrasonic sensor
 OBS_R_pin = 19 # right ultrasonic sensor
-target_id = 7 # the specific id robot will track on
 
 # define color 
 red = (0,0,255)
@@ -44,7 +50,7 @@ blue = (255,0,0)
 
 # define point
 vdim = 40 
-hdim = 25
+hdim = 40
 f_width = 640
 f_height = 480
 center_point = (int(f_width/2),int(f_height/2)) # x_max = 640, y_max = 480
@@ -55,6 +61,13 @@ total_markers = 250
 
 # params for give recomment command
 S_max = 4000.0 # max square
+
+# init some variable
+command = 'stop' # command action 
+timestamp = datetime.datetime.now() # define timestamp
+pos = "Unknown" # position for robot
+S = 0.0 # square erea of the target marker
+distance = 0.0 # distance of the target marker
 
 # inheriate from robot_gpio but no connect to database
 class controller():
@@ -253,6 +266,11 @@ def calc_aruco(bbox):
 	'''
 	bbox contain (top_left,top_right,bottom_right,bottom_left)
 	this function return centroid of the bbox and square area
+	Arguments:
+		bbox --- the marker bounding box
+	Return:
+		centroid --- centroid of the marker
+		S --- square area of the marker
 	'''
 	# find centroid
 	centroid = np.mean(bbox,axis = 1).astype('int')
@@ -279,7 +297,7 @@ def draw_frame(frame):
 	cv2.circle(frame,center_point,10,blue,2) # center point
 	
 	cv2.line(frame,(int(f_width/2),int(f_height/2-vdim/2)),(int(f_width/2),int(f_height/2-vdim/2)),blue,2) # vertical line
-	cv2.line(frame,(300,f_height),(340,f_height),blue,2) # horizontal line
+	cv2.line(frame,(int(f_width/2)-hdim,f_height),(int(f_width/2)+hdim,f_height),blue,2) # horizontal line
 	
 	cv2.line(frame,(int(f_width/2)-vdim,0),(int(f_width/2-vdim),f_height),blue,2) # vertical frontline left
 	cv2.line(frame,(int(f_width/2+vdim),0),(int(f_width/2+vdim),f_height),blue,2) # vertical frontline right
@@ -291,6 +309,16 @@ def find_aruco_markers(color_frame,depth_frame,marker_size = 4,total_markers = 2
 	'''
 	This function detect every marker in frame, if marker id is the same with your specific
 	id then draw the pointing line
+	Arguments:
+		color_frame --- camera's color frame
+		depth_frame --- camera's depth frame
+		marker_size --- default = 4
+		total_markers --- default = 250
+		draw --- default True
+	Return:
+		pos --- postion of the marker
+		S --- Square area of the marker
+		centroid --- centroid of the marker have target id
 	'''
 	gray = cv2.cvtColor(color_frame,cv2.COLOR_BGR2GRAY) # convert your image to gray color
 	bboxs,ids,rejected = aruco.detectMarkers(gray,aruco_dict, parameters = aruco_param) # detect aruco targets
@@ -312,11 +340,11 @@ def find_aruco_markers(color_frame,depth_frame,marker_size = 4,total_markers = 2
 			'''
 			If the ids is equal to your specific id
 			'''
-			if ids[i] == target_id:
+			if ids[i] == args.id:
 				pos = check_LR(center_point,centroid,hdim) # horizontal
 				cv2.line(color_frame,center_point,centroid,red,2)
 				cv2.putText(color_frame,f'P: {pos} S: {S} => ',(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.5,green,1,cv2.LINE_AA)
-				return pos,S
+				return pos,S,centroid
 	return None
 
 	if draw:
@@ -339,40 +367,63 @@ if __name__ == "__main__":
 	ret,depth_frame,color_frame = d455.get_frame()
 	
 	while ret:
+
 		# read camera 
 		ret,depth_frame,color_frame = d455.get_frame()
-		
 		# convert depth frame
-		colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_frame,alpha = 0.08),cv2.COLORMAP_JET)
-		
-		result = find_aruco_markers(color_frame,depth_frame,target_id,aruco_dict,aruco_param)
+		colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_frame,alpha = 0.08),cv2.COLORMAP_JET)		
+		result = find_aruco_markers(color_frame,depth_frame,args.id,aruco_dict,aruco_param)
 
-		if result:
+		# read sensor obstacle value
+		f,b,l,r = robot.read_obstacles()
+
+		# update timestamp
+		timestamp = datetime.datetime.now()
+
+		# decide the action
+		if result: # if we got re soon return
 			pos = result[0]
 			S = result[1]
-			timestamp = datetime.datetime.now()
+			centroid = result[2] # y,x
+			distance = depth_frame[centroid[1],centroid[0]] # x,y
 			if pos == 'center':
 				if S < S_max:
-					print(f'{timestamp} - forward')
-					robot.bit_forward(0.4)
+					command = 'forward'
+					robot.bit_forward(args.tl)
 				else:
-					print(f'{timestamp} - stop')
+					command = 'stop'
 			elif pos == 'right':
-				print(f'{timestamp} - turnright')
-				robot.bit_turnright(0.2)
+				command = 'turnright'
+				robot.bit_turnright(args.tr)
 			elif pos == 'left':
-				print(f'{timestamp} - left')
-				robot.bit_turnleft(0.2)
+				command = 'turnleft'
+				robot.bit_turnleft(args.tr)
+		# if we don't find out the marker
+		else:
+			pos = "Unknown"
+			S = 0.0
+			centroid = (0,0) # y,x
+			distance = 0.0 # x,y
+			command = 'stop'
+
 			
+		# printout the action
+		if args.print: # already true
+			print(f'{timestamp} - {pos} - {command} - {S} - {distance} - [f={f},b={b},l={l},r={r}]')
+
 		# display color frame
-		if args.display:
+		if args.display: # already false
 			draw_frame(color_frame)
 			# stack depth frame and colorframe
 			stack_frame = np.hstack((color_frame,colormap)) # display depth_frame and color_frame side by side
 			cv2.imshow('frame',stack_frame)
 		
-		# wait frame
-		if cv2.waitKey(1) == 27:
+		# delay
+		# if args.td:
+		# 	time.sleep(args.td)
+
+		# wait frame millisecond
+		if cv2.waitKey(int(args.td)) == 27:
 			break 
 
 	# stop manipulate gpio 

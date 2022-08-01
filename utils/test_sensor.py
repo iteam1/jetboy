@@ -21,4 +21,3 @@ while True:
 	r= GPIO.input(19)
 
 	print(f"f = {f},b = {b},l = {l},r = {r}")
-

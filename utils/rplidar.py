@@ -72,20 +72,16 @@ _HEALTH_STATUSES = {
     2: 'Error',
 }
 
-
 class RPLidarException(Exception):
     '''Basic exception class for RPLidar'''
-
 
 def _b2i(byte):
     '''Converts byte to integer (for Python 2 compatability)'''
     return byte if int(sys.version[0]) == 3 else ord(byte)
 
-
 def _showhex(signal):
     '''Converts string bytes to hex representation (useful for debugging)'''
     return [format(_b2i(b), '#02x') for b in signal]
-
 
 def _process_scan(raw):
     '''Processes input raw data and returns measurement data'''
@@ -101,7 +97,6 @@ def _process_scan(raw):
     distance = (_b2i(raw[3]) + (_b2i(raw[4]) << 8)) / 4.
     return new_scan, quality, angle, distance
 
-
 def _process_express_scan(data, new_angle, trame):
     new_scan = (new_angle < data.start_angle) & (trame == 1)
     angle = (data.start_angle + (
@@ -109,7 +104,6 @@ def _process_express_scan(data, new_angle, trame):
             )/32*trame - data.angle[trame-1]) % 360
     distance = data.distance[trame-1]
     return new_scan, None, angle, distance
-
 
 class RPLidar(object):
     '''Class for communicating with RPLidar rangefinder scanners'''
@@ -458,7 +452,6 @@ class RPLidar(object):
                 scan_list = []
             if distance > 0:
                 scan_list.append((quality, angle, distance))
-
 
 class ExpressPacket(namedtuple('express_packet',
                                'distance angle new_scan start_angle')):
