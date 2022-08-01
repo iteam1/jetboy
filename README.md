@@ -1,4 +1,4 @@
-<img src="https://img.shields.io/badge/license-MIT-green" /> <img src="https://img.shields.io/badge/version-v0.6-lightgrey" />
+<img src="https://img.shields.io/badge/license-MIT-green" /> <img src="https://img.shields.io/badge/version-v0.7-lightgrey" />
 
 ![banner](docs/assets/banner.png)
 
@@ -22,15 +22,15 @@ if you want to run multi programs in the terminal:
 
 *Notes:*
 
-- `jetson.GPIO`: This libary is built-in jetson-nano board or rasberry pi board, and just can run on this hardware
+- `jetson.GPIO`: This libary is built-in jetson-nano board or rasberry pi board, and just can run on this hardware.
 
-- `pyrealsense2`: build from source C with Cmake by bash-script
+- `pyrealsense2`: build from source C with Cmake by bash-script.
 
 - `opencv-contrib-python`: build from source C with C make by bash-script but now it not necessary.
 
-**Tools**
+#### Tools
 
-|No|tool|descript|
+|No|Tool|Description|
 |---|---|---|
 |1|[sublime-text](https://www.sublimetext.com/)|code editor|
 |2|[diagrameditor](https://www.diagrameditor.com/)|drawing UML|
@@ -43,7 +43,7 @@ if you want to run multi programs in the terminal:
 |9|[kleki](https://kleki.com/)|drawing sketch online|
     
 
-**References**
+#### References
 
 [jetson-inference](https://github.com/dusty-nv/jetson-inference)
 

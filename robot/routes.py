@@ -8,7 +8,7 @@ Description:
 from flask import render_template,request,Response,flash,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 import cv2
-import cv2.aruco as aruco 
+# import cv2.aruco as aruco 
 import numpy as np
 #import robot.realsense_depth as rd
 from robot import app,db,d455
