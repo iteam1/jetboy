@@ -1,6 +1,6 @@
 '''
 Author: locchuong
-Updated: 22/6/22
+Updated: 1/8/22
 Description:
 	This python program control the GPIO of Jetson-Nano board, it read the command from the database and execute it.
 	Run this program at the begining.
@@ -360,13 +360,4 @@ if __name__ == "__main__":
 	
 	print("Exit cml")
 
-
-
-
-
-
-
-
-
-
-
+	exit()

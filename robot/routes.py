@@ -1,6 +1,6 @@
 '''
 Author: locchuong
-Updated: 27/6/22
+Updated: 1/8/22
 Description:
 	Update calculation function 
 	This is contain routes of the flask server
@@ -8,9 +8,7 @@ Description:
 from flask import render_template,request,Response,flash,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 import cv2
-# import cv2.aruco as aruco 
 import numpy as np
-#import robot.realsense_depth as rd
 from robot import app,db,d455
 from robot import pc,points,colorizer # for pointcloud capture
 from robot.pyrealsense2 import pyrealsense2 as rs
@@ -45,7 +43,7 @@ def gen_colorframe():
 
 			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-# Generate depth frame
+# generate depth frame
 def gen_depthframe():
 	while True:
 		ret,depth_frame,color_frame,frames = d455.get_frame()
@@ -60,7 +58,7 @@ def gen_depthframe():
 
 			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-#Generate depth frame and color frame
+#generate depth frame and color frame
 def gen_both():
 	while True:
 		ret,depth_frame,color_frame,frames = d455.get_frame()
