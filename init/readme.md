@@ -8,9 +8,9 @@
 
 **step4**: install pyrealsense for using D455 depth camera `bash pyrealsense.sh`. pyrealsense can not install normally by `pip3`
 
-**other requirements**:
+**step5**: install opencv `sudo apt-get install python3-opencv` (stable version)
 
-install opencv `sudo apt-get install python3-opencv`
+**step6**: install the other required packages by in [requirements.txt](/init/requirements.txt) `pip3 install -r requirements.txt`
 
 these packages can be install normally by `pip3 install [package_name]`
 
@@ -20,7 +20,7 @@ these packages can be install normally by `pip3 install [package_name]`
 
 - export packages into requirements.txt: `pip3 freeze > requirements.txt`
 
-- install packages follow your requirements.txt: `pip3 install -r requirements.txt`
+*Notes:* All packages,libraries and dependencies must be install in gobal.
 
 **bash-scripts table**
 
