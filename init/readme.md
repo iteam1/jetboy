@@ -17,6 +17,7 @@ these packages can be install normally by `pip3 install [package_name]`
      flask
      flask_sqlalchemy
      sqlite3
+     numpy
 
 - export packages into requirements.txt: `pip3 freeze > requirements.txt`
 
@@ -34,9 +35,7 @@ ______
 
 #### init database
 
-the database `sqlite3` is already there in the repo, but if you lost it, in `/utils` folder Run python script for generate a sqlite database: python3 gendata.py.
-
-open terminal:
+the database `sqlite3` is already there in the repo, but if you lost it, in `/utils` folder Run python script for generate a sqlite database: `python3 robot/gendata.py`, this command will create a datbase and a table. Then open terminal and add a row into that table:
 
 	from robot import db
 	from robot.models import Robot
@@ -95,6 +94,8 @@ run command to create backup.tar.gz file
       --exclude=/var\
       /
 
-make sure you are root and that you and the backup file are in the root of the filesystem.
+make sure you are root and that you and the backup file are in the root of the filesystem `tar xvpfz backup.tar.gz -C /`
 
-     tar xvpfz backup.tar.gz -C /
+#### access robot remotely
+
+- you can use ssh software like PuTTY or if using linux, this os-system is already support ssh into another linux-machine: `ssh [machine_name]@[machine_lan_ip]`, example: `ssh jetboy@192.168.1.9`
