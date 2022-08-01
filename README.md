@@ -10,15 +10,13 @@
 
 - go to [init](/init) then follow the instruction for setup in this folder.
 
-- [gpio.py](/gpio.py): control robot gpio
+[gpio.py](/gpio.py): control robot gpio
 
-- [server.py](/server.py): build a local webserver for manually control
+[server.py](/server.py): build a local webserver for manually control
 
-- [gui.py](/gui.py): create a robot's face for visual-communication
+[gui.py](/gui.py): create a robot's face for visual-communication
 
-if you want to run multi programs in the terminal:
-
-	python3 gpio.py & server.py 
+if you want to run multi programs in the terminal, example: `python3 gpio.py & server.py` 
 
 *Notes:*
 

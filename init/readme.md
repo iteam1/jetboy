@@ -20,7 +20,7 @@ these packages can be install normally by `pip3 install [package_name]`
 
 - export packages into requirements.txt: `pip3 freeze > requirements.txt`
 
-*Notes:* All packages,libraries and dependencies must be install in gobal.
+*Notes:* All packages,libraries and dependencies must be install in gobal. `RPi.GPIO` is build-in package and only can be install on embedded-hardwares like jetson-board or raspberry-board.
 
 **bash-scripts table**
 

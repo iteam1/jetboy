@@ -1,6 +1,6 @@
 #!usr/bin/python3 
 
-python3 robot_gpio.py &
+python3 gpio.py &
 
-python3 robot_server.py &
+python3 server.py &
 
