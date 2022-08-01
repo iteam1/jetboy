@@ -12,3 +12,11 @@ site.db-journal
 
 # pointcloud file
 *.ply
+
+# compressed file
+*.zip
+*.rar
+*.tar
+
+# execution file
+*.exe
