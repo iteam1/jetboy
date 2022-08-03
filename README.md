@@ -1,6 +1,6 @@
 <img src="https://img.shields.io/badge/license-MIT-green" /> <img src="https://img.shields.io/badge/version-v0.7-lightgrey" />
 
-![banner](/docs/assets/banner.png)
+![banner](/docs/assets/imgs/banner.png)
 
 ### robot-jetboy
 
