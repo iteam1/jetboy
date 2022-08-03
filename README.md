@@ -8,7 +8,7 @@
 
 - clone this repo `git clone git@github.com:iteam1/robot-jetboy.git`
 
-- go to [init](/init) then follow the instruction for setup in this folder.
+- go to [init](/init) then follow the instruction for setting up the repository.
 
 [gpio.py](/gpio.py): control robot gpio
 
