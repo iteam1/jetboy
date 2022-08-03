@@ -1,5 +1,7 @@
 ## robot's features & change logs
 
+new features and change logs will be write down in this document
+
 ### 31-July-22
 
 **1/ Power supply and electrical system**
