@@ -1,9 +1,11 @@
-### repo uml description
+### UMLs and sketchs of the repo
 
-this table bellow give you the overview about repo's sketchs and UML
+this table bellow give you the overview about repo's sketchs and UML.
 
 |No|Name|Description|Comment|Directory|
 |---|---|---|---|---|
 |01|sketch1|robot electrical system|---|link|
 |02|uml1|describe how local-server, gpio module local database work together|---|link|
 |03|uml2|describe testing methods|---|link|
+|04|uml3|describe how to control continously moving|---|link|
+|05|uml3|detail about robot's arm|---|link|
