@@ -12,12 +12,13 @@
 
 **step6**: install the other required packages by in [requirements.txt](/init/requirements.txt) `pip3 install -r requirements.txt`
 
-these packages can be install normally by `pip3 install [package_name]`
+these packages can be install normally by `pip3 install [package_name]`, [requirements.txt](/init/requirements.txt) contain the main packages and their dependencies, bellow is main packages you can install them manually by `pip3 install [package_name]`.
 
      flask
      flask_sqlalchemy
      sqlite3
      numpy
+     pyserial
 
 - export packages into requirements.txt: `pip3 freeze > requirements.txt`
 
