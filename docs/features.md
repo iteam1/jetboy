@@ -1,6 +1,6 @@
-### robot's features & change logs
+## robot's features & change logs
 
-#### 31-July-22
+### 31-July-22
 
 **1/ Power supply and electrical system**
 
@@ -10,7 +10,7 @@
 
 **4/ GPIO control**
 
-#### 31-August-22
+### 31-August-22
 
 **1/ Power supply and electrical system**
 
