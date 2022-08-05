@@ -83,10 +83,10 @@ void setup() {
   digitalWrite(BZ,0);
   
   // STEP5: RC servo setup
-  sv4.attach(3);  // goc tang la kep lai
-  sv3.attach(5);  // goc tang la gap vao
-  sv2.attach(6);  //goc giam la dua ra
-  sv1.attach(9);  //goc tang la dua ra
+  sv4.attach(3);  // goc tang la kep lai gripping tool
+  sv3.attach(5);  // goc tang la gap vao join3
+  sv2.attach(6);  //goc giam la dua ra join2
+  sv1.attach(9);  //goc tang la dua ra join1
   setgoc();
   
   Serial.println("dddd");
