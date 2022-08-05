@@ -2,9 +2,9 @@
  * https://nshopvn.com/product/mach-dieu-khien-dong-co-buoc-tb6600-4-0a-942vdc/
  * Kết nối:
           TB6600                  Arduino
-           ENA+                      enPin
-           DIR+                      dirPin
-           PUL+                      stepPin
+           ENA+                     8-enPin
+           DIR+                     7-dirPin
+           PUL+                     4-stepPin
            ENA-                     GND
            DIR-                     GND
            PUL-                     GND
@@ -41,25 +41,25 @@ void setup() {
   
 }
 void loop() {
-  //test(3000);
+  //test(4200,300);
 }
 
 void stand_by(){
   sv1.write(50); // raise the arm before rotate step motor
   sv2.write(90);
-  sv3.write(0);
+  sv3.write(90);
   sv4.write(170); 
   }
 
- void test(int pulses){
+ void test(int pulses,int microTime){
     
   digitalWrite(dirPin,LOW); // Enables the motor to move in a particular direction
   // Makes pulses for making one full cycle rotation
   for(int x = 0; x < pulses; x++) {
     digitalWrite(stepPin,HIGH); 
-    delayMicroseconds(500); 
+    delayMicroseconds(microTime); 
     digitalWrite(stepPin,LOW); 
-    delayMicroseconds(500); 
+    delayMicroseconds(microTime); 
   }
   delay(1000); // One second delay
 
@@ -67,9 +67,9 @@ void stand_by(){
   // Makes pulses for making two full cycle rotation
   for(int x = 0; x < pulses; x++) {
     digitalWrite(stepPin,HIGH);
-    delayMicroseconds(500);
+    delayMicroseconds(microTime);
     digitalWrite(stepPin,LOW);
-    delayMicroseconds(500);
+    delayMicroseconds(microTime);
   }
   delay(1000);
   
