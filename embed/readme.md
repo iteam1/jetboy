@@ -14,3 +14,4 @@
 |10|[Blink](/embed/Blink)|test arduino nano clip with basic program blink build-in led||
 |11|[Sweep](/embed/Sweep)|test RC servo, control servo rotate from a minimum angle to maximum angle||
 |12|[Stepper](/embed/Stepper)|test Step motor, control rotate from a minimum angle to maximum angle||
+|13|[Stepper2](/embed/Stepper2)|test Step motor, control rotate from a minimum angle to maximum angle by delayMicrosecond||
