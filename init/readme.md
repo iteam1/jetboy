@@ -96,7 +96,13 @@ run command to create backup.tar.gz file
       /
 
 make sure you are root and that you and the backup file are in the root of the filesystem `tar xvpfz backup.tar.gz -C /`
+______
 
 #### access robot remotely
 
 - you can use ssh software like PuTTY or if using linux, this os-system is already support ssh into another linux-machine: `ssh [machine_name]@[machine_lan_ip]`, example: `ssh jetboy@192.168.1.9`
+______
+
+#### give permission for serial port
+
+if you want to gibve permission for serial port `/dev/ttyUSB0`: `sudo chmod a+rw /dev/ttyUSB0`

@@ -78,10 +78,25 @@ def gen_both():
 
 			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
+# HOME
 @app.route("/",methods =['GET'])
 def home():
     return render_template("home.html")
 
+# CAMERA
+@app.route('/color')
+def colorstream():
+	return Response(gen_colorframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/depth')
+def depthstream():
+	return Response(gen_depthframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/both')
+def fullstream():
+	return Response(gen_both(),mimetype = 'multipart/x-mixed-replace;boundary=frame')
+
+# MANUAL CONTROL
 @app.route("/manual",methods = ['GET','POST'])
 def manual():
 	if request.method == 'POST':
@@ -97,14 +112,6 @@ def manual():
 	myrobot = Robot.query.get(1)
 	estop = myrobot.estop # query estop value	
 	return render_template('manual.html',estop = estop)
-
-@app.route('/color')
-def colorstream():
-	return Response(gen_colorframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
-
-@app.route('/depth')
-def depthstream():
-	return Response(gen_depthframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/content',methods =['POST'])
 def content():
@@ -163,11 +170,7 @@ def estop():
 		db.session.commit()
 		return render_template('manual.html',estop = myrobot.estop)
 
-@app.route('/shutdown',methods = ['POST'])
-def shutdown():
-	shutdown_server()
-	return 'Server shutting down'
-
+# SYSTEM
 # capture color frame
 @app.route("/capture_img",methods = ['POST'])
 def capture_img():
@@ -204,3 +207,8 @@ def capture_pointcloud():
 	myrobot = Robot.query.get(1)
 	estop = myrobot.estop # query estop value	
 	return render_template('manual.html',estop = estop)
+
+@app.route('/shutdown',methods = ['POST'])
+def shutdown():
+	shutdown_server()
+	return 'Server shutting down'
