@@ -31,6 +31,7 @@ void setup() {
   // init timer
   cli(); // disable all interrupt before you done setting up
   Serial.println("step4: init timer -> DOING...");
+  //beep(5);
 }
 
 void loop() {
@@ -38,3 +39,12 @@ void loop() {
   sv1.write(90); // raise the arm before rotate step motor
 
 }
+
+void beep(int times){
+  for(int i = 0;i<=times;i++){
+    digitalWrite(BZ,1);
+    delay(1000);
+    digitalWrite(BZ,0);
+    delay(1000);
+    }
+  }
