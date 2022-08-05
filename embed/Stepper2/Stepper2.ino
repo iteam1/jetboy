@@ -2,9 +2,9 @@
  * https://nshopvn.com/product/mach-dieu-khien-dong-co-buoc-tb6600-5a-hy-div268n/?gclid=Cj0KCQjw_7KXBhCoARIsAPdPTfi90oOPmzix3mB6K9zfVeSNNHptESnVxldMXMKFD_zgTHs-L6sKvdsaAnjvEALw_wcB
   Kết nối:
           TB6600                  Arduino
-           ENA+                      8
-           DIR+                      2
-           PUL+                      5 
+           ENA+                      enPin
+           DIR+                      dirPin
+           PUL+                      stepPin
            ENA-                     GND
            DIR-                     GND
            PUL-                     GND
