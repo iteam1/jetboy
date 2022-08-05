@@ -20,3 +20,6 @@ site.db-journal
 
 # execution file
 *.exe
+
+# temporary file of arduino IDE
+*.tmp
