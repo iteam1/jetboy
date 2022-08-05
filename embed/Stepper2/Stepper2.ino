@@ -1,6 +1,6 @@
 /*
- * https://nshopvn.com/product/mach-dieu-khien-dong-co-buoc-tb6600-5a-hy-div268n/?gclid=Cj0KCQjw_7KXBhCoARIsAPdPTfi90oOPmzix3mB6K9zfVeSNNHptESnVxldMXMKFD_zgTHs-L6sKvdsaAnjvEALw_wcB
-  Kết nối:
+ * https://nshopvn.com/product/mach-dieu-khien-dong-co-buoc-tb6600-4-0a-942vdc/
+ * Kết nối:
           TB6600                  Arduino
            ENA+                      enPin
            DIR+                      dirPin
@@ -19,6 +19,8 @@ Servo sv1,sv2,sv3,sv4;  // robot's arm have 4 rc servo
 const int stepPin = 4; // make pulse for step motor
 const int dirPin = 7; // direction for step motor pin
 const int enPin = 8; //brake step motor pin
+const int rev = 1600;
+
 void setup() {
 
   // init servo
@@ -39,27 +41,7 @@ void setup() {
   
 }
 void loop() {
-  
-  digitalWrite(dirPin,HIGH); // Enables the motor to move in a particular direction
-  // Makes 200 pulses for making one full cycle rotation
-  for(int x = 0; x < 800; x++) {
-    digitalWrite(stepPin,HIGH); 
-    delayMicroseconds(500); 
-    digitalWrite(stepPin,LOW); 
-    delayMicroseconds(500); 
-  }
-  delay(1000); // One second delay
-
-  digitalWrite(dirPin,LOW); //Changes the rotations direction
-  // Makes 400 pulses for making two full cycle rotation
-  for(int x = 0; x < 800; x++) {
-    digitalWrite(stepPin,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(stepPin,LOW);
-    delayMicroseconds(500);
-  }
-  delay(1000);
-  
+  //test(3000);
 }
 
 void stand_by(){
@@ -67,4 +49,28 @@ void stand_by(){
   sv2.write(90);
   sv3.write(0);
   sv4.write(170); 
+  }
+
+ void test(int pulses){
+    
+  digitalWrite(dirPin,LOW); // Enables the motor to move in a particular direction
+  // Makes pulses for making one full cycle rotation
+  for(int x = 0; x < pulses; x++) {
+    digitalWrite(stepPin,HIGH); 
+    delayMicroseconds(500); 
+    digitalWrite(stepPin,LOW); 
+    delayMicroseconds(500); 
+  }
+  delay(1000); // One second delay
+
+  digitalWrite(dirPin,HIGH); //Changes the rotations direction
+  // Makes pulses for making two full cycle rotation
+  for(int x = 0; x < pulses; x++) {
+    digitalWrite(stepPin,HIGH);
+    delayMicroseconds(500);
+    digitalWrite(stepPin,LOW);
+    delayMicroseconds(500);
+  }
+  delay(1000);
+  
   }
