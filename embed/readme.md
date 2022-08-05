@@ -13,3 +13,4 @@
 |09|[TEST_SERVO_STEP_EEPROM_Serial_Timer2US.ino](/embed/TEST_SERVO_STEP_EEPROM_Serial_Timer2US.ino)|this is arduino ide code file, but without a cover folder and not be used anymore||
 |10|[Blink](/embed/Blink)|test arduino nano clip with basic program blink build-in led||
 |11|[Sweep](/embed/Sweep)|test RC servo, control servo rotate from a minimum angle to maximum angle||
+|12|[Stepper](/embed/Stepper)|test Step motor, control rotate from a minimum angle to maximum angle||
