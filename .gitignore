@@ -23,3 +23,8 @@ site.db-journal
 
 # temporary file of arduino IDE
 *.tmp
+
+# support files autocad-2007
+*.dwl
+*.bak
+*.log
