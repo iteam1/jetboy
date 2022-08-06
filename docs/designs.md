@@ -10,7 +10,7 @@ this table bellow give you the overview about repo's sketchs and UML.
 |04|[uml3](/docs/assets/umls/uml3.xml)|describe how to control continously moving|this idea is not apply right now|
 |05|uml4|describe how gpio-controller and  database work|---|
 |06|[sketch2](/docs/assets/sketchs/sketch2.pdf)|robot's arm schematic,coordinate|---|
-|07|sketch2.1|robot's arm driver wiring,coordinate,workflow,protocol|---|
+|07|sketch2.1|robot's arm driver wiring,setting up|---|
 |08|uml5|robot's arm workflow,protocol|---|
 |09|sketch3|describe robot's motors,wiring,workflow,protocol|---|
 |10|sketch4|describe robot's emotional-led,wiring,workflow,protocol|---|
