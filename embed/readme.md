@@ -9,9 +9,8 @@
 |05|[test_uart](/embed/test_uart)|test uart commnication between main board and chip arduino by builtin-port||
 |06|[uart2uart](/embed/uart2uart)|test uart commnication between main board and chip arduino by softserial library||
 |07|[TEST_SERVO_STEP_EEPROM_Serial_Timer2US](/embed/TEST_SERVO_STEP_EEPROM_Serial_Timer2US)|test step-motor with timer-interrupt||
-|08|[CODE_ARM_ROBOT.ino](/embed/CODE_ARM_ROBOT)|robot arm arduino-nano source code but not be used anymore||
-|09|[TEST_SERVO_STEP_EEPROM_Serial_Timer2US.ino](/embed/TEST_SERVO_STEP_EEPROM_Serial_Timer2US.ino)|this is arduino ide code file, but without a cover folder and not be used anymore||
-|10|[Blink](/embed/Blink)|test arduino nano clip with basic program blink build-in led||
-|11|[Sweep](/embed/Sweep)|test RC servo, control servo rotate from a minimum angle to maximum angle||
-|12|[Stepper](/embed/Stepper)|test Step motor, control rotate from a minimum angle to maximum angle||
-|13|[Stepper2](/embed/Stepper2)|test Step motor, control rotate from a minimum angle to maximum angle by delayMicrosecond||
+|08|[CODE_ARM_ROBOT](/embed/CODE_ARM_ROBOT)|robot arm arduino-nano source code but not be used anymore||
+|09|[Blink](/embed/Blink)|test arduino nano clip with basic program blink build-in led||
+|10|[Sweep](/embed/Sweep)|test RC servo, control servo rotate from a minimum angle to maximum angle||
+|11|[Stepper](/embed/Stepper)|test Step motor, control rotate from a minimum angle to maximum angle||
+|12|[Stepper2](/embed/Stepper2)|test Step motor, control rotate from a minimum angle to maximum angle by delayMicrosecond||
