@@ -6,6 +6,7 @@
 1. [Home](#Home)
 2. [Stream color frame](#Stream-color-frame)
 3. [Stream depth frame](#Stream-depth-frame)
+4. [Stream both frame](#Stream-both-frame)
 
 </p>
 </details>
@@ -72,3 +73,24 @@
 * **Sample Call:**
 * **Notes:**
   Get depth frame of depth camera real-time
+
+## Stream both frames
+
+  Response depth frame and color frame stack together
+* **URL:** `/d`
+* **Method:** `GET`
+*  **URL Params:**
+   **Required:**
+    `None`
+   **Optional:**
+   `None`
+* **Query Params:**`None`
+* **Success Response:**
+  * **Code:** 200 <br />
+    **Content:** depth frame and color frame of depth camera
+* **Error Response:**
+  * **Code:** `None` <br />
+    **Content:** `None`
+* **Sample Call:**
+* **Notes:**
+  Get depth frame and color frame of depth camera real-time
