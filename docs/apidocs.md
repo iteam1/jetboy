@@ -1,8 +1,8 @@
 ### APIs
 
 1. [Home](#Home)
-2. [Stream color frame](#Stream_color_frame)
-2. [Stream depth frame](#Stream_depth_frame)
+2. [Stream color frame](#Stream-color-frame)
+3. [Stream depth frame](#Stream-depth-frame)
 
 #### Home
 ----
