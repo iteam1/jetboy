@@ -20,6 +20,6 @@ if __name__ == "__main__":
 	while True:
 		x = input('Enter the framework: ')
 		x = x + "a" # use a character you can see to recognize a frame
-		print(x)
+		print(f'sending sring: {x}')
 		#arduino.write(bytes(x,'utf-8'))
 		arduino.write(x.encode())

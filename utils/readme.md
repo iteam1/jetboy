@@ -3,7 +3,7 @@
 |No|Program|Description|Comment|
 |---|---|---|---|
 |01|[test_arm.py](/utils/test_arm.py)|test serial-communication by protocol with robot's arm module||
-|02|[test_serial.py](/utils/test_serial.py)|test serial-communication with arudino chip||
+|02|[test_serial.py](/utils/test_serial.py)|test serial-communication with arudino chip, send a string `90,90,90,90,90,1a`, microcontroller will read serial until `a` character and compare the previous part, if equal `90,90,90,90,90` then blink led|refer to embeded code [test_uart](embed/test_uart),[uart2uart](embed/uart2uart)|
 |03|[read_db.py](/utils/read_db.py)|test serial-communication with arudino chip|`python3 -n 1 /utils/read_db.py`|
 |04|[stream_d455.py](/utils/stream_d455.py)|test stream depth camera d455 by pyrealsense and opencv|depend on module [realsense_depth.py](/utils/realsense_depth.py)|
 |05|[stream_cam.py](/utils/stream_cam.py)|test stream serial camera by opencv|can not run, robot's hardware only got depth-camera|
