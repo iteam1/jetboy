@@ -78,20 +78,20 @@ def gen_both():
 # HOME
 @app.route("/",methods =['GET'])
 def home():
-    return render_template("home.html")
+    return render_template("home.html"),200
 
 # CAMERA
 @app.route('/color')
 def colorstream():
-	return Response(gen_colorframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
+	return Response(gen_colorframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame',status_code = 200)
 
 @app.route('/depth')
 def depthstream():
-	return Response(gen_depthframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
+	return Response(gen_depthframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame',status_code = 200)
 
 @app.route('/both')
 def fullstream():
-	return Response(gen_both(),mimetype = 'multipart/x-mixed-replace;boundary=frame')
+	return Response(gen_both(),mimetype = 'multipart/x-mixed-replace;boundary=frame',status_code = 200)
 
 # MANUAL CONTROL
 @app.route("/manual",methods = ['GET','POST'])
