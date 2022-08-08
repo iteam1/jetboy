@@ -1,3 +1,5 @@
+### API's form
+
 **Title**
 ----
   <_Additional information about your API call. Try to use verbs that match both request type (fetching vs modifying) and plurality (one vs multiple)._>
@@ -54,3 +56,47 @@
 * **Notes:**
 
   <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
+
+### APIs
+
+**Home**
+----
+  Home page
+
+* **URL**
+
+  `/`
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `None`
+
+   **Optional:**
+ 
+   `None`
+
+* **Data Params**
+
+  `None`
+
+* **Success Response:**
+  
+  * **Code:** 200 <br />
+    **Content:** `home.html`
+ 
+* **Error Response:**
+
+  * **Code:** `None` <br />
+    **Content:** `None`
+
+* **Sample Call:**
+
+* **Notes:**
+
+  for checking server is alive or not.
