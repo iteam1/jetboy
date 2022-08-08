@@ -4,6 +4,8 @@
 2. [Stream color frame](#Stream-color-frame)
 3. [Stream depth frame](#Stream-depth-frame)
 4. [Stream both frames](#Stream-both-frames)
+4. [Manual](#Manual)
+
 
 ## Home
 [go back](#APIdocs)
