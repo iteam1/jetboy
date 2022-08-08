@@ -10,3 +10,4 @@
 |08|[img7](/docs/assets/imgs/img7.png)|Voltage-Ampere metter 5-28VDC with internal source|---|
 |09|[img8](/docs/assets/imgs/img8.png)|Voltage-Ampere metter 0-100VDC with external source|---|
 |10|[img9](/docs/assets/imgs/img9.png)|schematic|---|
+|11|[img10](/docs/assets/imgs/img10.png)|PL2303-Arduino Serial communication|---|
