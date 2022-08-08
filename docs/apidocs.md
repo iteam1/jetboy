@@ -11,7 +11,7 @@
 </p>
 </details>
 
-## Home
+## Home [go to the top](#APIdocs)
 
   Home page
 * **URL:** `/`
@@ -32,7 +32,7 @@
 * **Notes:**
   Check server is alive or not.
 
-## Stream color frame
+## Stream color frame [go to the top](#APIdocs)
 
   Response color frame from depth camera
 * **URL:** `/color`
@@ -53,7 +53,7 @@
 * **Notes:**
   Get color frame of depth camera real-time
 
-## Stream depth frame
+## Stream depth frame [go to the top](#APIdocs)
 
   Response depth frame from depth camera
 * **URL:** `/depth`
@@ -74,7 +74,7 @@
 * **Notes:**
   Get depth frame of depth camera real-time
 
-## Stream both frames
+## Stream both frames [go to the top](#APIdocs)
 
   Response depth frame and color frame stack together
 * **URL:** `/d`
