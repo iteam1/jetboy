@@ -1,6 +1,3 @@
-### API's form
-
-
 ### APIs
 
 **Home**
@@ -14,8 +11,6 @@
    **Optional:**
    `None`
 * **Query Params:**`None`
-* **Data Params:**`None`
-* **Web form:**`None`
 * **Success Response:**
   * **Code:** 200 <br />
     **Content:** `home.html`
