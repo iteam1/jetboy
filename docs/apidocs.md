@@ -110,7 +110,7 @@
 
   Return a GUI as manual panel for controlling
 * **URL:** `/manual`
-
+------
 * **Method:** `GET`
 *  **URL Params:**
    **Required:**`None`
@@ -125,7 +125,7 @@
 * **Sample Call:**
 * **Notes:**
   `estop` value in database will be readed and update in `manual.html` template as by `jinja2`
-
+------
 * **Method:** `POST`
 *  **URL Params:**
    **Required:**`None`
