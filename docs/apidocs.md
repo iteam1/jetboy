@@ -11,7 +11,7 @@
 </details>
 
 ## Home
-----
+
   Home page
 * **URL:** `/`
 * **Method:** `GET`
@@ -32,7 +32,7 @@
   Check server is alive or not.
 
 ## Stream color frame
-----
+
   Response color frame from depth camera
 * **URL:** `/color`
 * **Method:** `GET`
@@ -53,7 +53,7 @@
   Get color frame of depth camera real-time
 
 ## Stream depth frame
-----
+
   Response depth frame from depth camera
 * **URL:** `/depth`
 * **Method:** `GET`
