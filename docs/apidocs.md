@@ -1,10 +1,19 @@
 ### APIs
 
+<details><summary>click to expand</summary>
+<p>
+
 1. [Home](#Home)
 2. [Stream color frame](#Stream-color-frame)
 3. [Stream depth frame](#Stream-depth-frame)
 
-#### Home
+</p>
+</details>
+
+<details><summary>click to expand</summary>
+<p>
+
+## Home
 ----
   Home page
 * **URL:** `/`
@@ -25,7 +34,7 @@
 * **Notes:**
   Check server is alive or not.
 
-#### Stream color frame
+## Stream color frame
 ----
   Response color frame from depth camera
 * **URL:** `/color`
@@ -46,7 +55,7 @@
 * **Notes:**
   Get color frame of depth camera real-time
 
-#### Stream depth frame
+## Stream depth frame
 ----
   Response depth frame from depth camera
 * **URL:** `/depth`
@@ -66,3 +75,6 @@
 * **Sample Call:**
 * **Notes:**
   Get depth frame of depth camera real-time
+
+  </p>
+</details>
