@@ -20,9 +20,6 @@ import datetime
 red = (0,0,255)
 green = (0,255,0)
 blue = (255,0,0)
-center_point = (320,240)
-vdim = 40 # vertical distance for gen_cvframe
-hdim = 40 # horizontal distance for gen_cvframe
 
 # shutdown function
 def shutdown_server():
