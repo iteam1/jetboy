@@ -101,16 +101,18 @@ def manual():
 		if command:
 			myrobot = Robot.query.get(1)
 			myrobot.command = command
-			estop = myrobot.estop # query estop value
+			estop = myrobot.estop # query estop value and update	
 			db.session.commit()
 			flash(f'Robot {command}','info')
 		return  redirect(url_for('manual')),301
-		render_template('manual.html',estop)
+		myrobot = Robot.query.get(1)
+		estop = myrobot.estop # query estop value and update	
+		return "401,Command Not Found" #render_template('manual.html',estop),401
 	myrobot = Robot.query.get(1)
-	estop = myrobot.estop # query estop value	
+	estop = myrobot.estop # query estop value and update	
 	return render_template('manual.html',estop = estop),200
 
-@app.route('/content',methods =['POST'])
+@app.route('/content',methods = ['POST'])
 def content():
 	'''
 	change display screen to display a content for robot_gui 
@@ -124,7 +126,7 @@ def content():
 	db.session.commit()
 	return render_template('manual.html',estop = estop)
 	
-@app.route('/emotion',methods =['POST'])
+@app.route('/emotion',methods = ['POST'])
 def emotion():
 	'''
 	change display screen to emotion for robot_gui 
@@ -137,7 +139,7 @@ def emotion():
 	db.session.commit()
 	return render_template('manual.html',estop = estop)
 	
-@app.route('/image',methods =['POST'])
+@app.route('/image',methods = ['POST'])
 def image():
 	'''
 	change display screen to image for robot_gui 

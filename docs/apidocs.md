@@ -14,10 +14,8 @@
 * **URL:** `/`
 * **Method:** `GET`
 *  **URL Params:**
-   **Required:**
-    `None`
-   **Optional:**
-   `None`
+   **Required:**`None`
+   **Optional:**`None`
 * **Query Params:**`None`
 * **Success Response:**
   * **Code:** 200 <br />
@@ -40,10 +38,8 @@
 * **URL:** `/color`
 * **Method:** `GET`
 *  **URL Params:**
-   **Required:**
-    `None`
-   **Optional:**
-   `None`
+   **Required:**`None`
+   **Optional:**`None`
 * **Query Params:**`None`
 * **Success Response:**
   * **Code:** 200 <br />
@@ -66,10 +62,8 @@
 * **URL:** `/depth`
 * **Method:** `GET`
 *  **URL Params:**
-   **Required:**
-    `None`
-   **Optional:**
-   `None`
+   **Required:**`None`
+   **Optional:**`None`
 * **Query Params:**`None`
 * **Success Response:**
   * **Code:** 200 <br />
@@ -92,10 +86,8 @@
 * **URL:** `/both`
 * **Method:** `GET`
 *  **URL Params:**
-   **Required:**
-    `None`
-   **Optional:**
-   `None`
+   **Required:**`None`
+   **Optional:**`None`
 * **Query Params:**`None`
 * **Success Response:**
   * **Code:** 200 <br />
@@ -116,21 +108,45 @@
 
   Return a GUI as manual panel for controlling
 * **URL:** `/manual`
+
 * **Method:** `GET`
 *  **URL Params:**
-   **Required:**
-    `None`
-   **Optional:**
-   `None`
+   **Required:**`None`
+   **Optional:**`None`
 * **Query Params:**`None`
 * **Success Response:**
   * **Code:** 200 <br />
-    **Content:** depth frame and color frame of depth camera
+    **Content:** `manual.html`
 * **Error Response:**
   * **Code:** `None` <br />
     **Content:** `None`
 * **Sample Call:**
 * **Notes:**
-  Get depth frame and color frame of depth camera real-time
+  `estop` value in database will be readed and update in `manual.html` template as by `jinja2`
+
+* **Method:** `POST`
+*  **URL Params:**
+   **Required:**`None`
+   **Optional:**`None`
+* **Query Params:**`None`
+* **Web Form:**
+```
+<form action = "{{ url_for('manual') }}" method = 'POST'>
+  <input type = 'hidden' name = 'command' id = 'command'  value = [your-command]>
+  <button class="btn btn-primary">&#8593;</button>
+</form>
+```
+
+* **Success Response:**
+  * **Code:** 301 <br />
+    **Content:** Redirect to `manual.html`
+
+* **Error Response:**
+  * **Code:** 401 <br />
+    **Content:** 401,Command Not Found
+
+* **Sample Call:**
+* **Notes:**
+  `estop` value in database will be readed and update in `manual.html` template as by `jinja2`
 </p>
 </details>
