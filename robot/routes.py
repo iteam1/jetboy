@@ -137,7 +137,7 @@ def emotion():
 	myrobot.emotion = emotion
 	estop = myrobot.estop # query estop value	
 	db.session.commit()
-	return render_template('manual.html',estop = estop)
+	return render_template('manual.html',estop = estop),200
 	
 @app.route('/image',methods = ['POST'])
 def image():
@@ -150,7 +150,7 @@ def image():
 	myrobot.image = image
 	estop = myrobot.estop # query estop value	
 	db.session.commit()
-	return render_template('manual.html',estop = estop)
+	return render_template('manual.html',estop = estop),200
 
 @app.route('/estop',methods = ['POST'])
 def estop():
@@ -163,11 +163,11 @@ def estop():
 	if myrobot.estop == 0:
 		myrobot.estop = 1
 		db.session.commit()
-		return render_template('manual.html',estop = myrobot.estop)
+		return render_template('manual.html',estop = myrobot.estop),201
 	else:
 		myrobot.estop = 0
 		db.session.commit()
-		return render_template('manual.html',estop = myrobot.estop)
+		return render_template('manual.html',estop = myrobot.estop),200
 
 # SYSTEM
 # capture color frame
@@ -184,7 +184,7 @@ def capture_img():
 	# update estop
 	myrobot = Robot.query.get(1)
 	estop = myrobot.estop # query estop value	
-	return render_template('manual.html',estop = estop)
+	return render_template('manual.html',estop = estop),200
 
 # capture depth frame
 @app.route("/capture_pointcloud",methods = ['POST'])
@@ -205,9 +205,9 @@ def capture_pointcloud():
 	# update estop
 	myrobot = Robot.query.get(1)
 	estop = myrobot.estop # query estop value	
-	return render_template('manual.html',estop = estop)
+	return render_template('manual.html',estop = estop),200
 
 @app.route('/shutdown',methods = ['POST'])
 def shutdown():
 	shutdown_server()
-	return 'Server shutting down'
+	return 'Server shutting down',200

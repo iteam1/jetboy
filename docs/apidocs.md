@@ -170,8 +170,40 @@
 * **Query Params:**`None`
 * **Web Form:**
 ```
+ <form action = "{{ url_for('content') }}" method = 'POST'>
+  <input class="form-control form-control-lg" type="text" placeholder = "What you wanna say?" name = "content">
+  <small class="form-text text-muted">.</small>     
+  <button type="submit" class="btn btn-primary mb-2">say it!</button>
+</form> 
+```
+* **Success Response:**
+  * **Code:** 200 <br />
+    **Content:** Render `manual.html` template
+* **Error Response:**
+  * **Code:** `None` <br />
+    **Content:** `None`
+* **Sample Call:**
+* **Notes:**
+  `estop` value in database will be readed and update in `manual.html` template as by `jinja2`
+</p>
+</details>
+
+## Emotion
+[go back](#APIdocs)
+<details><summary>click to expand</summary>
+<p>
+
+  Update Emotiton in database
+* **URL:** `/emotion`
+* **Method:** `POST`
+*  **URL Params:**
+   **Required:**`None`
+   **Optional:**`None`
+* **Query Params:**`None`
+* **Web Form:**
+```
 <form action = "{{ url_for('emotion') }}" method = 'POST'>
-  <input type = 'hidden' name = 'emotion' value = 'sleeping'>
+  <input type = 'hidden' name = 'emotion' value = '[your-emotion]'>
   <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128564;</button>
 </form>
 ```
@@ -183,6 +215,167 @@
     **Content:** `None`
 * **Sample Call:**
 * **Notes:**
+  `estop` value in database will be readed and update in `manual.html` template as by `jinja2`,emotion display a .gif
+</p>
+</details>
+
+## Image
+[go back](#APIdocs)
+<details><summary>click to expand</summary>
+<p>
+
+  Update Image in database
+* **URL:** `/image`
+* **Method:** `POST`
+*  **URL Params:**
+   **Required:**`None`
+   **Optional:**`None`
+* **Query Params:**`None`
+* **Web Form:**
+```
+<form action = "{{ url_for('image') }}" method = 'POST'>
+  <input type = 'hidden' name = 'image' value = 'straightface'>
+  <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128528;</button>
+</form>
+```
+* **Success Response:**
+  * **Code:** 200 <br />
+    **Content:** Render `manual.html` template
+* **Error Response:**
+  * **Code:** `None` <br />
+    **Content:** `None`
+* **Sample Call:**
+* **Notes:**
+  `estop` value in database will be readed and update in `manual.html` template as by `jinja2`, image display a .png or .jpg file.
+</p>
+</details>
+
+## Estop
+[go back](#APIdocs)
+<details><summary>click to expand</summary>
+<p>
+
+  Update estop value in database, if estop=0 update estop=1 else udpate estop=0
+* **URL:** `/estop`
+* **Method:** `POST`
+*  **URL Params:**
+   **Required:**`None`
+   **Optional:**`None`
+* **Query Params:**`None`
+* **Web Form:**
+```
+<form action = "{{ url_for('estop') }}" method = 'POST'>
+  <small class="form-text text-muted">.</small>
+  <p class = 'text-center'>
+      {% if estop == True %}
+          <button type="Estop" class="btn btn-danger mb-4">ESTOP</button>
+      {% else %}
+          <button type="Estop" class="btn btn-primary mb-6">ESTOP</button>
+      {% endif %}
+  </p>
+</form>
+```
+* **Success Response:**
+  * **Code:** 200 <br />
+    **Content:** Render `manual.html` template
+  * **Code:** 201 <br />
+    **Content:** Render `manual.html` template
+* **Error Response:**
+  * **Code:** `None` <br />
+    **Content:** `None`
+* **Sample Call:**
+* **Notes:**
+  Color of estop button will change, blue if estop=0 red if estop=1
+</p>
+</details>
+
+## Capture image
+[go back](#APIdocs)
+<details><summary>click to expand</summary>
+<p>
+
+  Capture current frame of robot's camera
+* **URL:** `/capture_img`
+* **Method:** `POST`
+*  **URL Params:**
+   **Required:**`None`
+   **Optional:**`None`
+* **Query Params:**`None`
+* **Web Form:**
+```
+<form action = "{{ url_for('capture_img') }}" method = 'POST'>
+    <input type = 'hidden' name = 'capture image'>
+    <button class="btn btn-primary mb-2">cap img</button>
+</form>
+```
+* **Success Response:**
+  * **Code:** 200 <br />
+    **Content:** Render `manual.html` template
+* **Error Response:**
+  * **Code:** `None` <br />
+    **Content:** `None`
+* **Sample Call:**
+* **Notes:**
   `estop` value in database will be readed and update in `manual.html` template as by `jinja2`
+</p>
+</details>
+
+## Capture pointcloud
+[go back](#APIdocs)
+<details><summary>click to expand</summary>
+<p>
+
+  Capture current pointcloud (depth-frame) of robot's camera
+* **URL:** `/capture_pointcloud`
+* **Method:** `POST`
+*  **URL Params:**
+   **Required:**`None`
+   **Optional:**`None`
+* **Query Params:**`None`
+* **Web Form:**
+```
+<form action = "{{ url_for('capture_pointcloud') }}" method = 'POST'>
+  <input type = 'hidden' name = 'capture pointcloud'>
+  <button class="btn btn-primary mb-2">cap pointcloud</button>
+</form>
+```
+* **Success Response:**
+  * **Code:** 200 <br />
+    **Content:** Render `manual.html` template
+* **Error Response:**
+  * **Code:** `None` <br />
+    **Content:** `None`
+* **Sample Call:**
+* **Notes:**
+  `estop` value in database will be readed and update in `manual.html` template as by `jinja2`
+</p>
+</details>
+
+## Shutdown
+[go back](#APIdocs)
+<details><summary>click to expand</summary>
+<p>
+
+  Shutdown robot's local flask server
+* **URL:** `/shutdown`
+* **Method:** `POST`
+*  **URL Params:**
+   **Required:**`None`
+   **Optional:**`None`
+* **Query Params:**`None`
+* **Web Form:**
+```
+<form action = "{{ url_for('shutdown') }}" method = 'POST'>
+  <button class="btn btn-danger mb-2">shutdown server</button>
+</form>
+```
+* **Success Response:**
+  * **Code:** 200 <br />
+    **Content:** 'Server shutting down'
+* **Error Response:**
+  * **Code:** `None` <br />
+    **Content:** `None`
+* **Sample Call:**
+* **Notes:** `None`
 </p>
 </details>
