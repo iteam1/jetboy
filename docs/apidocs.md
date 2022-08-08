@@ -1,17 +1,12 @@
 ### APIdocs
 
-<details><summary>APIs</summary>
-<p>
-
 1. [Home](#Home)
 2. [Stream color frame](#Stream-color-frame)
 3. [Stream depth frame](#Stream-depth-frame)
 4. [Stream both frame](#Stream-both-frame)
 
-</p>
-</details>
-
-## Home [go to the top](#APIdocs)
+## Home
+[go back](#APIdocs)
 
   Home page
 * **URL:** `/`
@@ -32,7 +27,8 @@
 * **Notes:**
   Check server is alive or not.
 
-## Stream color frame [go to the top](#APIdocs)
+## Stream color frame
+[go back](#APIdocs)
 
   Response color frame from depth camera
 * **URL:** `/color`
@@ -53,7 +49,8 @@
 * **Notes:**
   Get color frame of depth camera real-time
 
-## Stream depth frame [go to the top](#APIdocs)
+## Stream depth frame
+[go back](#APIdocs)
 
   Response depth frame from depth camera
 * **URL:** `/depth`
@@ -74,7 +71,8 @@
 * **Notes:**
   Get depth frame of depth camera real-time
 
-## Stream both frames [go to the top](#APIdocs)
+## Stream both frames
+[go back](#APIdocs)
 
   Response depth frame and color frame stack together
 * **URL:** `/d`
