@@ -1,6 +1,6 @@
-### APIs
+### APIdocs
 
-<details><summary>click to expand</summary>
+<details><summary>APIs</summary>
 <p>
 
 1. [Home](#Home)
@@ -9,9 +9,6 @@
 
 </p>
 </details>
-
-<details><summary>click to expand</summary>
-<p>
 
 ## Home
 ----
@@ -75,6 +72,3 @@
 * **Sample Call:**
 * **Notes:**
   Get depth frame of depth camera real-time
-
-  </p>
-</details>
