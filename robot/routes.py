@@ -104,11 +104,11 @@ def manual():
 			estop = myrobot.estop # query estop value
 			db.session.commit()
 			flash(f'Robot {command}','info')
-		return  redirect(url_for('manual'))
+		return  redirect(url_for('manual')),301
 		render_template('manual.html',estop)
 	myrobot = Robot.query.get(1)
 	estop = myrobot.estop # query estop value	
-	return render_template('manual.html',estop = estop)
+	return render_template('manual.html',estop = estop),200
 
 @app.route('/content',methods =['POST'])
 def content():
