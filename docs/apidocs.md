@@ -4,8 +4,14 @@
 2. [Stream color frame](#Stream-color-frame)
 3. [Stream depth frame](#Stream-depth-frame)
 4. [Stream both frames](#Stream-both-frames)
-4. [Manual](#Manual)
-
+5. [Manual](#Manual)
+6. [Content](#Content)
+7. [Emotion](#Emotion)
+8. [Image](#Image)
+9. [Estop](#Estop)
+10. [Capture image](#Capture-image)
+11. [Capture pointcloud](#Capture-pointcloud)
+12. [Shutdown](#Shutdown)
 
 ## Home
 [go back](#APIdocs)
@@ -138,15 +144,43 @@
   <button class="btn btn-primary">&#8593;</button>
 </form>
 ```
-
 * **Success Response:**
   * **Code:** 301 <br />
     **Content:** Redirect to `manual.html`
-
 * **Error Response:**
   * **Code:** 401 <br />
     **Content:** 401,Command Not Found
+* **Sample Call:**
+* **Notes:**
+  `estop` value in database will be readed and update in `manual.html` template as by `jinja2`
+</p>
+</details>
 
+## Content
+[go back](#APIdocs)
+<details><summary>click to expand</summary>
+<p>
+
+  Update content in database
+* **URL:** `/content`
+* **Method:** `POST`
+*  **URL Params:**
+   **Required:**`None`
+   **Optional:**`None`
+* **Query Params:**`None`
+* **Web Form:**
+```
+<form action = "{{ url_for('emotion') }}" method = 'POST'>
+  <input type = 'hidden' name = 'emotion' value = 'sleeping'>
+  <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128564;</button>
+</form>
+```
+* **Success Response:**
+  * **Code:** 200 <br />
+    **Content:** Render `manual.html` template
+* **Error Response:**
+  * **Code:** `None` <br />
+    **Content:** `None`
 * **Sample Call:**
 * **Notes:**
   `estop` value in database will be readed and update in `manual.html` template as by `jinja2`

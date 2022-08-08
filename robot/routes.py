@@ -124,7 +124,7 @@ def content():
 	myrobot.content = content
 	estop = myrobot.estop # query estop value	
 	db.session.commit()
-	return render_template('manual.html',estop = estop)
+	return render_template('manual.html',estop = estop),200
 	
 @app.route('/emotion',methods = ['POST'])
 def emotion():
