@@ -19,12 +19,17 @@ void loop() {
     //str = mySerial.read();
     //str = mySerial.readString();
     str = mySerial.readStringUntil('a');
-    if(str == "90,90,90,90,90,1"){ 
-      digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-      delay(1000);                       // wait for a second
-      digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-      delay(1000);                       // wait for a second
+    //blink();
+    if(str == "90,90,90,90,90,1"){
+      blink();
       }
     //Serial.println(str);
   }
+  }
+
+void blink(){
+  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);                       // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+  delay(1000);                       // wait for a second
   }
