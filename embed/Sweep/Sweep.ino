@@ -28,16 +28,15 @@ void setup() {
 }
 
 void loop() {
-  //sv1.write(60);
+  //sv3.write(90);
     
   for (pos = min_angle; pos <= max_angle; pos += 1) { // goes from 0 degrees to 180 degrees
     // in steps of 1 degree
-    sv4.write(pos);              // tell servo to go to position in variable 'pos'
+    sv3.write(pos);              // tell servo to go to position in variable 'pos'
     delay(15);                       // waits 15ms for the servo to reach the position
   }
   for (pos = max_angle; pos >= min_angle; pos -= 1) { // goes from 180 degrees to 0 degrees
-    sv4.write(pos);              // tell servo to go to position in variable 'pos'
+    sv3.write(pos);              // tell servo to go to position in variable 'pos'
     delay(15);                       // waits 15ms for the servo to reach the position
   }
- 
 }
