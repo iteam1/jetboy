@@ -1,5 +1,5 @@
 /*
- * Test arduino nano control driver BTS960
+ * arduino nano control driver BTS960
 */
 int L_PWM = A1;
 int R_PWM = A2;
