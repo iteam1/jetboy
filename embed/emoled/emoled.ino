@@ -1,8 +1,8 @@
 //#include <SoftwareSerial.h>
 //SoftwareSerial mySerial(10, 11); // RX, TX 
-
+// Arduino nano
 #include <Adafruit_NeoPixel.h>
-#define PIN 5
+#define PIN 4
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(128, PIN, NEO_GRB + NEO_KHZ800);
 byte Smile[] = {3,4,10,11,12,13,17,18,21,22,25,26,29,30,32,33,38,39,40,41,46,47,48,55}; 
@@ -38,25 +38,28 @@ void loop(){
 //    int R = atof(strtok(NULL,","));
 //    int G = atof(strtok(NULL,","));
 //    int B = atof(strtok(NULL,","));
-    if(Val == "a"){
+    if (Val == "who"){
+      Serial.println("emoled");
+      }
+    else if(Val == "smile"){
       Write_Smile(5,5,5);
     }
-    else if(Val == "b"){
+    else if(Val == "normal"){
       Write_Nomal(5,5,5);
     }
-    else if(Val == "c"){
+    else if(Val == "sad"){
       Write_Sad(0,0,5);
     }
-    else if(Val == "d"){
+    else if(Val == "angry"){
       Write_Angry(5,0,0);
     }
-    else if(Val == "e"){
+    else if(Val == "suprised"){
       Write_Suprised(5,5,5);
     }
-    else if(Val == "f"){
+    else if(Val == "sleep"){
       Write_Sleep(0,0,5);
     }
-    else if(Val == "x"){
+    else if(Val == "off"){
       OFF();
     }
 //    else{
