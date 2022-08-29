@@ -50,7 +50,7 @@
    **Optional:**`None`
 * **Query Params:**`None`
 * **Success Response:**
-  * **Code:** 200 <br />
+  * **Code:** `None` <br />
     **Content:** streaming color frame
 * **Error Response:**
   * **Code:** `None` <br />
@@ -74,7 +74,7 @@
    **Optional:**`None`
 * **Query Params:**`None`
 * **Success Response:**
-  * **Code:** 200 <br />
+  * **Code:** `None` <br />
     **Content:** streaming depth frame
 * **Error Response:**
   * **Code:** `None` <br />
@@ -98,7 +98,7 @@
    **Optional:**`None`
 * **Query Params:**`None`
 * **Success Response:**
-  * **Code:** 200 <br />
+  * **Code:** `None` <br />
     **Content:** depth frame and color frame of depth camera
 * **Error Response:**
   * **Code:** `None` <br />
