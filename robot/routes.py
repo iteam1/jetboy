@@ -83,15 +83,14 @@ def home():
 # CAMERA
 @app.route('/color')
 def colorstream():
-	return Response(gen_colorframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame',status_code = 200)
-
+	return Response(gen_colorframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
 @app.route('/depth')
 def depthstream():
-	return Response(gen_depthframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame',status_code = 200)
+	return Response(gen_depthframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/both')
 def fullstream():
-	return Response(gen_both(),mimetype = 'multipart/x-mixed-replace;boundary=frame',status_code = 200)
+	return Response(gen_both(),mimetype = 'multipart/x-mixed-replace;boundary=frame')
 
 # MANUAL CONTROL
 @app.route("/manual",methods = ['GET','POST'])
