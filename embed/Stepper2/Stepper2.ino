@@ -38,22 +38,25 @@ void setup() {
 
   // stand by postion
   stand_by();
-  // stepper rotate
-  rotate(4200,500,0);
-  
+  // stepper
+  rotate(300,800,0); // 0 = forward, 1 = backward, 1100 pulses = 90 degree  
 }
 void loop() {
-  //test(4200,100);
+  test();
 }
 
 void stand_by(){
-  sv1.write(70); // raise the arm before rotate step motor
-  sv2.write(90);
+  sv1.write(20); // raise the arm before rotate step motor
+  sv2.write(80);
   sv3.write(90);
-  sv4.write(60); 
+  sv4.write(130); 
   }
 
 void rotate(int pulses,int microTime,bool dir){
+  // set limit for pulses
+  if(pulses >1100){
+    pulses = 1100;
+    }
   digitalWrite(dirPin,dir);
   for(int x = 0; x < pulses; x++) {
     digitalWrite(stepPin,HIGH); 
@@ -63,26 +66,9 @@ void rotate(int pulses,int microTime,bool dir){
   }
   }
 
-void test(int pulses,int microTime){
-    
-  digitalWrite(dirPin,LOW); // Enables the motor to move in a particular direction
-  // Makes pulses for making one full cycle rotation
-  for(int x = 0; x < pulses; x++) {
-    digitalWrite(stepPin,HIGH); 
-    delayMicroseconds(microTime); 
-    digitalWrite(stepPin,LOW); 
-    delayMicroseconds(microTime); 
-  }
+void test(){
+  rotate(300,800,0);
   delay(1000); // One second delay
-
-  digitalWrite(dirPin,HIGH); //Changes the rotations direction
-  // Makes pulses for making two full cycle rotation
-  for(int x = 0; x < pulses; x++) {
-    digitalWrite(stepPin,HIGH);
-    delayMicroseconds(microTime);
-    digitalWrite(stepPin,LOW);
-    delayMicroseconds(microTime);
-  }
+  rotate(300,800,1);
   delay(1000);
-  
   }
