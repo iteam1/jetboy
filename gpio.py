@@ -358,6 +358,6 @@ if __name__ == "__main__":
 	
 	conn.close()
 	
-	print("Exit cml")
+	print("Exit GPIO controller...")
 
 	exit()
