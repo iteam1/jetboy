@@ -1,6 +1,6 @@
 '''
 Author: locchuong
-Updated: 1/8/22
+Updated: 30/8/22
 Description:
 	test serial communicate with arduino
 '''
@@ -19,7 +19,7 @@ arduino = serial.Serial(port,baudrate = 9600,timeout = 0.1)
 if __name__ == "__main__":
 	while True:
 		x = input('Enter the framework: ')
-		x = x + "a" # use a character you can see to recognize a frame
-		print(f'sending sring: {x}')
+		x = x + "q" # use a character you can see to recognize a frame
+		print(f'sending string: {x}')
 		#arduino.write(bytes(x,'utf-8'))
 		arduino.write(x.encode())
