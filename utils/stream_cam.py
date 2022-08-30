@@ -7,7 +7,7 @@ Description:
 
 import cv2
 
-cap = cv2.VideoCapture(0) # On windows cv2.CAP_DSHOW
+cap = cv2.VideoCapture(3) # On windows cv2.CAP_DSHOW
 
 ret,frame = cap.read()
 
