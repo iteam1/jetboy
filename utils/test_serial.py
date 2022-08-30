@@ -3,23 +3,34 @@ Author: locchuong
 Updated: 30/8/22
 Description:
 	test serial communicate with arduino
+Update:
+	auto give permission for serial port
+	identify multi serial ports
 '''
 
 import serial
 from serial.tools import list_ports
-import time 
+import time
 
+# list all serial ports
 ports = list_ports.comports()
 for port,desc,hwid in sorted(ports):
 	print("{}: {} [{}]".format(port,desc,hwid))
 
+# choice your port
 port  = input('Enter your port name: ')
-arduino = serial.Serial(port,baudrate = 9600,timeout = 0.1)
+device = serial.Serial(port,baudrate = 9600,timeout = 0.1)
 
 if __name__ == "__main__":
 	while True:
-		x = input('Enter the framework: ')
+		x = input('Enter the string: ')
+		# x == exit then exit
+		if x == "exit":
+			break
 		x = x + "q" # use a character you can see to recognize a frame
 		print(f'sending string: {x}')
 		#arduino.write(bytes(x,'utf-8'))
-		arduino.write(x.encode())
+		device.write(x.encode())
+	# exit
+	print("exiting...")
+	exit()
