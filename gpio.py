@@ -42,6 +42,8 @@ OBS_R_pin = 19 # right ultrasonic sensor
 
 get_id = "whoq" # get name of serial device
 
+prev_emotion = emotion = "sleep"
+
 # Create the connection to the database and the cursor
 conn = sqlite3.connect("./robot/site.db") # ./Jetson-Nano you must define this conn before add in into default keyword arg 
 c = conn.cursor()  # you must define this c before add in into default keyword arg 
@@ -371,9 +373,11 @@ if __name__ == "__main__":
 		# Read the emotion
 		emotion,itype = controller.read_emotion()
 		if itype == "emo":
-			emotion =emotion+'q'
-			#print(f"emotion: {emotion}")
-			controller.emoled.write(emotion.encode())
+			if prev_emotion !=emotion:
+				prev_emotion = emotion
+				emotion =emotion+'q'
+				#print(f"emotion: {emotion}")
+				controller.emoled.write(emotion.encode())
 
 		# Read the command
 		command = controller.read_command()
