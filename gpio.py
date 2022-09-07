@@ -371,7 +371,8 @@ if __name__ == "__main__":
 		# Read the emotion
 		emotion,itype = controller.read_emotion()
 		if itype == "emo":
-			print(f"emotion: {emotion}")
+			emotion =emotion+'q'
+			#print(f"emotion: {emotion}")
 			controller.emoled.write(emotion.encode())
 
 		# Read the command
@@ -417,6 +418,10 @@ if __name__ == "__main__":
 
 		elif command == "bit_turnright":
 			controller.bit_turnright(0.2)
+
+		elif command == "test":
+			command = command + "q"
+			controller.arm.write(command.encode())
 
 		else:
 			print("Command does not exist!")

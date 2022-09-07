@@ -96,7 +96,16 @@
     </div>
     <br>
 
-    <!-- function -->
+    <!-- Arm function -->
+    <h2 style="color:green;text-align:center;">Robot arm</h2>
+    <div class = 'row'>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'test'>
+            <button class="btn btn-primary mb-2">&#128079;</button>
+        </form>
+    </div>
+
+    <!-- Camera function -->
     <h2 style="color:green;text-align:center;">function</h2>
     <div class = 'row'>
         <form action = "{{ url_for('capture_img') }}" method = 'POST'>
