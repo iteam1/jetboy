@@ -10,7 +10,6 @@
            PUL-                     GND
 
   A+ A- B+ B- kết nối với động cơ
-
   Nguồn đầu vào là 9V - 42V.
  */
  
@@ -74,6 +73,7 @@ void loop() {
       }
     else if(Val=="test"){
       rotate(100,800,1);// forward
+      delay(1000);
       rotate(100,800,0);// backward      
       }
     else{
