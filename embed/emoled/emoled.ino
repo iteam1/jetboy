@@ -34,7 +34,7 @@ void loop(){
     //str = Serial.read();
     str = Serial.readStringUntil('q');
     Val = str; //strtok(str.c_str(),",");
-    Serial.println(Val);
+//    Serial.println(Val);
 //    int R = atof(strtok(NULL,","));
 //    int G = atof(strtok(NULL,","));
 //    int B = atof(strtok(NULL,","));
