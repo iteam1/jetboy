@@ -12,4 +12,5 @@
 |08|[track_marker.py](/utils/track_marker.py)|control robot follow a target aruco-marker's id|required opencv-contrib for using aruco module, this package is no longer used in this repo, for reference purposes only|
 |09|[view_cloud.py](/utils/view_cloud.py)|view a single point cloud file `.ply` file captured by depth camera||
 |10|[pyrealsense2](/utils/pyrealsense2)|this is not a util program, if you want to use pyrealsense package installed by build from source C, you have to add this floder into the directory where you store the util program use pyrealsense, similar [realsense_depth.py](/utils/realsense_depth.py)||
-|11|[test_motor.py](/utils/test_motor.py)|test motor controller ||
+|11|[test_motor.py](/utils/test_motor.py)|test motor controller||
+|12|[detect_ports.py](/utils/detect_ports.py)|identify multi serial ports||
