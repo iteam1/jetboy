@@ -1,18 +1,32 @@
 '''
 Author: locchuong
-Updated: 1/8/22
+Updated: 7/9/22
 Description:
 	This python program control the GPIO of Jetson-Nano board, it read the command from the database and execute it.
 	Run this program at the begining.
 	If you import class controller from ./Jetson-Nano the GPIO_controller will run from the top to the end of the class controlle
 	meaning it will create the connection and the cursor to the database and input this to class controller
 
+	id c.fetchone()[0]
+	name c.fetchone()[1]
+	command c.fetchone()[2]
+	content c.fetchone()[3]
+	emotion c.fetchone()[4]
+	image c.fetchone()[5]
+	itype c.fetchone()[6]
+	estop c.fetchone()[7]
+	obs_f c.fetchone()[8]
+	obs_b c.fetchone()[9]
+	obs_l c.fetchone()[10]
+	obs_r c.fetchone()[11]
 '''
 
 # Import the the required libraries
 import RPi.GPIO
 import sqlite3 
 import time
+import serial
+from serial.tools import list_ports
 
 # Define pin number
 # OUTPUT pins name
@@ -26,6 +40,8 @@ OBS_B_pin = 16 # back ultrasonic sensor
 OBS_L_pin = 18 # left ultrasonic sensor 
 OBS_R_pin = 19 # right ultrasonic sensor
 
+get_id = "whoq" # get name of serial device
+
 # Create the connection to the database and the cursor
 conn = sqlite3.connect("./robot/site.db") # ./Jetson-Nano you must define this conn before add in into default keyword arg 
 c = conn.cursor()  # you must define this c before add in into default keyword arg 
@@ -34,6 +50,13 @@ class controller():
 	def __init__(self,ML_DIR_pin = ML_DIR_pin,ML_RUN_pin = ML_RUN_pin,MR_DIR_pin = MR_DIR_pin,MR_RUN_pin = MR_RUN_pin,
 					OBS_F_pin = OBS_F_pin,OBS_B_pin = OBS_B_pin,OBS_L_pin = OBS_L_pin,OBS_R_pin = OBS_R_pin,GPIO = RPi.GPIO,
 						conn = conn):
+
+		# Serial port
+		self.arm_port = None
+		self.arm = None # serial device object
+		self.emoled_port = None
+		self.emoled = None # serial device object
+		self.no_port = 0
 		
 		self.ML_DIR_pin = ML_DIR_pin # driver left dir pin
 		self.ML_RUN_pin = ML_RUN_pin # driver left run pin
@@ -284,26 +307,77 @@ class controller():
 		'''
 		c = self.conn.cursor()
 		c.execute(f"SELECT *FROM robot WHERE id = 1")
-		command = c.fetchone()[2]
+		data = c.fetchone()
+		command = data[2]
 		self.conn.commit()
 		# self.conn.close()
 		return command
 
+	def read_emotion(self):
+		'''
+		This function read the command value in database and return it
+		'''
+		c = self.conn.cursor()
+		c.execute(f"SELECT *FROM robot WHERE id = 1")
+		data = c.fetchone()
+		emotion = data[4]
+		itype = data[6]
+		self.conn.commit()
+		return emotion,itype
+
 if __name__ == "__main__":
 
-	controller = controller() # Create object as default keywords 
+	# init controller
+	controller = controller()
+	controller.stop()
 
-	print("Connected to Robot's database via Command Line!")
-	# id = int(input('Enter robot ID: '))
-	id = 1
-	print("Robot is running...")
+	# list all port
+	print("Checking serial port...")
+	port_list = []
+	desc_list = []
+	hwid_list = []
+	ports = list_ports.comports()
+	controller.no_port = len(ports)
+	print("Number of serial ports {}".format(controller.no_port))
+
+	for port,desc,hwid in sorted(ports):
+		port_list.append(port)
+		desc_list.append(desc)
+		hwid_list.append(hwid)
+		print("{} - {} - {}".format(port,desc,hwid))
+
+	for port in port_list:
+		device = serial.Serial(port,baudrate=9600,timeout=0.1)
+		device.write(get_id.encode())
+		# print("sended identify command to port: {}".format(port))
+		data = device.readline()
+		device_name = data.decode().strip()
+		# print("data: {}".format(data.decode()))
+		print("port: {} is {}".format(port,device_name))
+
+		if device_name == "arm":
+			controller.arm_port = port
+			controller.arm = device
+		elif device_name == "emoled":
+			controller.emoled_port == port
+			controller.emoled = device
+		else:
+			print("port: {} - {} is not identified".format(port,device_name))
+	
+	print("Robot GPIO controller is running...")
 
 	while True:
+
+		# Read the emotion
+		emotion,itype = controller.read_emotion()
+		if itype == "emo":
+			print(f"emotion: {emotion}")
+			controller.emoled.write(emotion.encode())
 
 		# Read the command
 		command = controller.read_command()
 
-		# Read the input Allway read the input and write it into the database
+		# Read the inputs and write it into the database
 		controller.update_input()
 		#print(controller.ESTOP,controller.OBS_F_value,controller.OBS_B_value,controller.OBS_L_value,controller.OBS_R_value)
 
@@ -345,7 +419,7 @@ if __name__ == "__main__":
 			controller.bit_turnright(0.2)
 
 		else:
-			print("Command does not Exist!")
+			print("Command does not exist!")
 			pass
 
 		time.sleep(0.1) # if you don't delay, the while loop run so fast and it will crack the other propgram has queries to the database
@@ -358,6 +432,6 @@ if __name__ == "__main__":
 	
 	conn.close()
 	
-	print("Exit GPIO controller...")
+	print("Exit robot GPIO controller...")
 
 	exit()

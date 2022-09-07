@@ -110,7 +110,6 @@
         </form>
     </div>
     <br>
-
     
     <!-- Content manual -->
     <h2 style="color:green;text-align:center;">content</h2>
@@ -127,36 +126,32 @@
     <h2 style="color:green;text-align:center;">emotion</h2>
     <div class = 'row'>
         <form action = "{{ url_for('emotion') }}" method = 'POST'>
-            <input type = 'hidden' name = 'emotion' value = 'sleeping'>
+            <input type = 'hidden' name = 'emotion' value = 'sleep'>
             <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128564;</button>
         </form>
         <form action = "{{ url_for('emotion') }}" method = 'POST'>
-            <input type = 'hidden' name = 'emotion' value = 'face-sad'>
+            <input type = 'hidden' name = 'emotion' value = 'sad'>
             <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128532;</button>
         </form>
-        <form action = "{{ url_for('image') }}" method = 'POST'>
-            <input type = 'hidden' name = 'image' value = 'straightface'>
+        <form action = "{{ url_for('emotion') }}" method = 'POST'>
+            <input type = 'hidden' name = 'emotion' value = 'neutral'>
             <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128528;</button>
         </form>
         <form action = "{{ url_for('emotion') }}" method = 'POST'>
-            <input type = 'hidden' name = 'emotion' value = 'simplesmileblink'>
+            <input type = 'hidden' name = 'emotion' value = 'smile'>
             <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128578;</button>
         </form>
         <form action = "{{ url_for('emotion') }}" method = 'POST'>
-            <input type = 'hidden' name = 'emotion' value = 'happyblink'>
-            <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128515;</button>
+            <input type = 'hidden' name = 'emotion' value = 'angry'>
+            <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128544;</button>
         </form>
         <form action = "{{ url_for('emotion') }}" method = 'POST'>
-            <input type = 'hidden' name = 'emotion' value = 'blushing'>
-            <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128563;</button>
+            <input type = 'hidden' name = 'emotion' value = 'surprised'>
+            <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128558;</button>
         </form>
         <form action = "{{ url_for('emotion') }}" method = 'POST'>
-            <input type = 'hidden' name = 'emotion' value = 'cat-typing'>
-            <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128569;</button>
-        </form>
-        <form action = "{{ url_for('emotion') }}" method = 'POST'>
-            <input type = 'hidden' name = 'emotion' value = 'dog-looking'>
-            <button type="submit" class="btn btn-secondary" style="font-size:50px">&#128054;</button>
+            <input type = 'hidden' name = 'emotion' value = 'off'>
+            <button type="submit" class="btn btn-secondary" style="font-size:50px">&#9899;</button>
         </form>
     </div>
 
