@@ -32,9 +32,9 @@ class controller():
 		
 		# Serial port
 		self.arm_port = None
-		self.arm = None
+		self.arm = None # serial device object
 		self.emoled_port = None
-		self.emoled = None
+		self.emoled = None # serial device object
 		self.no_port = 0
 
 		# Define gpio pins for motor controller
