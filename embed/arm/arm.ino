@@ -59,8 +59,8 @@ void setup() {
   
   // peep check
   peeps(3);
-
-  mySerial.println("Hello"); // mySerial check
+  
+  // mySerial.println("Hello"); // mySerial check
 }
 void loop() {
   if (mySerial.available()){
@@ -71,6 +71,10 @@ void loop() {
       }
     else if(Val=="peeps"){
       peeps(5);
+      }
+    else if(Val=="test"){
+      rotate(100,800,1);// forward
+      rotate(100,800,0);// backward      
       }
     else{
       mySerial.println(Val);
