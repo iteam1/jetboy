@@ -13,6 +13,7 @@
 
   Nguồn đầu vào là 9V - 42V.
  */
+ 
 # include <Servo.h> // Servo lib
 # include <SoftwareSerial.h> // External serial port
 
@@ -27,8 +28,13 @@ const int stepPin = 4; // make pulse for step motor
 const int dirPin = 7; // direction for step motor pin
 const int enPin = 8; //brake step motor pin
 const int rev = 1600;
+String Val = "";
 
 void setup() {
+
+  //Serial setup
+  Serial.begin(9600);
+  mySerial.begin(9600);
 
   // button, potential, buzzer
   pinMode(BT,INPUT); // button on board
@@ -52,10 +58,25 @@ void setup() {
   stand_by();
   
   // peep check
-  peeps(5);
+  peeps(3);
+
+  mySerial.println("Hello"); // mySerial check
 }
 void loop() {
-}
+  if (mySerial.available()){
+    // get the serial string until q
+    Val = mySerial.readStringUntil('q'); // Accept 'q' not accept "q"??
+    if(Val=="who"){
+      mySerial.println("arm");
+      }
+    else if(Val=="peeps"){
+      peeps(5);
+      }
+    else{
+      mySerial.println(Val);
+      }
+    }
+  }
 
 void peep(){
   digitalWrite(BZ,HIGH);
