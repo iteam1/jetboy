@@ -21,8 +21,8 @@ class Robot(db.Model):
 	obs_r = db.Column(db.Boolean,default = False,nullable = False)
 
 	# For display
-	content = db.Column(db.String(),nullable = False, default = 'Good days') # The sentece will display on robot window
-	emotion = db.Column(db.String(),nullable = False,default = 'happyblink') # The emotion will display on robot window
+	content = db.Column(db.String(),nullable = False, default = 'Jetboy hello World!') # The sentece will display on robot window
+	emotion = db.Column(db.String(),nullable = False,default = 'neutral') # The emotion will display on robot window
 	image = db.Column(db.String(),nullable = False,default = 'simplesmileblink') # The emotion will display on robot window
 	itype = db.Column(db.String(),nullable = False, default = 'emo') # emo = gif,img, info
 
