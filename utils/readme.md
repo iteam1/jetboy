@@ -14,3 +14,4 @@
 |10|[pyrealsense2](/utils/pyrealsense2)|this is not a util program, if you want to use pyrealsense package installed by build from source C, you have to add this floder into the directory where you store the util program use pyrealsense, similar [realsense_depth.py](/utils/realsense_depth.py)||
 |11|[test_motor.py](/utils/test_motor.py)|test motor controller||
 |12|[detect_ports.py](/utils/detect_ports.py)|identify multi serial ports|list all port on linux `ls /dev/ttyUSB*`|
+|13|[gpio_control.py](/utils/gpio_control.py)|intergate arm, emoled, and motor into a object and control via input||
