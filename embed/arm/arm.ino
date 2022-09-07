@@ -14,14 +14,25 @@
   Nguồn đầu vào là 9V - 42V.
  */
 # include <Servo.h> // Servo lib
+# include <SoftwareSerial.h> // External serial port
+
+SoftwareSerial mySerial(11,10); // create a serial object for uart communicate 11=Rx,10=Tx
 Servo sv1,sv2,sv3,sv4;  // robot's arm have 4 rc servo
 
+const int BT = 12; // button on board
+const int RES = A0; // the potential meter
+const int BZ = A5; // buzzer
 const int stepPin = 4; // make pulse for step motor
 const int dirPin = 7; // direction for step motor pin
 const int enPin = 8; //brake step motor pin
 const int rev = 1600;
 
 void setup() {
+
+  // button, potential, buzzer
+  pinMode(BT,INPUT); // button on board
+  pinMode(RES,INPUT); // the potential meter
+  pinMode(BZ,OUTPUT); // buzzer
 
   // init servo
   sv1.attach(9);  // attaches the servo on pin 9 to the servo object
@@ -32,18 +43,30 @@ void setup() {
   // Sets the two pins as Outputs
   pinMode(stepPin,OUTPUT); 
   pinMode(dirPin,OUTPUT);
-
   pinMode(enPin,OUTPUT);
   digitalWrite(enPin,LOW);
 
   // stand by postion
   stand_by();
-  // stepper
-  rotate(300,800,0); // 0 = forward, 1 = backward, 1100 pulses = 90 degree  
+  
+  // peep check
+  peeps(5);
 }
 void loop() {
-  test();
 }
+
+void peep(){
+  digitalWrite(BZ,HIGH);
+  delay(100);
+  digitalWrite(BZ,LOW);
+  }
+
+void peeps(int t){
+  for(int i=0;i<t;i++){
+    peep();
+    delay(100);
+    }
+  }
 
 void stand_by(){
   sv1.write(20); // raise the arm before rotate step motor
@@ -64,11 +87,4 @@ void rotate(int pulses,int microTime,bool dir){
     digitalWrite(stepPin,LOW); 
     delayMicroseconds(microTime); 
   }
-  }
-
-void test(){
-  rotate(300,800,0);
-  delay(1000); // One second delay
-  rotate(300,800,1);
-  delay(1000);
   }
