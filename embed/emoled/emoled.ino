@@ -34,7 +34,7 @@ void loop(){
     //str = Serial.read();
     str = Serial.readStringUntil('q');
     Val = str; //strtok(str.c_str(),",");
-    Serial.println(Val);
+//    Serial.println(Val);
 //    int R = atof(strtok(NULL,","));
 //    int G = atof(strtok(NULL,","));
 //    int B = atof(strtok(NULL,","));
@@ -44,7 +44,7 @@ void loop(){
     else if(Val == "smile"){
       Write_Smile(5,5,5);
     }
-    else if(Val == "normal"){
+    else if(Val == "neutral"){
       Write_Nomal(5,5,5);
     }
     else if(Val == "sad"){
@@ -53,8 +53,8 @@ void loop(){
     else if(Val == "angry"){
       Write_Angry(5,0,0);
     }
-    else if(Val == "suprised"){
-      Write_Suprised(5,5,5);
+    else if(Val == "surprised"){
+      Write_Surprised(5,5,5);
     }
     else if(Val == "sleep"){
       Write_Sleep(0,0,5);
@@ -77,7 +77,7 @@ void Warm_Up(){
     delay(1000);
     Write_Angry(5,0,0);
     delay(1000);
-    Write_Suprised(0,5,0);
+    Write_Surprised(0,5,0);
     delay(1000);
     Write_Sleep(0,0,5);
     delay(1000);
@@ -146,7 +146,7 @@ void Write_Angry(int R, int G, int B){
   
 }
 
-void Write_Suprised(int R, int G, int B){
+void Write_Surprised(int R, int G, int B){
   for(int i =0;i<128;i++)
     {
       strip.setPixelColor(i,0,0,0);
