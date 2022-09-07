@@ -72,9 +72,9 @@ void loop() {
       peeps(5);
       }
     else if(Val=="test"){
-      rotate(100,800,1);// forward
+      rotate(200,1200,0);// forward
       delay(1000);
-      rotate(100,800,0);// backward      
+      rotate(200,1200,1);// backward      
       }
     else{
       mySerial.println(Val);
