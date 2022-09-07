@@ -22,6 +22,7 @@ Servo sv1,sv2,sv3,sv4;  // robot's arm have 4 rc servo
 const int BT = 12; // button on board
 const int RES = A0; // the potential meter
 const int BZ = A5; // buzzer
+const int LED = 13; // buildtin led
 const int stepPin = 4; // make pulse for step motor
 const int dirPin = 7; // direction for step motor pin
 const int enPin = 8; //brake step motor pin
@@ -33,6 +34,7 @@ void setup() {
   pinMode(BT,INPUT); // button on board
   pinMode(RES,INPUT); // the potential meter
   pinMode(BZ,OUTPUT); // buzzer
+  pinMode(LED,OUTPUT); // Led build in
 
   // init servo
   sv1.attach(9);  // attaches the servo on pin 9 to the servo object
