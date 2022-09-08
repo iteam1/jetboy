@@ -15,3 +15,4 @@
 |11|[detect_ports.py](/utils/detect_ports.py)|identify multi serial ports|list all port on linux `ls /dev/ttyUSB*`|
 |12|[gpio_control.py](/utils/gpio_control.py)|intergate arm, emoled, and motor into a object and control via input||
 |13|[face_rec.py](/utils/face_rec.py)|test face recognition function|`dlib` error,install command [here](https://github.com/iteam1/robot-jetboy/tree/main/init)|
+|14|[blur_face_webcam.py](/utils/blur_face_webcam.py)|blur face by face_recognition||
