@@ -15,4 +15,4 @@
 |11|[test_motor.py](/utils/test_motor.py)|test motor controller||
 |12|[detect_ports.py](/utils/detect_ports.py)|identify multi serial ports|list all port on linux `ls /dev/ttyUSB*`|
 |13|[gpio_control.py](/utils/gpio_control.py)|intergate arm, emoled, and motor into a object and control via input||
-|14|[face_rec.py](/utils/face_rec.py)|test face recognition function|`pip install face-recognition`|
+|14|[face_rec.py](/utils/face_rec.py)|test face recognition function|`dlib` error,install command [here](https://github.com/iteam1/robot-jetboy/tree/main/init)|

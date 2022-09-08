@@ -38,3 +38,7 @@ if you want to run multi programs in the terminal, example: `python3 gpio.py & s
 [jetson-inference](https://github.com/dusty-nv/jetson-inference)
 
 [installLibrealsense](https://github.com/JetsonHacksNano/installLibrealsense)
+
+[open3D](https://github.com/isl-org/Open3D)
+
+[face-recognition](https://github.com/ageitgey/face_recognition)
