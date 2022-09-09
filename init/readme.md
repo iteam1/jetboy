@@ -10,7 +10,22 @@
 
 **step5**: install opencv `sudo apt-get install python3-opencv` (stable version)
 
-**step6**: install the other required packages by in [requirements.txt](/init/requirements.txt) `pip3 install -r requirements.txt`
+**step6**: install face-recognition
+
+     sudo apt-get install libboost-all-dev
+     sudo apt-get install libgtk-3-dev
+     sudo apt-get install build-essential cmake
+     sudo apt-get update 
+     sudo apt-get install cmake
+     sudo apt-get install scikit-image 
+     pip3 install scikit-learn 
+
+      pip3 install numpy scikit-learn cmake
+      pip3 install dlib
+      pip3 install face_recognition
+
+
+**step7**: install the other required packages by in [requirements.txt](/init/requirements.txt) `pip3 install -r requirements.txt`
 
 these packages can be install normally by `pip3 install [package_name]`, [requirements.txt](/init/requirements.txt) contain the main packages and their dependencies, bellow is main packages you can install them manually by `pip3 install [package_name]`.
 
