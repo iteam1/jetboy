@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+# refer to https://github.com/dusty-nv/jetson-inference/blob/master/docker/run.sh#L118
 
 banner(){
 	echo "_______________________________________________"
@@ -16,7 +17,9 @@ show_help(){
 	echo " "
 	echo "Args:"
 	echo " "
-	echo "  --help Show this help text and quit"
+	echo "  -h|--help: Show this help text and quit"
+	echo " "
+	echo "  -m|--mission: Do specific mission, example: bash root.sh -m 1"
 	echo " "
 }
 
@@ -36,3 +39,34 @@ task2(){
 
 banner # display banner
 
+while :; # true
+do
+	# check the first argument after run command
+	case $1 in
+		-h|-\?|--help) # if the first argument is --help, -h or \?
+			show_help # Display a usage synopsis
+			exit
+			;;
+		-m|--mission) # if the first arugment is --mission, -m
+			if [ "$2" ]; then # if there is argument after first argument
+				task1
+				shift
+			else
+				die 'ERROR: "--mission" requries a non empty option argument'
+			fi
+			;;
+		--mission=) # Handle the case of an empty --mission=
+			die 'ERROR: "--mission" requries a non empty option argument'
+			;;
+		--) # End of all options.
+			shift
+			break
+			;;
+		-?*)
+			printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
+			;;
+		*) # Default case: No more options, so break out of the loop
+			break
+	esac
+	shift
+done
