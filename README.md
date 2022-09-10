@@ -35,7 +35,7 @@ if you want to run multi programs in the terminal, example: `python3 gpio.py & s
 
 #### References
 
-[jetson-inference](https://github.com/dusty-nv/jetson-inference)
+[jetson-inference](https://github.com/dusty-nv/jetson-inference) |[examples](https://github.com/dusty-nv/jetson-inference/tree/master/examples)|[python](https://github.com/dusty-nv/jetson-inference/tree/master/python)|[plugins](https://github.com/dusty-nv/jetson-inference/tree/master/plugins)|[c](https://github.com/dusty-nv/jetson-inference/tree/master/c)|
 
 [installLibrealsense](https://github.com/JetsonHacksNano/installLibrealsense)
 
