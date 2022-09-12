@@ -10,20 +10,7 @@
 
 **step5**: install opencv `sudo apt-get install python3-opencv` (stable version)
 
-**step6**: install face-recognition
-
-     sudo apt-get install libboost-all-dev
-     sudo apt-get install libgtk-3-dev
-     sudo apt-get install build-essential cmake
-     sudo apt-get update 
-     sudo apt-get install cmake
-     sudo apt-get install scikit-image 
-     pip3 install scikit-learn 
-
-      pip3 install numpy scikit-learn cmake
-      pip3 install dlib
-      pip3 install face_recognition
-
+**step6**: install face-recognition `bash face_recognition.sh`
 
 **step7**: install the other required packages by in [requirements.txt](/init/requirements.txt) `pip3 install -r requirements.txt`
 
@@ -45,8 +32,9 @@ these packages can be install normally by `pip3 install [package_name]`, [requir
 |---|---|---|---|
 |01|[sublime-text.sh](/init/sublime-text.sh)|install code editor sublime-text|*required*|
 |02|[pyrealsense.sh](/init/pyrealsense.sh)|install pyrealsense python library|*required*|
-|03|[opencv-contrib.sh](/init/opencv-contrib.sh)|install opencv-contrib version for jetson-nano, build from source||
-|04|[tensorflow.sh](/init/tensorflow.sh)|install tensorflow for jetson-nano||
+|03|[face_recognition.sh](/init/face_recognition.sh)|install pyrealsense python library|*required*|
+|04|[opencv-contrib.sh](/init/opencv-contrib.sh)|install opencv-contrib version for jetson-nano, build from source||
+|05|[tensorflow.sh](/init/tensorflow.sh)|install tensorflow for jetson-nano||
 ______
 
 #### init database
@@ -121,3 +109,8 @@ ______
 #### give permission for serial port
 
 if you want to gibve permission for serial port `/dev/ttyUSB0`: `sudo chmod a+rw /dev/ttyUSB0`
+
+### check JetPack version
+
+if you want to check your JetPack verison `sudo apt-cache show nvidia-jetpack`
+for the version specifically `sudo apt-cache show nvidia-jetpack | grep "Version"`
