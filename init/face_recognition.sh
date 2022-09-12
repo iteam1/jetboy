@@ -23,3 +23,5 @@ cd ../
 sudo python3 setup.py install
 sudo pip3 install pillow # lack a litle bit
 sudo pip3 install face_recognition
+rm -rf dlib-19.23.tar.bz2
+rm -rf dlib-19.23
