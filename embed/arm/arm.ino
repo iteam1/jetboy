@@ -34,7 +34,7 @@ const int stepPin = 4; // make pulse for step motor
 const int dirPin = 7; // direction for step motor pin
 const int enPin = 8; //brake step motor pin
 const int rev = 1600;
-bool in_run = false; // step motor is running, stop = false 
+bool in_run = true; // step motor is running, stop = false 
 
 String Val = "";
 
@@ -79,6 +79,9 @@ void setup() {
   // what kind of serial you are using?
   if(not myserial){
     Serial.println("From Serial: Robot Arm Hello!");
+    }
+  else{
+    Serial.println("Communicate via mySerial");
     }
 }
 void loop() {
@@ -215,18 +218,29 @@ void lay_down(){
   rotate(500,1200,1);
   }
 
+void grip(){
+  for(size_t i = 20;i<=60;i++){
+    sv1.write(i);
+    delay(5);
+    }
+  delay(1000);
+  for(size_t i = 60;i>=20;i--){
+    sv1.write(i);
+    delay(5);
+    }
+  }
 void say_hello(){
-
   flip_up();
-
-  delay(1000);
-  
+  delay(2000);
   test_grip();
-
-  delay(1000);
-  
+  delay(100);
+  test_grip();
+  delay(3000);
+  grip();
+  delay(3000);
   lay_down();
-  
+  delay(100);
+  stand_by();
   }
 
 void comm(){
@@ -254,6 +268,12 @@ void comm(){
     else if(Val=="backward"){
       backward();
       }
+    else if(Val=="up"){
+      flip_up();
+      }
+    else if(Val=="down"){
+      lay_down();
+      }
     else if(Val=="hello"){
       say_hello();
       }
@@ -267,4 +287,46 @@ void comm(){
     }
   }
 
- void mycomm(){}
+void mycomm(){
+  /*
+   * communicate with robot's arm by serial built-in port 
+   */
+   if (mySerial.available()){
+    // get the serial string until q
+    Val = mySerial.readStringUntil('q'); // Accept 'q' not accept "q"??
+    if(Val=="who"){
+      mySerial.println("arm");
+      }
+    else if(Val=="peeps"){
+      peeps(5);
+      }
+    else if(Val=="grip"){
+      test_grip();
+      }
+    else if(Val=="step"){
+      test_step();
+      }
+    else if(Val=="forward"){
+      forward();
+      }
+    else if(Val=="backward"){
+      backward();
+      }
+    else if(Val=="up"){
+      flip_up();
+      }
+    else if(Val=="down"){
+      lay_down();
+      }
+    else if(Val=="hello"){
+      say_hello();
+      }
+    else if(Val=="count"){
+      count = EEPROM.read(0);
+      mySerial.println(count); // query the count value of step motor
+      }
+    else{
+      mySerial.println(Val);
+      }
+    }
+  }
