@@ -424,9 +424,12 @@ if __name__ == "__main__":
 			controller.bit_turnright(0.2)
 
 		elif command == "test":
-			command = command + "q"
-			controller.arm.write(command.encode())
-			controller.db_stop_update()
+			if controller.ESTOP:
+				command = command + "q"
+				controller.arm.write(command.encode())
+				controller.db_stop_update()
+			else:
+				pass
 
 		else:
 			print("Command does not exist!")

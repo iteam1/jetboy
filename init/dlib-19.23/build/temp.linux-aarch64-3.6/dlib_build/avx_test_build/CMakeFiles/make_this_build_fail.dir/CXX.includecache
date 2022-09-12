@@ -1,0 +1,10 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jetboy/Workspace/robot-jetboy/init/dlib-19.23/dlib/cmake_utils/test_for_avx/this_file_doesnt_compile.cpp
+

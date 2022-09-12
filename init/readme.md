@@ -6,13 +6,17 @@
 
 **step3**: install python packages virtual enviroment `pip3 install virtualenv`.
 
-**step4**: install pyrealsense for using D455 depth camera `bash pyrealsense.sh`. pyrealsense can not install normally by `pip3`
+**step4**: install pyrealsense for using D455 depth camera `bash pyrealsense.sh`. pyrealsense can not install normally by `pip3`.
 
 **step5**: install opencv `sudo apt-get install python3-opencv` (stable version)
 
-**step6**: install face-recognition `bash face_recognition.sh`
+**step6**: install face-recognition `bash face_recognition.sh`.[issuses](http://www.open3d.org/docs/release/arm.html)
 
-**step7**: install the other required packages by in [requirements.txt](/init/requirements.txt) `pip3 install -r requirements.txt`
+**step7**: install jetson-inference by this command `bash jetson-inference.sh`, **run it outsize this repo**.
+
+**step8** : install open3d. [help](https://github.com/isl-org/Open3D/issues/2606#issuecomment-742760659) or Open3D provides experimental support for 64-bit ARM architecture (arm64 or aarch64) on Linux and macOS (Apple Silicon). refer to [ARM support](http://www.open3d.org/docs/release/arm.html).
+
+**step9**: install the other required packages by in [requirements.txt](/init/requirements.txt) `pip3 install -r requirements.txt`.
 
 these packages can be install normally by `pip3 install [package_name]`, [requirements.txt](/init/requirements.txt) contain the main packages and their dependencies, bellow is main packages you can install them manually by `pip3 install [package_name]`.
 
@@ -22,7 +26,7 @@ these packages can be install normally by `pip3 install [package_name]`, [requir
      numpy
      pyserial
 
-- export packages into requirements.txt: `pip3 freeze > requirements.txt`
+- export packages into requirements.txt: `pip3 freeze > requirements.txt`.
 
 *Notes:* All packages,libraries and dependencies must be install in gobal. `RPi.GPIO` is build-in package and only can be install on embedded-hardwares like jetson-board or raspberry-board.
 
