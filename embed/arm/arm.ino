@@ -127,6 +127,17 @@ void rotate(int pulses,int microTime,bool dir){
   if(pulses >1100){
     pulses = 1100;
     }
+  // read count
+  count = EEPROM.read(0);
+  // accumulate count and store in pulse
+  if(dir){
+    count -= pulses;
+    }
+  else{
+    count += pulses;
+    }
+  EEPROM.write(0,count);
+  
   in_run = true;
   digitalWrite(enPin,0); // realse brake and go
   digitalWrite(dirPin,dir);
@@ -137,9 +148,8 @@ void rotate(int pulses,int microTime,bool dir){
     digitalWrite(stepPin,LOW); 
     delayMicroseconds(microTime); 
    }
-
+   
    digitalWrite(enPin,1); // brake
-   delay(1000);
    in_run = false;
   }
 
@@ -172,11 +182,51 @@ void backward(){
    */
    rotate(100,1200,1);// backward
   }
-  
-void say_hello(){
-  rotate(100,1200,0);// forward
+
+void flip_up(){
+  rotate(400,1200,0);// forward
+  while(in_run); // while step motor is runing don't run servo rc
+  sv2.write(150);
+  rotate(300,1200,0);
   while(in_run);
+  sv2.write(180);
+  rotate(500,1200,0);
+  while(in_run);
+  sv3.write(180);
+  }
+
+void lay_down(){
+  
+  sv3.write(90);
+  delay(50);
+  sv2.write(160);
+  delay(50);
+  rotate(200,1200,1);
+  while(in_run);
+  sv2.write(130);
+  delay(100);
+  rotate(200,1200,1);
+  while(in_run);
+  sv2.write(100);
+  delay(100);
+  rotate(200,1200,1);
+  while(in_run);
+  sv2.write(80);
+  rotate(500,1200,1);
+  }
+
+void say_hello(){
+
+  flip_up();
+
+  delay(1000);
+  
   test_grip();
+
+  delay(1000);
+  
+  lay_down();
+  
   }
 
 void comm(){
@@ -198,8 +248,18 @@ void comm(){
     else if(Val=="step"){
       test_step();
       }
+    else if(Val=="forward"){
+      forward();
+      }
+    else if(Val=="backward"){
+      backward();
+      }
     else if(Val=="hello"){
       say_hello();
+      }
+    else if(Val=="count"){
+      count = EEPROM.read(0);
+      Serial.println(count); // query the count value of step motor
       }
     else{
       Serial.println(Val);
