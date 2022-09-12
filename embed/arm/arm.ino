@@ -34,11 +34,11 @@ const int stepPin = 4; // make pulse for step motor
 const int dirPin = 7; // direction for step motor pin
 const int enPin = 8; //brake step motor pin
 const int rev = 1600;
-bool in_run = true; // step motor is running, stop = false 
+bool in_run = false; // step motor is running, stop = false 
 
 String Val = "";
 
-bool myserial = false; // option to choice builtin serial or mySerial port
+bool myserial = true; // option to choice builtin serial or mySerial port
 
 void setup() {
 
