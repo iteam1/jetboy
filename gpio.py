@@ -450,7 +450,7 @@ if __name__ == "__main__":
 
 		elif command == "forw":
 			if not controller.ESTOP:
-				command = "forw" + "q" # 'forward' is already use by motor
+				command = "forward" + "q" # 'forward' is already use by motor
 				controller.arm.write(command.encode())
 			else:
 				print("Robot's Arm blocked [EMERGENCY STOP]")
@@ -458,7 +458,7 @@ if __name__ == "__main__":
 
 		elif command == "backw":
 			if not controller.ESTOP:
-				command = "backw" + "q" # 'backward' is already use by motor
+				command = "backward" + "q" # 'backward' is already use by motor
 				controller.arm.write(command.encode())
 			else:
 				print("Robot's Arm blocked [EMERGENCY STOP]")
