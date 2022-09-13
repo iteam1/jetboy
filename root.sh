@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+
 # refer to https://github.com/dusty-nv/jetson-inference/blob/master/docker/run.sh#L118
 
 banner(){
@@ -19,7 +20,7 @@ show_help(){
 	echo " "
 	echo "  -h|--help: Show this help text and quit"
 	echo " "
-	echo "  -m|--mission: Do specific mission, example: bash root.sh -m 1"
+	echo "  -m|--mission: Do specific mission, example: sudo bash root.sh -m 1"
 	echo " "
 }
 
@@ -29,15 +30,45 @@ die(){
 	exit 1
 }
 
-task1(){
-	echo "Task1 Doing..."
+mission_1(){
+	python3 ./utils/helloworld.py
 }
 
-task2(){
-	echo "Task2 Doing..."
+mission_2(){
+	python3 ./utils/helloworlds.py
 }
 
-banner # display banner
+mission_3(){
+	python3 gpio.py &
+	python3 server.py &
+}
+
+# display banner
+banner
+echo ""
+
+# give super-user permission
+#sudo su 
+
+# list all serial port and store in serials array
+serials=($(ls /dev/ttyUSB*))
+echo "Serial devices connected in port: "
+#echo ${serials[1]}
+for i in ${serials[@]}
+do
+	chmod a+rw ${i}
+	echo "${i}"
+done
+echo "---"
+
+# list all camera and store in videos array
+videos=($(ls /dev/video*))
+echo "Camera devices connected: "
+for i in ${videos[@]}
+do
+	echo "${i}"
+done
+echo "---"
 
 while :; # true
 do
@@ -48,9 +79,23 @@ do
 			exit
 			;;
 		-m|--mission) # if the first arugment is --mission, -m
+			# echo "MISSION case"
 			if [ "$2" ]; then # if there is argument after first argument
-				task1
-				shift
+				echo "MISSION ${2} archieved."
+				case $2 in
+					1)
+						echo "MISSION ${2} doing."
+						mission_1
+					;;
+					2)
+						echo "MISSION ${2} doing."
+						mission_2
+					;;
+					3)
+						echo "MISSION ${2} doing."
+						mission_3
+					;;
+				esac
 			else
 				die 'ERROR: "--mission" requries a non empty option argument'
 			fi
