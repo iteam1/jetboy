@@ -1,6 +1,6 @@
 '''
 Author: locchuong
-Updated: 1/8/22
+Updated: 13/9/22
 Description:
 	Update calculation function 
 	This is contain routes of the flask server

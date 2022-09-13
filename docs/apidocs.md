@@ -402,7 +402,7 @@
     **Content:** `None`
 * **Sample Call:**
 * **Notes:**
-  Get color `RGB` frame of serial-camera real-time, function's name in `routes.py` `get_cam`, Only one device can get the responsem An other need to wait until finish
+  Get color `RGB` frame of serial-camera real-time, function's name in `routes.py` `get_cam`, Only one device can get the response, An other need to wait until finish, can not share `cv2.VideoCapture()` streaming data
 </p>
 </details>
 
@@ -426,6 +426,6 @@
     **Content:** `None`
 * **Sample Call:**
 * **Notes:**
-  face-recognition application, function's name in `routes.py` `get_face`, Only one device can get the responsem An other need to wait until finish
+  face-recognition application, function's name in `routes.py` `get_face`, Only one device can get the responsem An other need to wait until finish, can not share `cv2.VideoCapture()` streaming data
 </p>
 </details>
