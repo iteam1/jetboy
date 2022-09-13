@@ -12,6 +12,8 @@
 
 **Step3** run the entry point script `sudo bash root.sh`
 
+To access the robot remotely, `ssh jetboy@ <robot-internal-ip>`
+
 *Note*
 
 - [gpio.py](/gpio.py): control robot gpio
@@ -37,7 +39,7 @@
 
 #### References
 
-[jetson-inference](https://github.com/dusty-nv/jetson-inference) | [examples](https://github.com/dusty-nv/jetson-inference/tree/master/examples) | [python](https://github.com/dusty-nv/jetson-inference/tree/master/python) | [plugins](https://github.com/dusty-nv/jetson-inference/tree/master/plugins) | [c](https://github.com/dusty-nv/jetson-inference/tree/master/c) |
+[jetson-inference](https://github.com/dusty-nv/jetson-inference) | [examples](https://github.com/dusty-nv/jetson-inference/tree/master/examples) | [python](https://github.com/dusty-nv/jetson-inference/tree/master/python) | [plugins](https://github.com/dusty-nv/jetson-inference/tree/master/plugins) | [c](https://github.com/dusty-nv/jetson-inference/tree/master/c) | [convert to numpy array](https://github.com/dusty-nv/jetson-inference/issues/1118)
 
 [installLibrealsense](https://github.com/JetsonHacksNano/installLibrealsense)
 

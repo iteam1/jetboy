@@ -1,10 +1,12 @@
 '''
 Author: locchuong
-Updated: 1/8/22
+Updated: 13/9/22
 Description:
 	Update calculation function 
 	This is contain routes of the flask server
 '''
+
+#BASIC FUNCTION
 from flask import render_template,request,Response,flash,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 import cv2
@@ -15,11 +17,37 @@ from robot.pyrealsense2 import pyrealsense2 as rs
 from robot.models import Robot
 import math
 import datetime
+#FACE-RECOGNITION
+import face_recognition
+
+#FACE-RECOGNITION
+font = cv2.FONT_HERSHEY_DUPLEX # cv2.FONT_HERSHEY_SIMPLEX
+
+# load a sample picture and learn how to recognize it.
+cuong_image = face_recognition.load_image_file('./utils/faces/cuong.png')
+cuong_face_encoding = face_recognition.face_encodings(cuong_image)[0]
+
+loc_image = face_recognition.load_image_file('./utils/faces/loc.png')
+loc_face_encoding = face_recognition.face_encodings(loc_image)[0]
+
+# create arrays of know face encodings and their names
+known_face_encodings = [cuong_face_encoding,loc_face_encoding]
+
+# create a list of names as the order of encoding array
+know_face_names = ["cuong","Loc"]
+
+# Initialize some variables
+face_locations = []
+face_encodings = []
+face_names = []
+# END 
 
 # define color
 red = (0,0,255)
 green = (0,255,0)
 blue = (255,0,0)
+white = (255,255,255)
+black = (0,0,0)
 
 # shutdown function
 def shutdown_server():
@@ -75,15 +103,98 @@ def gen_both():
 
 			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
+#stream serial camera
+def get_cam():
+	# try to connect to serial camera
+	try:
+		cap = cv2.VideoCapture(0)
+	except:
+		cap = cv2.VideoCapture(3)
+	ret,frame = cap.read() # try to stream frame from webcam pipeline
+	width = frame.shape[1]
+	height = frame.shape[0]
+	zoom = 2
+	dim = (width*2, height*2)
+	# if take frame success
+	while ret:
+		ret,frame = cap.read()  
+		if not ret:
+			print("Connection to camera failed!")
+			break
+		else:
+			frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
+			success,buffer = cv2.imencode('.jpg',frame)
+			frame = buffer.tobytes()
+			
+			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+#stream face-recognition on serial camera
+def get_face():
+	# bool var for flip frame
+	process_this_frame = True
+	# try to connect to serial camera # try to connect to serial camera
+	try:
+		cap = cv2.VideoCapture(0)
+	except:
+		cap = cv2.VideoCapture(3)
+	ret,frame = cap.read() # try to stream frame from webcam pipeline
+	width = frame.shape[1]
+	height = frame.shape[0]
+	zoom = 2
+	dim = (width*2, height*2)
+	# if take frame success
+	while ret:
+		ret,frame = cap.read()  
+		if not ret:
+			print("Connection to camera failed!")
+			break
+		else:
+			if process_this_frame: # Only process every other frame of video to save time
+				small_frame = cv2.resize(frame,(0,0),fx=0.25,fy=0.25)
+				rgb_small_frame = small_frame[:,:,::-1]
+				face_locations = face_recognition.face_locations(rgb_small_frame)
+				face_encodings = face_recognition.face_encodings(rgb_small_frame,face_locations)
+				face_names = []
+				for face_encoding in face_encodings:
+					matches = face_recognition.compare_faces(known_face_encodings,face_encoding)
+					name = "Unknown"
+					face_distances = face_recognition.face_distance(known_face_encodings,face_encoding)
+					best_match_index = np.argmin(face_distances)
+					if matches[best_match_index]:
+						name = know_face_names[best_match_index]
+					face_names.append(name)
+
+			process_this_frame = not process_this_frame
+			for (top,right,bottom,left),name in zip(face_locations,face_names):
+				top *= 4
+				bottom *= 4
+				right *= 4
+				left *= 4
+				if name == "Unknown":
+					cv2.rectangle(frame,(left,top),(right,bottom),red,2)
+					cv2.rectangle(frame,(left,bottom -35), (right,bottom),red,cv2.FILLED)
+					cv2.putText(frame,name,(left+6,bottom-6),font,1.0,white,1)
+				else:
+					cv2.rectangle(frame,(left,top),(right,bottom),green,2)
+					cv2.rectangle(frame,(left,bottom -35), (right,bottom),green,cv2.FILLED)
+					cv2.putText(frame,name,(left+6,bottom-6),font,1.0,black,1)
+
+			frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
+			success,buffer = cv2.imencode('.jpg',frame)
+			frame = buffer.tobytes()
+			
+			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
 # HOME
 @app.route("/",methods =['GET'])
 def home():
     return render_template("home.html"),200
 
-# CAMERA
+# DEPTH-CAMERA
 @app.route('/color')
 def colorstream():
 	return Response(gen_colorframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
+
 @app.route('/depth')
 def depthstream():
 	return Response(gen_depthframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
@@ -210,3 +321,15 @@ def capture_pointcloud():
 def shutdown():
 	shutdown_server()
 	return 'Server shutting down',200
+
+# SERIAL-CAMERA
+@app.route('/camera')
+def camera():
+	return Response(get_cam(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
+
+#FACE-RECOGNITION
+@app.route('/faces')
+def faces():
+	return Response(get_face(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
+
+

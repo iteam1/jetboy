@@ -12,6 +12,8 @@
 10. [Capture image](#Capture-image)
 11. [Capture pointcloud](#Capture-pointcloud)
 12. [Shutdown](#Shutdown)
+13. [Get camera](#Get-camera)
+14. [Face recogition](#Face-recognition)
 
 ## Home
 [go back](#APIdocs)
@@ -377,5 +379,53 @@
     **Content:** `None`
 * **Sample Call:**
 * **Notes:** `None`
+</p>
+</details>
+
+## Get camera
+[go back](#APIdocs)
+<details><summary>click to expand</summary>
+<p>
+
+  Response serial-camera frame
+* **URL:** `/camera`
+* **Method:** `GET`
+*  **URL Params:**
+   **Required:**`None`
+   **Optional:**`None`
+* **Query Params:**`None`
+* **Success Response:**
+  * **Code:** `None` <br />
+    **Content:** streaming frame of serial-camera
+* **Error Response:**
+  * **Code:** `None` <br />
+    **Content:** `None`
+* **Sample Call:**
+* **Notes:**
+  Get color `RGB` frame of serial-camera real-time, function's name in `routes.py` `get_cam`, Only one device can get the response, An other need to wait until finish, can not share `cv2.VideoCapture()` streaming data
+</p>
+</details>
+
+## Face recognition
+[go back](#APIdocs)
+<details><summary>click to expand</summary>
+<p>
+
+  Response face-recognition detected by serial-camera
+* **URL:** `/faces`
+* **Method:** `GET`
+*  **URL Params:**
+   **Required:**`None`
+   **Optional:**`None`
+* **Query Params:**`None`
+* **Success Response:**
+  * **Code:** `None` <br />
+    **Content:** streaming detected face on frame of serial-camera
+* **Error Response:**
+  * **Code:** `None` <br />
+    **Content:** `None`
+* **Sample Call:**
+* **Notes:**
+  face-recognition application, function's name in `routes.py` `get_face`, Only one device can get the responsem An other need to wait until finish, can not share `cv2.VideoCapture()` streaming data
 </p>
 </details>
