@@ -75,6 +75,26 @@ def gen_both():
 
 			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
+#stream serial camera
+def get_cam():
+	while True:
+		ret,depth_frame,color_frame,frames = d455.get_frame()
+
+		# In the heat map conversion
+		depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_frame,alpha = 0.08),cv2.COLORMAP_JET)
+
+		# Rendering
+		images = np.hstack((color_frame,depth_colormap)) # display side by side RGB and Depth next to
+  
+		if not ret:
+			print("Connection to camera failed!")
+			break
+		else:
+			success,buffer = cv2.imencode('.jpg',images)
+			frame = buffer.tobytes()
+
+			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
 # HOME
 @app.route("/",methods =['GET'])
 def home():
