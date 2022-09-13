@@ -448,17 +448,17 @@ if __name__ == "__main__":
 				print("Robot's Arm blocked [EMERGENCY STOP]")
 			controller.db_stop_update()
 
-		elif command == "forward":
+		elif command == "forw":
 			if not controller.ESTOP:
-				command = command + "q"
+				command = "forw" + "q" # 'forward' is already use by motor
 				controller.arm.write(command.encode())
 			else:
 				print("Robot's Arm blocked [EMERGENCY STOP]")
 			controller.db_stop_update()
 
-		elif command == "backward":
+		elif command == "backw":
 			if not controller.ESTOP:
-				command = command + "q"
+				command = "backw" + "q" # 'backward' is already use by motor
 				controller.arm.write(command.encode())
 			else:
 				print("Robot's Arm blocked [EMERGENCY STOP]")
