@@ -5,6 +5,8 @@ Description:
 	Update calculation function 
 	This is contain routes of the flask server
 '''
+
+#BASIC FUNCTION
 from flask import render_template,request,Response,flash,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 import cv2
@@ -15,6 +17,31 @@ from robot.pyrealsense2 import pyrealsense2 as rs
 from robot.models import Robot
 import math
 import datetime
+#FACE-RECOGNITION
+import face_recognition
+
+#FACE-RECOGNITION
+font = cv2.FONT_HERSHEY_DUPLEX # cv2.FONT_HERSHEY_SIMPLEX
+
+# load a sample picture and learn how to recognize it.
+cuong_image = face_recognition.load_image_file('.utils/faces/cuong.png')
+cuong_face_encoding = face_recognition.face_encodings(cuong_image)[0]
+
+loc_image = face_recognition.load_image_file('.utils/faces/loc.png')
+loc_face_encoding = face_recognition.face_encodings(loc_image)[0]
+
+# create arrays of know face encodings and their names
+known_face_encodings = [cuong_face_encoding,loc_face_encoding]
+
+# create a list of names as the order of encoding array
+know_face_names = ["cuong","Loc"]
+
+# Initialize some variables
+face_locations = []
+face_encodings = []
+face_names = []
+process_this_frame = True
+# END 
 
 # define color
 red = (0,0,255)
@@ -77,20 +104,18 @@ def gen_both():
 
 #stream serial camera
 def get_cam():
-	while True:
-		ret,depth_frame,color_frame,frames = d455.get_frame()
-
-		# In the heat map conversion
-		depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_frame,alpha = 0.08),cv2.COLORMAP_JET)
-
-		# Rendering
-		images = np.hstack((color_frame,depth_colormap)) # display side by side RGB and Depth next to
-  
+	# connect to camera
+	cap = cv2.VideoCapture(3) # serial camera
+	# try to stream frame from webcam pipeline
+    ret,frame = cap.read()
+    # if take frame success
+	while ret:
+		ret,frame = cap.read()  
 		if not ret:
 			print("Connection to camera failed!")
 			break
 		else:
-			success,buffer = cv2.imencode('.jpg',images)
+			success,buffer = cv2.imencode('.jpg',frame)
 			frame = buffer.tobytes()
 
 			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
@@ -104,6 +129,7 @@ def home():
 @app.route('/color')
 def colorstream():
 	return Response(gen_colorframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
+
 @app.route('/depth')
 def depthstream():
 	return Response(gen_depthframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
@@ -230,3 +256,11 @@ def capture_pointcloud():
 def shutdown():
 	shutdown_server()
 	return 'Server shutting down',200
+
+#FACE-RECOGNITION
+# CAMERA
+@app.route('/camera')
+def camera():
+	return Response(gen_cam(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
+
+
