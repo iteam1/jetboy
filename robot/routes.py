@@ -24,10 +24,10 @@ import face_recognition
 font = cv2.FONT_HERSHEY_DUPLEX # cv2.FONT_HERSHEY_SIMPLEX
 
 # load a sample picture and learn how to recognize it.
-cuong_image = face_recognition.load_image_file('.utils/faces/cuong.png')
+cuong_image = face_recognition.load_image_file('./utils/faces/cuong.png')
 cuong_face_encoding = face_recognition.face_encodings(cuong_image)[0]
 
-loc_image = face_recognition.load_image_file('.utils/faces/loc.png')
+loc_image = face_recognition.load_image_file('./utils/faces/loc.png')
 loc_face_encoding = face_recognition.face_encodings(loc_image)[0]
 
 # create arrays of know face encodings and their names
@@ -40,7 +40,10 @@ know_face_names = ["cuong","Loc"]
 face_locations = []
 face_encodings = []
 face_names = []
+
+# bool var for flip frame
 process_this_frame = True
+
 # END 
 
 # define color
@@ -104,11 +107,12 @@ def gen_both():
 
 #stream serial camera
 def get_cam():
-	# connect to camera
-	cap = cv2.VideoCapture(3) # serial camera
-	# try to stream frame from webcam pipeline
-    ret,frame = cap.read()
-    # if take frame success
+	try:
+		cap = cv2.VideoCapture(0) # try to connect to serial camera
+	except:
+		cap = cv2.VideoCapture(3)
+	ret,frame = cap.read() # try to stream frame from webcam pipeline
+	# if take frame success
 	while ret:
 		ret,frame = cap.read()  
 		if not ret:
@@ -117,7 +121,26 @@ def get_cam():
 		else:
 			success,buffer = cv2.imencode('.jpg',frame)
 			frame = buffer.tobytes()
+			
+			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
+#stream face-recognition on serial camera
+def get_face():
+	try:
+		cap = cv2.VideoCapture(0) # try to connect to serial camera
+	except:
+		cap = cv2.VideoCapture(3)
+	ret,frame = cap.read() # try to stream frame from webcam pipeline
+	# if take frame success
+	while ret:
+		ret,frame = cap.read()  
+		if not ret:
+			print("Connection to camera failed!")
+			break
+		else:
+			success,buffer = cv2.imencode('.jpg',frame)
+			frame = buffer.tobytes()
+			
 			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 # HOME
@@ -261,6 +284,6 @@ def shutdown():
 # CAMERA
 @app.route('/camera')
 def camera():
-	return Response(gen_cam(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
+	return Response(get_cam(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
 
 

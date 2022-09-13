@@ -402,7 +402,7 @@
     **Content:** `None`
 * **Sample Call:**
 * **Notes:**
-  Get color `RGB` frame of serial-camera real-time
+  Get color `RGB` frame of serial-camera real-time, function's name in `routes.py` `get_cam`
 </p>
 </details>
 
@@ -426,6 +426,6 @@
     **Content:** `None`
 * **Sample Call:**
 * **Notes:**
-  face-recognition application
+  face-recognition application, function's name in `routes.py` `get_face`
 </p>
 </details>
