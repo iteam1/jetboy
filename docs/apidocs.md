@@ -402,7 +402,7 @@
     **Content:** `None`
 * **Sample Call:**
 * **Notes:**
-  Get color `RGB` frame of serial-camera real-time, function's name in `routes.py` `get_cam`
+  Get color `RGB` frame of serial-camera real-time, function's name in `routes.py` `get_cam`, Only one device can get the responsem An other need to wait until finish
 </p>
 </details>
 
@@ -412,7 +412,7 @@
 <p>
 
   Response face-recognition detected by serial-camera
-* **URL:** `/face`
+* **URL:** `/faces`
 * **Method:** `GET`
 *  **URL Params:**
    **Required:**`None`
@@ -426,6 +426,6 @@
     **Content:** `None`
 * **Sample Call:**
 * **Notes:**
-  face-recognition application, function's name in `routes.py` `get_face`
+  face-recognition application, function's name in `routes.py` `get_face`, Only one device can get the responsem An other need to wait until finish
 </p>
 </details>

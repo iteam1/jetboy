@@ -40,16 +40,14 @@ know_face_names = ["cuong","Loc"]
 face_locations = []
 face_encodings = []
 face_names = []
-
-# bool var for flip frame
-process_this_frame = True
-
 # END 
 
 # define color
 red = (0,0,255)
 green = (0,255,0)
 blue = (255,0,0)
+white = (255,255,255)
+black = (0,0,0)
 
 # shutdown function
 def shutdown_server():
@@ -107,11 +105,16 @@ def gen_both():
 
 #stream serial camera
 def get_cam():
+	# try to connect to serial camera
 	try:
-		cap = cv2.VideoCapture(0) # try to connect to serial camera
+		cap = cv2.VideoCapture(0)
 	except:
 		cap = cv2.VideoCapture(3)
 	ret,frame = cap.read() # try to stream frame from webcam pipeline
+	width = frame.shape[1]
+	height = frame.shape[0]
+	zoom = 2
+	dim = (width*2, height*2)
 	# if take frame success
 	while ret:
 		ret,frame = cap.read()  
@@ -119,6 +122,7 @@ def get_cam():
 			print("Connection to camera failed!")
 			break
 		else:
+			frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
 			success,buffer = cv2.imencode('.jpg',frame)
 			frame = buffer.tobytes()
 			
@@ -126,11 +130,18 @@ def get_cam():
 
 #stream face-recognition on serial camera
 def get_face():
+	# bool var for flip frame
+	process_this_frame = True
+	# try to connect to serial camera # try to connect to serial camera
 	try:
-		cap = cv2.VideoCapture(0) # try to connect to serial camera
+		cap = cv2.VideoCapture(0)
 	except:
 		cap = cv2.VideoCapture(3)
 	ret,frame = cap.read() # try to stream frame from webcam pipeline
+	width = frame.shape[1]
+	height = frame.shape[0]
+	zoom = 2
+	dim = (width*2, height*2)
 	# if take frame success
 	while ret:
 		ret,frame = cap.read()  
@@ -138,6 +149,37 @@ def get_face():
 			print("Connection to camera failed!")
 			break
 		else:
+			if process_this_frame: # Only process every other frame of video to save time
+				small_frame = cv2.resize(frame,(0,0),fx=0.25,fy=0.25)
+				rgb_small_frame = small_frame[:,:,::-1]
+				face_locations = face_recognition.face_locations(rgb_small_frame)
+				face_encodings = face_recognition.face_encodings(rgb_small_frame,face_locations)
+				face_names = []
+				for face_encoding in face_encodings:
+					matches = face_recognition.compare_faces(known_face_encodings,face_encoding)
+					name = "Unknown"
+					face_distances = face_recognition.face_distance(known_face_encodings,face_encoding)
+					best_match_index = np.argmin(face_distances)
+					if matches[best_match_index]:
+						name = know_face_names[best_match_index]
+					face_names.append(name)
+
+			process_this_frame = not process_this_frame
+			for (top,right,bottom,left),name in zip(face_locations,face_names):
+				top *= 4
+				bottom *= 4
+				right *= 4
+				left *= 4
+				if name == "Unknown":
+					cv2.rectangle(frame,(left,top),(right,bottom),red,2)
+					cv2.rectangle(frame,(left,bottom -35), (right,bottom),red,cv2.FILLED)
+					cv2.putText(frame,name,(left+6,bottom-6),font,1.0,white,1)
+				else:
+					cv2.rectangle(frame,(left,top),(right,bottom),green,2)
+					cv2.rectangle(frame,(left,bottom -35), (right,bottom),green,cv2.FILLED)
+					cv2.putText(frame,name,(left+6,bottom-6),font,1.0,black,1)
+
+			frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
 			success,buffer = cv2.imencode('.jpg',frame)
 			frame = buffer.tobytes()
 			
@@ -148,7 +190,7 @@ def get_face():
 def home():
     return render_template("home.html"),200
 
-# CAMERA
+# DEPTH-CAMERA
 @app.route('/color')
 def colorstream():
 	return Response(gen_colorframe(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
@@ -280,10 +322,14 @@ def shutdown():
 	shutdown_server()
 	return 'Server shutting down',200
 
-#FACE-RECOGNITION
-# CAMERA
+# SERIAL-CAMERA
 @app.route('/camera')
 def camera():
 	return Response(get_cam(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
+
+#FACE-RECOGNITION
+@app.route('/faces')
+def faces():
+	return Response(get_face(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
 
 
