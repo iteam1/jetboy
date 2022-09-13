@@ -6,26 +6,17 @@
 
 **step3**: install python packages virtual enviroment `pip3 install virtualenv`.
 
-**step4**: install pyrealsense for using D455 depth camera `bash pyrealsense.sh`. pyrealsense can not install normally by `pip3`
+**step4**: install pyrealsense for using D455 depth camera `bash pyrealsense.sh`. pyrealsense can not install normally by `pip3`.
 
 **step5**: install opencv `sudo apt-get install python3-opencv` (stable version)
 
-**step6**: install face-recognition
+**step6**: install face-recognition `bash face_recognition.sh`.[issuses](http://www.open3d.org/docs/release/arm.html)
 
-     sudo apt-get install libboost-all-dev
-     sudo apt-get install libgtk-3-dev
-     sudo apt-get install build-essential cmake
-     sudo apt-get update 
-     sudo apt-get install cmake
-     sudo apt-get install scikit-image 
-     pip3 install scikit-learn 
+**step7**: install jetson-inference by this command `bash jetson-inference.sh`, **run it outsize this repo**.
 
-      pip3 install numpy scikit-learn cmake
-      pip3 install dlib
-      pip3 install face_recognition
+**step8** : install open3d. [help](https://github.com/isl-org/Open3D/issues/2606#issuecomment-742760659) or Open3D provides experimental support for 64-bit ARM architecture (arm64 or aarch64) on Linux and macOS (Apple Silicon). refer to [ARM support](http://www.open3d.org/docs/release/arm.html).
 
-
-**step7**: install the other required packages by in [requirements.txt](/init/requirements.txt) `pip3 install -r requirements.txt`
+**step9**: install the other required packages by in [requirements.txt](/init/requirements.txt) `pip3 install -r requirements.txt`.
 
 these packages can be install normally by `pip3 install [package_name]`, [requirements.txt](/init/requirements.txt) contain the main packages and their dependencies, bellow is main packages you can install them manually by `pip3 install [package_name]`.
 
@@ -35,7 +26,7 @@ these packages can be install normally by `pip3 install [package_name]`, [requir
      numpy
      pyserial
 
-- export packages into requirements.txt: `pip3 freeze > requirements.txt`
+- export packages into requirements.txt: `pip3 freeze > requirements.txt`.
 
 *Notes:* All packages,libraries and dependencies must be install in gobal. `RPi.GPIO` is build-in package and only can be install on embedded-hardwares like jetson-board or raspberry-board.
 
@@ -45,8 +36,9 @@ these packages can be install normally by `pip3 install [package_name]`, [requir
 |---|---|---|---|
 |01|[sublime-text.sh](/init/sublime-text.sh)|install code editor sublime-text|*required*|
 |02|[pyrealsense.sh](/init/pyrealsense.sh)|install pyrealsense python library|*required*|
-|03|[opencv-contrib.sh](/init/opencv-contrib.sh)|install opencv-contrib version for jetson-nano, build from source||
-|04|[tensorflow.sh](/init/tensorflow.sh)|install tensorflow for jetson-nano||
+|03|[face_recognition.sh](/init/face_recognition.sh)|install pyrealsense python library|*required*|
+|04|[opencv-contrib.sh](/init/opencv-contrib.sh)|install opencv-contrib version for jetson-nano, build from source||
+|05|[tensorflow.sh](/init/tensorflow.sh)|install tensorflow for jetson-nano||
 ______
 
 #### init database
@@ -121,3 +113,8 @@ ______
 #### give permission for serial port
 
 if you want to gibve permission for serial port `/dev/ttyUSB0`: `sudo chmod a+rw /dev/ttyUSB0`
+
+### check JetPack version
+
+if you want to check your JetPack verison `sudo apt-cache show nvidia-jetpack`
+for the version specifically `sudo apt-cache show nvidia-jetpack | grep "Version"`

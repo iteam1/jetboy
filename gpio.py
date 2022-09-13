@@ -370,6 +370,7 @@ if __name__ == "__main__":
 
 	while True:
 
+		# **********************[CONTROL EMOLED]**********************
 		# Read the emotion
 		emotion,itype = controller.read_emotion()
 		if itype == "emo":
@@ -394,6 +395,7 @@ if __name__ == "__main__":
 			print('database cleaned up command!')
 			break
 
+		# **********************[CONTROL MOTOR]**********************
 		# continously moving 
 		elif command == "stop":
 			controller.stop()
@@ -423,9 +425,67 @@ if __name__ == "__main__":
 		elif command == "bit_turnright":
 			controller.bit_turnright(0.2)
 
-		elif command == "test":
+		# **********************[CONTROL ARM]**********************
+
+		elif command == "peeps":
 			command = command + "q"
 			controller.arm.write(command.encode())
+			controller.db_stop_update()
+
+		elif command == "grip":
+			if not controller.ESTOP:
+				command = command + "q"
+				controller.arm.write(command.encode())
+			else:
+				print("Robot's Arm blocked [EMERGENCY STOP]")
+			controller.db_stop_update() # stop after sending command or estop activate
+
+		elif command == "step":
+			if not controller.ESTOP:
+				command = command + "q"
+				controller.arm.write(command.encode())
+			else:
+				print("Robot's Arm blocked [EMERGENCY STOP]")
+			controller.db_stop_update()
+
+		elif command == "forw":
+			if not controller.ESTOP:
+				command = "forward" + "q" # 'forward' is already use by motor
+				controller.arm.write(command.encode())
+			else:
+				print("Robot's Arm blocked [EMERGENCY STOP]")
+			controller.db_stop_update()
+
+		elif command == "backw":
+			if not controller.ESTOP:
+				command = "backward" + "q" # 'backward' is already use by motor
+				controller.arm.write(command.encode())
+			else:
+				print("Robot's Arm blocked [EMERGENCY STOP]")
+			controller.db_stop_update()
+
+		elif command == "up":
+			if not controller.ESTOP:
+				command = command + "q"
+				controller.arm.write(command.encode())
+			else:
+				print("Robot's Arm blocked [EMERGENCY STOP]")
+			controller.db_stop_update()
+
+		elif command == "down":
+			if not controller.ESTOP:
+				command = command + "q"
+				controller.arm.write(command.encode())
+			else:
+				print("Robot's Arm blocked [EMERGENCY STOP]")
+			controller.db_stop_update()
+
+		elif command == "hello":
+			if not controller.ESTOP:
+				command = command + "q"
+				controller.arm.write(command.encode())
+			else:
+				print("Robot's Arm blocked [EMERGENCY STOP]")
 			controller.db_stop_update()
 
 		else:

@@ -22,20 +22,17 @@ args = parser.parse_args()
 font = cv2.FONT_HERSHEY_DUPLEX # cv2.FONT_HERSHEY_SIMPLEX
 
 # load a sample picture and learn how to recognize it.
-eminem_image = face_recognition.load_image_file('./faces/eminem.png')
-eminem_face_encoding = face_recognition.face_encodings(eminem_image)[0]
+cuong_image = face_recognition.load_image_file('./faces/cuong.png')
+cuong_face_encoding = face_recognition.face_encodings(cuong_image)[0]
 
-andrew_image = face_recognition.load_image_file('./faces/andrew.jpg')
-andrew_face_encoding = face_recognition.face_encodings(andrew_image)[0]
-
-loc_image = face_recognition.load_image_file('./faces/loc.jpg')
+loc_image = face_recognition.load_image_file('./faces/loc.png')
 loc_face_encoding = face_recognition.face_encodings(loc_image)[0]
 
 # create arrays of know face encodings and their names
-known_face_encodings = [eminem_face_encoding,andrew_face_encoding,loc_face_encoding]
+known_face_encodings = [cuong_face_encoding,loc_face_encoding]
 
 # create a list of names as the order of encoding array
-know_face_names = ["Eminem","Andrew","Loc"]
+know_face_names = ["cuong","Loc"]
 
 # Initialize some variables
 face_locations = []

@@ -6,17 +6,19 @@
 
 #### Quick-guide
 
-- clone this repo `git clone git@github.com:iteam1/robot-jetboy.git`
+**Step1** clone this repo `git clone git@github.com:iteam1/robot-jetboy.git`
 
-- go to [init](/init) then follow the instruction for setting up the repository.
+**Step2** go to [init](/init) then follow the instruction for setting up the repository.
 
-[gpio.py](/gpio.py): control robot gpio
+**Step3** run the entry point script `sudo bash root.sh`
 
-[server.py](/server.py): build a local webserver for manually control
+*Note*
 
-[gui.py](/gui.py): create a robot's face for visual-communication
+- [gpio.py](/gpio.py): control robot gpio
 
-if you want to run multi programs in the terminal, example: `python3 gpio.py & server.py`
+- [server.py](/server.py): build a local webserver for manually control
+
+- [gui.py](/gui.py): create a robot's face for visual-communication
 
 #### Tools
 

@@ -100,8 +100,36 @@
     <h2 style="color:green;text-align:center;">Robot arm</h2>
     <div class = 'row'>
         <form action = "{{ url_for('manual') }}" method = 'POST'>
-            <input type = 'hidden' name = 'command' id = 'command' value = 'test'>
-            <button class="btn btn-primary mb-2">&#128079;</button>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'peeps'>
+            <button class="btn btn-primary mb-2">peeps</button>
+        </form>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'grip'>
+            <button class="btn btn-primary mb-2">grip</button>
+        </form>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'step'>
+            <button class="btn btn-primary mb-2">step</button>
+        </form>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'forw'>
+            <button class="btn btn-primary mb-2">forward</button>
+        </form>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'backw'>
+            <button class="btn btn-primary mb-2">backward</button>
+        </form>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'up'>
+            <button class="btn btn-primary mb-2">up</button>
+        </form>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'down'>
+            <button class="btn btn-primary mb-2">down</button>
+        </form>
+        <form action = "{{ url_for('manual') }}" method = 'POST'>
+            <input type = 'hidden' name = 'command' id = 'command' value = 'hello'>
+            <button class="btn btn-primary mb-2">hello</button>
         </form>
     </div>
 
