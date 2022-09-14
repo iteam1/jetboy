@@ -335,19 +335,19 @@ if __name__ == "__main__":
 	my_controller.db_stop_update() # update command to stop at the begining, if you close gpio controller by "kill" command, must update it to stop before running
 
 	# list all port
-	print("GPIO: checking serial port...")
+	print("[GPIO]: checking serial port...")
 	port_list = []
 	desc_list = []
 	hwid_list = []
 	ports = list_ports.comports()
 	my_controller.no_port = len(ports)
-	print("GPIO: Number of serial ports {}".format(my_controller.no_port))
+	print("[GPIO]: Number of serial ports {}".format(my_controller.no_port))
 
 	for port,desc,hwid in sorted(ports):
 		port_list.append(port)
 		desc_list.append(desc)
 		hwid_list.append(hwid)
-		print("GPIO: {} - {} - {}".format(port,desc,hwid))
+		print("[GPIO]: {} - {} - {}".format(port,desc,hwid))
 
 	for port in port_list:
 		device = serial.Serial(port,baudrate=9600,timeout=0.1)
@@ -360,17 +360,17 @@ if __name__ == "__main__":
 			if device_name == "arm":
 				my_controller.arm_port = port
 				my_controller.arm = device
-				print("GPIO: port {} is {}".format(port,device_name))
+				print("[GPIO]: port {} is {}".format(port,device_name))
 			elif device_name == "emoled":
 				my_controller.emoled_port == port
 				my_controller.emoled = device
-				print("GPIO: port {} is {}".format(port,device_name))
+				print("[GPIO]: port {} is {}".format(port,device_name))
 			else:
-				print("GPIO: port {} is not identified".format(port,device_name))
+				print("[GPIO]: port {} is not identified".format(port,device_name))
 		except:
-			print("GPIO: port {} can not connect ".format(port))
+			print("[GPIO]: port {} can not connect ".format(port))
 	
-	print("GPIO: gpio controller is running...")
+	print("[GPIO]: gpio controller is running...")
 
 	while True:
 
@@ -394,10 +394,10 @@ if __name__ == "__main__":
 
 		#Write the output
 		if command == "kill":
-			print("GPIO: stop motor & clean up")
+			print("[GPIO]: stop motor & clean up")
 			# reset kill command for the next start
 			my_controller.db_stop_update()
-			print('GPIO: database cleaned up command!')
+			print('[GPIO]: database cleaned up command!')
 			break
 
 		# **********************[CONTROL MOTOR]**********************
@@ -443,7 +443,7 @@ if __name__ == "__main__":
 				command = command + "q"
 				my_controller.arm.write(command.encode())
 			else:
-				print("GPIO: Robot's Arm blocked [EMERGENCY STOP] or no connection")
+				print("[GPIO]: Robot's Arm blocked EMERGENCY STOP or no connection")
 			my_controller.db_stop_update() # stop after sending command or estop activate
 
 		elif command == "step":
@@ -451,7 +451,7 @@ if __name__ == "__main__":
 				command = command + "q"
 				my_controller.arm.write(command.encode())
 			else:
-				print("GPIO: Robot's Arm blocked [EMERGENCY STOP] or no connection")
+				print("[GPIO]: Robot's Arm blocked EMERGENCY STOP or no connection")
 			my_controller.db_stop_update()
 
 		elif command == "forw":
@@ -459,7 +459,7 @@ if __name__ == "__main__":
 				command = "forward" + "q" # 'forward' is already use by motor
 				my_controller.arm.write(command.encode())
 			else:
-				print("GPIO: Robot's Arm blocked [EMERGENCY STOP] or no connection")
+				print("[GPIO]: Robot's Arm blocked EMERGENCY STOP or no connection")
 			my_controller.db_stop_update()
 
 		elif command == "backw":
@@ -467,7 +467,7 @@ if __name__ == "__main__":
 				command = "backward" + "q" # 'backward' is already use by motor
 				my_controller.arm.write(command.encode())
 			else:
-				print("GPIO: Robot's Arm blocked [EMERGENCY STOP] or no connection")
+				print("[GPIO]: Robot's Arm blocked EMERGENCY STOP or no connection")
 			my_controller.db_stop_update()
 
 		elif command == "up":
@@ -475,7 +475,7 @@ if __name__ == "__main__":
 				command = command + "q"
 				my_controller.arm.write(command.encode())
 			else:
-				print("GPIO: Robot's Arm blocked [EMERGENCY STOP] or no connection")
+				print("[GPIO]: Robot's Arm blocked EMERGENCY STOP or no connection")
 			my_controller.db_stop_update()
 
 		elif command == "down":
@@ -483,7 +483,7 @@ if __name__ == "__main__":
 				command = command + "q"
 				my_controller.arm.write(command.encode())
 			else:
-				print("GPIO: Robot's Arm blocked [EMERGENCY STOP] or no connection")
+				print("[GPIO]: Robot's Arm blocked EMERGENCY STOP or no connection")
 			my_controller.db_stop_update()
 
 		elif command == "hello":
@@ -491,11 +491,11 @@ if __name__ == "__main__":
 				command = command + "q"
 				my_controller.arm.write(command.encode())
 			else:
-				print("GPIO: Robot's Arm blocked [EMERGENCY STOP] or no connection")
+				print("[GPIO]: Robot's Arm blocked EMERGENCY STOP or no connection")
 			my_controller.db_stop_update()
 
 		else:
-			print("GPIO: Command does not exist!")
+			print("[GPIO]: Command does not exist!")
 			pass
 
 		time.sleep(0.1) # if you don't delay, the while loop run so fast and it will crack the other propgram has queries to the database
@@ -508,6 +508,6 @@ if __name__ == "__main__":
 	
 	conn.close()
 	
-	print("GPIO: exit robot gpio controller...")
+	print("[GPIO]: exit robot gpio controller...")
 
 	exit()

@@ -101,12 +101,12 @@ if __name__ == "__main__":
 
 	emotion,itype = api.read_emotion()
 
-	print(f"MISSION4: {itype} {emotion}")
+	print(f"[MISSION4]: {itype} {emotion}")
 
 	# flip bool for processing frame
 	process_this_frame = True
 
-	print("MISSION4: reading faces...")
+	print("[MISSION4]: reading faces...")
 	known_face_names,known_face_encodings = read_faces()
 
 	cap = cv2.VideoCapture(3)
@@ -117,7 +117,7 @@ if __name__ == "__main__":
 	dim = (width*2, height*2)
 
 	if not ret:
-		print("MISSION4: [FAILED] (Can not connect to camera)")
+		print("[MISSION4]: FAILED (Can not connect to camera)")
 
 	while ret:
 
@@ -188,5 +188,5 @@ if __name__ == "__main__":
 	cv2.destroyAllWindows()
 	cap.release()
 	api.kill_gpio()
-	print("MISSION4: [DONE]")
+	print("[MISSION4]: DONE")
 	exit()

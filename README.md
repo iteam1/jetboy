@@ -20,8 +20,6 @@ To access the robot remotely, `ssh jetboy@ <robot-internal-ip>`
 
 - [server.py](/server.py): build a local webserver for manually control
 
-- [gui.py](/gui.py): create a robot's face for visual-communication
-
 #### Tools
 
 |No|Tool|Description|
