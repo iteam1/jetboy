@@ -13,12 +13,7 @@ import cv2
 import argparse
 import face_recognition
 import numpy as np
-
-from gpio import controller
 import sqlite3 
-import time
-import serial
-from serial.tools import list_ports
 
 # font
 font = cv2.FONT_HERSHEY_DUPLEX # cv2.FONT_HERSHEY_SIMPLEX
@@ -37,6 +32,9 @@ face_names = []
 known_face_encodings = []
 known_face_names = []
 
+# count iteration
+count = 0
+
 def read_faces():
 	files = os.listdir("./faces")
 	for file in files:
@@ -51,7 +49,59 @@ def read_faces():
 			known_face_encodings.append(encoding)
 	return known_face_names,known_face_encodings
 
+# Create the connection to the database and the cursor
+conn = sqlite3.connect("./robot/site.db") # ./Jetson-Nano you must define this conn before add in into default keyword arg
+
+# Create a api object for connecting to database and modify it
+class api_db():
+
+	def __init__(self,conn =conn):
+		self.conn = conn # the connection to site database
+
+	def read_emotion(self):
+		'''
+		This function read the command value in database and return it
+		'''
+		c = self.conn.cursor()
+		c.execute(f"SELECT *FROM robot WHERE id = 1")
+		data = c.fetchone()
+		emotion = data[4]
+		itype = data[6]
+		self.conn.commit()
+		return emotion,itype
+
+	def write_emotion(self,emotion='neutral'):
+		'''
+		This function for write the emotion to database, must set itype = emo
+		'''
+		c = self.conn.cursor()
+		c.execute("""
+			UPDATE robot
+			SET itype = ?, emotion = ?
+			WHERE id = 1
+			""",('emo',emotion))
+		self.conn.commit()
+
+	def kill_gpio(self):
+		'''
+		This function for close gpio program
+		'''
+		c = self.conn.cursor()
+		c.execute(f"""
+			UPDATE robot
+			SET command = 'kill'
+			WHERE id = 1
+			""")
+		self.conn.commit()
+
 if __name__ == "__main__":
+
+	# init emoled database api object
+	api = api_db()
+
+	emotion,itype = api.read_emotion()
+
+	print(f"MISSION4: {itype} {emotion}")
 
 	# flip bool for processing frame
 	process_this_frame = True
@@ -112,18 +162,31 @@ if __name__ == "__main__":
 				cv2.rectangle(frame,(left,top),(right,bottom),red,2)
 				cv2.rectangle(frame,(left,bottom -35), (right,bottom),red,cv2.FILLED)
 				cv2.putText(frame,name,(left+6,bottom-6),font,1.0,white,1)
+				api.write_emotion(emotion="angry")
 			else:
 				cv2.rectangle(frame,(left,top),(right,bottom),green,2)
 				cv2.rectangle(frame,(left,bottom -35), (right,bottom),green,cv2.FILLED)
 				cv2.putText(frame,name,(left+6,bottom-6),font,1.0,black,1)
+				api.write_emotion(emotion="smile")
 
 		frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
 		cv2.imshow('frame',frame)
 
+		# read emotion
+		emotion,itype = api.read_emotion()
+
+		if count % 10 ==0 and emotion != "neutral":
+			count = 0
+			api.write_emotion(emotion="neutral")
+
+		count +=1
+		#print(count)
+		
 		if cv2.waitKey(1) == 27:
-			break 
+			break
 
 	cv2.destroyAllWindows()
 	cap.release()
+	api.kill_gpio()
 	print("MISSION4: [DONE]")
 	exit()
