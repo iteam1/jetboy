@@ -48,12 +48,14 @@ def main():
 
 	process_this_frame = True
 
-	print("MISSION 4 reading faces")
+	print("MISSION4: reading faces...")
 	known_face_names,known_face_encodings = read_faces()
 
 	cap = cv2.VideoCapture(3)
-	
 	ret,frame = cap.read()
+
+	if not ret:
+		print("MISSION4: [FAILED] (Can not connect to camera)")
 
 	while ret:
 
@@ -110,7 +112,7 @@ def main():
 
 	cv2.destroyAllWindows()
 	cap.release()
-	print('exiting...')
+	print("MISSION4: [DONE]")
 	exit()
 
 if __name__ == "__main__":

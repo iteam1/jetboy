@@ -101,23 +101,23 @@ do
 		-m|--mission) # if the first arugment is --mission, -m
 			# echo "MISSION case"
 			if [ "$2" ]; then # if there is argument after first argument
-				echo "MISSION ${2} archieved."
+				echo "MISSION${2}: archieved."
 				# EXPAND THE DEFINE MISSION HERE
 				case $2 in
 					1)
-						echo "MISSION ${2} doing..."
+						echo "MISSION${2}: doing..."
 						mission_1
 					;;
 					2)
-						echo "MISSION ${2} doing..."
+						echo "MISSION${2}: doing..."
 						mission_2
 					;;
 					3)
-						echo "MISSION ${2} doing..."
+						echo "MISSION${2}: doing..."
 						mission_3
 					;;
 					4)
-						echo "MISSION ${2} doing..."
+						echo "MISSION${2}: doing..."
 						mission_4
 					;;
 				esac
