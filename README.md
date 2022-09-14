@@ -12,7 +12,7 @@
 
 **Step3** run the entry point script `sudo bash root.sh --help`
 
-To access the robot remotely, `ssh jetboy@ <robot-internal-ip>`
+To access the robot remotely linux-linux `ssh jetboy@<robot-internal-ip>` or [PuTTY](https://www.putty.org/)
 
 *Note*
 
@@ -39,7 +39,7 @@ To access the robot remotely, `ssh jetboy@ <robot-internal-ip>`
 
 [jetson-inference](https://github.com/dusty-nv/jetson-inference) | [examples](https://github.com/dusty-nv/jetson-inference/tree/master/examples) | [python](https://github.com/dusty-nv/jetson-inference/tree/master/python) | [plugins](https://github.com/dusty-nv/jetson-inference/tree/master/plugins) | [c](https://github.com/dusty-nv/jetson-inference/tree/master/c) | [convert to numpy array](https://github.com/dusty-nv/jetson-inference/issues/1118)
 
-[installLibrealsense](https://github.com/JetsonHacksNano/installLibrealsense)
+[libRealsense](https://github.com/IntelRealSense/librealsense) | [installLibrealsense](https://github.com/JetsonHacksNano/installLibrealsense)
 
 [open3D](https://github.com/isl-org/Open3D)
 
