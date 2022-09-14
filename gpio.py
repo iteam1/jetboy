@@ -394,10 +394,10 @@ if __name__ == "__main__":
 
 		#Write the output
 		if command == "kill":
-			print("Stop motor & Clean up")
+			print("GPIO: stop motor & clean up")
 			# reset kill command for the next start
 			my_controller.db_stop_update()
-			print('database cleaned up command!')
+			print('GPIO: database cleaned up command!')
 			break
 
 		# **********************[CONTROL MOTOR]**********************
@@ -434,67 +434,68 @@ if __name__ == "__main__":
 
 		elif command == "peeps":
 			command = command + "q"
-			my_controller.arm.write(command.encode())
-			my_controller.db_stop_update()
+			if my_controller.arm:
+				my_controller.arm.write(command.encode())
+				my_controller.db_stop_update()
 
 		elif command == "grip":
-			if not my_controller.ESTOP:
+			if not my_controller.ESTOP and my_controller.arm:
 				command = command + "q"
 				my_controller.arm.write(command.encode())
 			else:
-				print("Robot's Arm blocked [EMERGENCY STOP]")
+				print("GPIO: Robot's Arm blocked [EMERGENCY STOP] or no connection")
 			my_controller.db_stop_update() # stop after sending command or estop activate
 
 		elif command == "step":
-			if not my_controller.ESTOP:
+			if not my_controller.ESTOP and my_controller.arm:
 				command = command + "q"
 				my_controller.arm.write(command.encode())
 			else:
-				print("Robot's Arm blocked [EMERGENCY STOP]")
+				print("GPIO: Robot's Arm blocked [EMERGENCY STOP] or no connection")
 			my_controller.db_stop_update()
 
 		elif command == "forw":
-			if not my_controller.ESTOP:
+			if not my_controller.ESTOP and my_controller.arm:
 				command = "forward" + "q" # 'forward' is already use by motor
 				my_controller.arm.write(command.encode())
 			else:
-				print("Robot's Arm blocked [EMERGENCY STOP]")
+				print("GPIO: Robot's Arm blocked [EMERGENCY STOP] or no connection")
 			my_controller.db_stop_update()
 
 		elif command == "backw":
-			if not my_controller.ESTOP:
+			if not my_controller.ESTOP and my_controller.arm:
 				command = "backward" + "q" # 'backward' is already use by motor
 				my_controller.arm.write(command.encode())
 			else:
-				print("Robot's Arm blocked [EMERGENCY STOP]")
+				print("GPIO: Robot's Arm blocked [EMERGENCY STOP] or no connection")
 			my_controller.db_stop_update()
 
 		elif command == "up":
-			if not my_controller.ESTOP:
+			if not my_controller.ESTOP and my_controller.arm:
 				command = command + "q"
 				my_controller.arm.write(command.encode())
 			else:
-				print("Robot's Arm blocked [EMERGENCY STOP]")
+				print("GPIO: Robot's Arm blocked [EMERGENCY STOP] or no connection")
 			my_controller.db_stop_update()
 
 		elif command == "down":
-			if not my_controller.ESTOP:
+			if not my_controller.ESTOP and my_controller.arm:
 				command = command + "q"
 				my_controller.arm.write(command.encode())
 			else:
-				print("Robot's Arm blocked [EMERGENCY STOP]")
+				print("GPIO: Robot's Arm blocked [EMERGENCY STOP] or no connection")
 			my_controller.db_stop_update()
 
 		elif command == "hello":
-			if not my_controller.ESTOP:
+			if not my_controller.ESTOP and my_controller.arm:
 				command = command + "q"
 				my_controller.arm.write(command.encode())
 			else:
-				print("Robot's Arm blocked [EMERGENCY STOP]")
+				print("GPIO: Robot's Arm blocked [EMERGENCY STOP] or no connection")
 			my_controller.db_stop_update()
 
 		else:
-			print("Command does not exist!")
+			print("GPIO: Command does not exist!")
 			pass
 
 		time.sleep(0.1) # if you don't delay, the while loop run so fast and it will crack the other propgram has queries to the database
@@ -507,6 +508,6 @@ if __name__ == "__main__":
 	
 	conn.close()
 	
-	print("Exit robot GPIO controller...")
+	print("GPIO: exit robot gpio controller...")
 
 	exit()
