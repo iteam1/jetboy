@@ -32,7 +32,7 @@ loc_face_encoding = face_recognition.face_encodings(loc_image)[0]
 known_face_encodings = [cuong_face_encoding,loc_face_encoding]
 
 # create a list of names as the order of encoding array
-know_face_names = ["cuong","Loc"]
+known_face_names = ["cuong","Loc"]
 
 # Initialize some variables
 face_locations = []
