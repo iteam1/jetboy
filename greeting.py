@@ -101,7 +101,7 @@ if __name__ == "__main__":
 
 	emotion,itype = api.read_emotion()
 
-	print(f"[MISSION4]: {itype} {emotion}")
+	print(f"[MISSION4]: starting values itype = {itype}, emotion = {emotion}")
 
 	# flip bool for processing frame
 	process_this_frame = True
