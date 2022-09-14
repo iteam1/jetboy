@@ -9,6 +9,7 @@ site.db-journal
 
 # .jpeg image
 *.jpg
+*.jpeg
 
 # pointcloud file
 *.ply

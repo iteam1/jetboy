@@ -10,7 +10,7 @@
 
 **Step2** go to [init](/init) then follow the instruction for setting up the repository.
 
-**Step3** run the entry point script `sudo bash root.sh`
+**Step3** run the entry point script `sudo bash root.sh --help`
 
 To access the robot remotely, `ssh jetboy@ <robot-internal-ip>`
 

@@ -14,7 +14,10 @@
 
 **step7**: install jetson-inference by this command `bash jetson-inference.sh`, **run it outsize this repo**.
 
-**step8** : install open3d. [help](https://github.com/isl-org/Open3D/issues/2606#issuecomment-742760659) or Open3D provides experimental support for 64-bit ARM architecture (arm64 or aarch64) on Linux and macOS (Apple Silicon). refer to [ARM support](http://www.open3d.org/docs/release/arm.html).
+**step8** : install open3d. [help](https://github.com/isl-org/Open3D/issues/2606#issuecomment-742760659) or Open3D provides experimental support for 64-bit ARM architecture (arm64 or aarch64) on Linux and macOS (Apple Silicon). refer to [ARM support](http://www.open3d.org/docs/release/arm.html).But first try this command:
+     
+     python3 -m pip install --upgrade pip
+     sudo pip3 install open3d==0.13.0
 
 **step9**: install the other required packages by in [requirements.txt](/init/requirements.txt) `pip3 install -r requirements.txt`.
 
