@@ -10,12 +10,14 @@ from robot import d455
 
 if __name__ == "__main__":
 
+	print('MISSION3: server is running...')
+
 	app.run(host = '0.0.0.0', port = 5000) #loop over
 
-	print('Server shutdowned!')
+	print('MISSION3: server shutdowned!')
 	
 	d455.release()
 
-	print('Camera released!')
+	print('MISSION3: camera released!')
 
 	exit()

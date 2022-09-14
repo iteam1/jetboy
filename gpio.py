@@ -330,163 +330,167 @@ class controller():
 if __name__ == "__main__":
 
 	# init controller
-	controller = controller()
-	controller.stop()
+	my_controller = controller()
+	my_controller.stop()
 
 	# list all port
-	print("Checking serial port...")
+	print("GPIO: checking serial port...")
 	port_list = []
 	desc_list = []
 	hwid_list = []
 	ports = list_ports.comports()
-	controller.no_port = len(ports)
-	print("Number of serial ports {}".format(controller.no_port))
+	my_controller.no_port = len(ports)
+	print("GPIO: Number of serial ports {}".format(my_controller.no_port))
 
 	for port,desc,hwid in sorted(ports):
 		port_list.append(port)
 		desc_list.append(desc)
 		hwid_list.append(hwid)
-		print("{} - {} - {}".format(port,desc,hwid))
+		print("GPIO: {} - {} - {}".format(port,desc,hwid))
 
 	for port in port_list:
 		device = serial.Serial(port,baudrate=9600,timeout=0.1)
-		device.write(get_id.encode())
-		# print("sended identify command to port: {}".format(port))
-		data = device.readline()
-		device_name = data.decode().strip()
-		# print("data: {}".format(data.decode()))
-		print("port: {} is {}".format(port,device_name))
-
-		if device_name == "arm":
-			controller.arm_port = port
-			controller.arm = device
-		elif device_name == "emoled":
-			controller.emoled_port == port
-			controller.emoled = device
-		else:
-			print("port: {} - {} is not identified".format(port,device_name))
+		try:
+			device.write(get_id.encode())
+			# print("sended identify command to port: {}".format(port))
+			data = device.readline()
+			device_name = data.decode().strip()
+			# print("data: {}".format(data.decode()))
+			if device_name == "arm":
+				my_controller.arm_port = port
+				my_controller.arm = device
+				print("GPIO: port {} is {}".format(port,device_name))
+			elif device_name == "emoled":
+				my_controller.emoled_port == port
+				my_controller.emoled = device
+				print("GPIO: port {} is {}".format(port,device_name))
+			else:
+				print("GPIO: port {} is not identified".format(port,device_name))
+		except:
+			print("GPIO: port {} can not connect ".format(port))
 	
-	print("Robot GPIO controller is running...")
+	print("GPIO: gpio controller is running...")
 
 	while True:
 
 		# **********************[CONTROL EMOLED]**********************
 		# Read the emotion
-		emotion,itype = controller.read_emotion()
+		emotion,itype = my_controller.read_emotion()
 		if itype == "emo":
-			if prev_emotion !=emotion:
+			# if the the current emotion and the previous is not the same and you can connect to emoled
+			if (prev_emotion != emotion) and (my_controller.emoled):
 				prev_emotion = emotion
 				emotion =emotion+'q'
 				#print(f"emotion: {emotion}")
-				controller.emoled.write(emotion.encode())
+				my_controller.emoled.write(emotion.encode())
 
 		# Read the command
-		command = controller.read_command()
+		command = my_controller.read_command()
 
 		# Read the inputs and write it into the database
-		controller.update_input()
+		my_controller.update_input()
 		#print(controller.ESTOP,controller.OBS_F_value,controller.OBS_B_value,controller.OBS_L_value,controller.OBS_R_value)
 
 		#Write the output
 		if command == "kill":
 			print("Stop motor & Clean up")
 			# reset kill command for the next start
-			controller.db_stop_update()
+			my_controller.db_stop_update()
 			print('database cleaned up command!')
 			break
 
 		# **********************[CONTROL MOTOR]**********************
 		# continously moving 
 		elif command == "stop":
-			controller.stop()
+			my_controller.stop()
 
 		elif command == "forward":
-			controller.forward()
+			my_controller.forward()
 
 		elif command == "backward":
-			controller.backward()
+			my_controller.backward()
 
 		elif command == "turnleft":
-			controller.turnleft()
+			my_controller.turnleft()
 
 		elif command == "turnright":
-			controller.turnright()
+			my_controller.turnright()
 			
 		# moving a bit and stop meaning we have to reset 
 		elif command == "bit_forward":
-			controller.bit_forward(0.3)
+			my_controller.bit_forward(0.3)
 
 		elif command == "bit_backward":
-			controller.bit_backward(0.3)
+			my_controller.bit_backward(0.3)
 
 		elif command == "bit_turnleft":
-			controller.bit_turnleft(0.2)
+			my_controller.bit_turnleft(0.2)
 
 		elif command == "bit_turnright":
-			controller.bit_turnright(0.2)
+			my_controller.bit_turnright(0.2)
 
 		# **********************[CONTROL ARM]**********************
 
 		elif command == "peeps":
 			command = command + "q"
-			controller.arm.write(command.encode())
-			controller.db_stop_update()
+			my_controller.arm.write(command.encode())
+			my_controller.db_stop_update()
 
 		elif command == "grip":
-			if not controller.ESTOP:
+			if not my_controller.ESTOP:
 				command = command + "q"
-				controller.arm.write(command.encode())
+				my_controller.arm.write(command.encode())
 			else:
 				print("Robot's Arm blocked [EMERGENCY STOP]")
-			controller.db_stop_update() # stop after sending command or estop activate
+			my_controller.db_stop_update() # stop after sending command or estop activate
 
 		elif command == "step":
-			if not controller.ESTOP:
+			if not my_controller.ESTOP:
 				command = command + "q"
-				controller.arm.write(command.encode())
+				my_controller.arm.write(command.encode())
 			else:
 				print("Robot's Arm blocked [EMERGENCY STOP]")
-			controller.db_stop_update()
+			my_controller.db_stop_update()
 
 		elif command == "forw":
-			if not controller.ESTOP:
+			if not my_controller.ESTOP:
 				command = "forward" + "q" # 'forward' is already use by motor
-				controller.arm.write(command.encode())
+				my_controller.arm.write(command.encode())
 			else:
 				print("Robot's Arm blocked [EMERGENCY STOP]")
-			controller.db_stop_update()
+			my_controller.db_stop_update()
 
 		elif command == "backw":
-			if not controller.ESTOP:
+			if not my_controller.ESTOP:
 				command = "backward" + "q" # 'backward' is already use by motor
-				controller.arm.write(command.encode())
+				my_controller.arm.write(command.encode())
 			else:
 				print("Robot's Arm blocked [EMERGENCY STOP]")
-			controller.db_stop_update()
+			my_controller.db_stop_update()
 
 		elif command == "up":
-			if not controller.ESTOP:
+			if not my_controller.ESTOP:
 				command = command + "q"
-				controller.arm.write(command.encode())
+				my_controller.arm.write(command.encode())
 			else:
 				print("Robot's Arm blocked [EMERGENCY STOP]")
-			controller.db_stop_update()
+			my_controller.db_stop_update()
 
 		elif command == "down":
-			if not controller.ESTOP:
+			if not my_controller.ESTOP:
 				command = command + "q"
-				controller.arm.write(command.encode())
+				my_controller.arm.write(command.encode())
 			else:
 				print("Robot's Arm blocked [EMERGENCY STOP]")
-			controller.db_stop_update()
+			my_controller.db_stop_update()
 
 		elif command == "hello":
-			if not controller.ESTOP:
+			if not my_controller.ESTOP:
 				command = command + "q"
-				controller.arm.write(command.encode())
+				my_controller.arm.write(command.encode())
 			else:
 				print("Robot's Arm blocked [EMERGENCY STOP]")
-			controller.db_stop_update()
+			my_controller.db_stop_update()
 
 		else:
 			print("Command does not exist!")
@@ -495,9 +499,9 @@ if __name__ == "__main__":
 		time.sleep(0.1) # if you don't delay, the while loop run so fast and it will crack the other propgram has queries to the database
 
 	# if you out the while loop
-	controller.stop()
+	my_controller.stop()
 
-	controller.GPIO.cleanup()
+	my_controller.GPIO.cleanup()
 	#RPi.GPIO.cleanup()
 	
 	conn.close()

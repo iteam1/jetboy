@@ -7,21 +7,28 @@ Description:
 	(^ ^) = known-face
 	(o o) = unknown-face
 '''
+# FACE RECOGNTION
 import os
 import cv2
 import argparse
 import face_recognition
 import numpy as np
 
+from gpio import controller
+import sqlite3 
+import time
+import serial
+from serial.tools import list_ports
+
+# font
+font = cv2.FONT_HERSHEY_DUPLEX # cv2.FONT_HERSHEY_SIMPLEX
+zoom = 2 # zoom frame
 # define color
 red = (0,0,255)
 green = (0,255,0)
 blue = (255,0,0)
 white = (255,255,255)
 black = (0,0,0)
-
-# font
-font = cv2.FONT_HERSHEY_DUPLEX # cv2.FONT_HERSHEY_SIMPLEX
 
 # Initialize some variables
 face_locations = []
@@ -44,8 +51,9 @@ def read_faces():
 			known_face_encodings.append(encoding)
 	return known_face_names,known_face_encodings
 
-def main():
+if __name__ == "__main__":
 
+	# flip bool for processing frame
 	process_this_frame = True
 
 	print("MISSION4: reading faces...")
@@ -53,6 +61,10 @@ def main():
 
 	cap = cv2.VideoCapture(3)
 	ret,frame = cap.read()
+
+	width = frame.shape[1]
+	height = frame.shape[0]
+	dim = (width*2, height*2)
 
 	if not ret:
 		print("MISSION4: [FAILED] (Can not connect to camera)")
@@ -105,6 +117,7 @@ def main():
 				cv2.rectangle(frame,(left,bottom -35), (right,bottom),green,cv2.FILLED)
 				cv2.putText(frame,name,(left+6,bottom-6),font,1.0,black,1)
 
+		frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
 		cv2.imshow('frame',frame)
 
 		if cv2.waitKey(1) == 27:
@@ -114,6 +127,3 @@ def main():
 	cap.release()
 	print("MISSION4: [DONE]")
 	exit()
-
-if __name__ == "__main__":
-	main()
