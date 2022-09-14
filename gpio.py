@@ -332,6 +332,7 @@ if __name__ == "__main__":
 	# init controller
 	my_controller = controller()
 	my_controller.stop()
+	my_controller.db_stop_update() # update command to stop at the begining, if you close gpio controller by "kill" command, must update it to stop before running
 
 	# list all port
 	print("GPIO: checking serial port...")
