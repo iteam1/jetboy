@@ -20,6 +20,10 @@ To access the robot remotely linux-linux `ssh jetboy@<robot-internal-ip>` or [Pu
 
 - [server.py](/server.py): build a local webserver for manually control
 
+#### Online document
+
+[offical-online-documents](https://iteam1.github.io/jetboy-docs/)
+
 #### Tools
 
 |No|Tool|Description|
@@ -34,7 +38,6 @@ To access the robot remotely linux-linux `ssh jetboy@<robot-internal-ip>` or [Pu
 |8|[shields](https://shields.io/)|create your own git badges|
 |9|[kleki](https://kleki.com/)|drawing sketch online|
     
-
 #### References
 
 [jetson-inference](https://github.com/dusty-nv/jetson-inference) | [examples](https://github.com/dusty-nv/jetson-inference/tree/master/examples) | [python](https://github.com/dusty-nv/jetson-inference/tree/master/python) | [plugins](https://github.com/dusty-nv/jetson-inference/tree/master/plugins) | [c](https://github.com/dusty-nv/jetson-inference/tree/master/c) | [convert to numpy array](https://github.com/dusty-nv/jetson-inference/issues/1118)
