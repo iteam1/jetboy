@@ -47,3 +47,7 @@ To access the robot remotely linux-linux `ssh jetboy@<robot-internal-ip>` or [Pu
 [open3D](https://github.com/isl-org/Open3D)
 
 [face-recognition](https://github.com/ageitgey/face_recognition)
+
+[Using Python, OpenCV and websockets for camera frames](https://nickhuber.ca/blog/python-opencv-camera-websockets)
+
+[hello-websocket](https://github.com/vmlaker/hello-websocket)
