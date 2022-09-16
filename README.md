@@ -48,6 +48,10 @@ To access the robot remotely linux-linux `ssh jetboy@<robot-internal-ip>` or [Pu
 
 [face-recognition](https://github.com/ageitgey/face_recognition)
 
+[Socket programming and OpenCv in Python | webcam video transmit and receive over wifi in Python](https://www.youtube.com/watch?v=7-O7yeO3hNQ&list=PLsM05n4rlXWQCDgMkJ3col-FuhBbBUKgy&index=43)
+
 [Using Python, OpenCV and websockets for camera frames](https://nickhuber.ca/blog/python-opencv-camera-websockets)
+
+[Python Socket Programming Tutorial](https://www.youtube.com/watch?v=3QiPPX-KeSc&list=PLsM05n4rlXWQCDgMkJ3col-FuhBbBUKgy&index=43)
 
 [hello-websocket](https://github.com/vmlaker/hello-websocket)
