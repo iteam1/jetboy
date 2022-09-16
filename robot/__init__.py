@@ -30,7 +30,7 @@ points = rs.points()
 # declare colorizer to generate texture for our ply
 colorizer = rs.colorizer()
 
-print('MISSION3: initialization [FINISHED]')
+print('[MISSION3]: initialization FINISHED')
 
 # run route
 from robot import routes
