@@ -22,7 +22,7 @@ To access the robot remotely linux-linux `ssh jetboy@<robot-internal-ip>` or [Pu
 
 #### Online document
 
-[offical-online-documents](file:///C:/Users/PC/Desktop/jetboy-docs/index-en.html)
+[offical-online-documents](https://iteam1.github.io/jetboy-docs/index-en.html)
 
 #### Tools
 
