@@ -1,7 +1,7 @@
 ### repo utils
 
 |Program|Description|Comment|
-|---|---|---|---|
+|---|---|---|
 |[test_serial.py](/utils/test_serial.py)|test serial-communication with microcontroller arduino-nano, connect to serial port example: `COM4` on Windows or `dev/ttyUSB0`, give permission for serial port `sudo chmod a+rw /dev/ttyUSB0`|refer to embeded code [test_uart](https://github.com/iteam1/robot-jetboy/tree/main/embed/test_uart),[uart2uart](https://github.com/iteam1/robot-jetboy/tree/main/embed/uart2uart)|
 |[read_db.py](/utils/read_db.py)|test serial-communication with arudino chip|`python3 -n 1 /utils/read_db.py`|
 |[stream_d455.py](/utils/stream_d455.py)|test stream depth camera d455 by pyrealsense and opencv|depend on module [realsense_depth.py](/utils/realsense_depth.py)|
