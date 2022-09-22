@@ -170,7 +170,7 @@ if __name__ == "__main__":
 				api.write_emotion(emotion="smile")
 
 		frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
-		cv2.imshow('frame',frame)
+		# cv2.imshow('frame',frame)
 
 		# read emotion
 		emotion,itype = api.read_emotion()
