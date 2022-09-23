@@ -127,7 +127,7 @@ if __name__ == "__main__":
 		print("[MISSION4]: FAILED (Can not connect to camera)")
 
 	print("[MISSION4]: Doing...")
-	
+
 	while ret:
 
 		ret,frame = cap.read()
@@ -146,9 +146,9 @@ if __name__ == "__main__":
 
 			for face_encoding in face_encodings:
 
-				matches = face_recognition.compare_faces(known_face_encodings,face_encoding)
-
 				name = "Unknown"
+
+				matches = face_recognition.compare_faces(known_face_encodings,face_encoding)
 
 				face_distances = face_recognition.face_distance(known_face_encodings,face_encoding)
 
@@ -185,11 +185,11 @@ if __name__ == "__main__":
 		# read emotion
 		emotion,itype = api.read_emotion()
 
-		if count % 10 ==0 and emotion != "neutral":
+		if count % 100 == 0 and emotion != "neutral":
 			count = 0
-			api.write_emotion(emotion="neutral")
+			api.write_emotion(emotion = "neutral")
 
-		count +=1
+		count += 1
 		#print(count)
 		
 		if cv2.waitKey(1) == 27:

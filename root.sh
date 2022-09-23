@@ -58,7 +58,7 @@ mission_3(){
 
 mission_4(){
 	python3 gpio.py &
-	python3 greeting.py
+	python3 greeting.py # -d
 }
 
 # END
