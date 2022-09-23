@@ -26,7 +26,6 @@ show_help(){
 	echo "  -m|--mission: Do specific mission, example: sudo bash root.sh -m 1"
 }
 
-
 die(){
 	printf '%s\n' "$1"
 	show_help

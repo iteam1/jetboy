@@ -1,6 +1,6 @@
 '''
 Author: locchuong
-Updated: 14/9/22
+Updated: 23/9/22
 Description:
 	This is the first mission of robot intergate A.I,
 	Greeting people, there are  
@@ -35,6 +35,16 @@ known_face_names = []
 # count iteration
 count = 0
 
+# init parser
+parser  = argparse.ArgumentParser(description = 'greeting mission')
+# add argument to parser
+parser.add_argument('-d','--display',action = 'store_true',help = 'display frame option')
+# create arguments
+args = parser.parse_args()
+
+# Create the connection to the database and the cursor
+conn = sqlite3.connect("./robot/site.db") # ./Jetson-Nano you must define this conn before add in into default keyword arg
+
 def read_faces():
 	files = os.listdir("./faces")
 	for file in files:
@@ -48,9 +58,6 @@ def read_faces():
 			known_face_names.append(file_name)
 			known_face_encodings.append(encoding)
 	return known_face_names,known_face_encodings
-
-# Create the connection to the database and the cursor
-conn = sqlite3.connect("./robot/site.db") # ./Jetson-Nano you must define this conn before add in into default keyword arg
 
 # Create a api object for connecting to database and modify it
 class api_db():
@@ -119,6 +126,8 @@ if __name__ == "__main__":
 	if not ret:
 		print("[MISSION4]: FAILED (Can not connect to camera)")
 
+	print("[MISSION4]: Doing...")
+	
 	while ret:
 
 		ret,frame = cap.read()
@@ -170,7 +179,8 @@ if __name__ == "__main__":
 				api.write_emotion(emotion="smile")
 
 		frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
-		# cv2.imshow('frame',frame)
+		
+		if args.display: cv2.imshow('frame',frame)
 
 		# read emotion
 		emotion,itype = api.read_emotion()
